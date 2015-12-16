@@ -1,0 +1,295 @@
+########################################################
+#
+# M.W.'s fvwm configuration.
+# COPYRIGHT 2013-2014
+#
+# RENAME THIS FILE TO config, AND COPY IT TO ~/.fvwm
+#
+# References for this configuration
+#    http://fvwmwiki.xteddy.org/Configs/fvwmmwm/
+#    http://www.fvwm.org/documentation/manpages/stable/
+#    and some of my old configurations.
+#
+########################################################
+
+SetEnv fvwm   $[HOME]/.fvwm/
+#               L  R  U  D
+EwmhBaseStruts  0  0 30  0
+
+# Set the main colorset
+Colorset 0 fg black, bg rgb:60/a0/c0
+Colorset 1 fg white, bg rgb:c0/60/77
+Colorset 2 fg white, bg rgb:00/50/00, Plain, NoShape
+Colorset 3 fg white, bg darkgreen
+ColorMapFocus FollowsMouse
+
+# Default styles common to all windows created.
+Style "*"   BorderWidth 4, HandleWidth 4
+Style "*"   FvwmBorder, FirmBorder, SloppyFocus
+Style "*"   Colorset 0
+Style "*"   HilightColorset 1
+Style "*"   UseDecor fDecor
+Style "*"   Button 1, Button 2, Button 4, Button 6
+Style "*"   MWMButtons
+Style "*"   MWMDecor, MWMFunctions, HintOverride, MinOverLapPlacement
+Style "*"   ResizeHintOverride
+Style "*"   NoPPosition
+Style "*"   WindowShadeSteps 200, WindowShadeScrolls
+Style "*"   DecorateTransient, ResizeOpaque
+Style "*"   Font "xft:Vera Sans YuanTi Mono:Medium:Size=12:Encoding=iso10646-1"
+Style "*"   ClickToFocus, MouseFocusClickRaises
+Style "*"   CenterPlacement
+Style "*"   !IconTitle
+#
+#Application specific styles.
+Style Fvwm*  Sticky, WindowListSkip, !Title, CirculateSkip, !Handles
+Style "*panel"  !Iconifiable, !Handles, CirculateSkip, WindowListSkip
+Style "Plasma*" !Title, !Iconifiable, !Handles, CirculateSkip, WindowListSkip, Sticky
+Style "plasma*" !Title, !Iconifiable, !Handles, CirculateSkip, WindowListSkip, Sticky
+Style "*dock*"  !Iconifiable, !Handles, CirculateSkip, WindowListSkip
+#Style "*tray*" #StaysOnbottom, !Iconifiable, !Title, NeverFocus, !Borders
+
+BorderStyle Simple
+IconFont "xft:Vera Sans YuanTi Mono:Medium:Size=12:Encoding=iso10646-1"
+IconTitleRelief -50
+TitleStyle Height 18
+Emulate Fvwm
+EdgeScroll 0 0
+EdgeResistance 500 1
+EdgeThickness 1
+HideGeometryWindow Always
+
+# AddToDecor allows for things like vector buttons to be defined.
+AddToDecor   fDecor
++ BorderStyle Simple
++ TitleStyle  -- Raised
++ ButtonStyle All  -- Raised
++ AddButtonStyle 1 Vector 5 25x40@1 25x60@1 75x60@0 75x40@0 25x40@1
++ AddButtonStyle 2 Vector 4 50x25@1 75x75@0 25x75@0 50x25@1
++ AddButtonStyle 4 Vector 4 50x75@1 25x25@1 75x25@1 50x75@0
++ ButtonStyle 1 - Clear MWMDecorMenu
++ ButtonStyle 2 - Clear MWMDecorMax
++ ButtonStyle 4 - Clear MWMDecorMin
+
+#################
+ClickTime 350
+DeskTopSize 1x1
+
+#################
+# Use an arrow rather than the `X` cursor on the root window.
+#CursorStyle root top_left_arrow
+
+#################
+# OpaqueMoveSize allows you to stop Large windows from being moved opaquely,
+# The default is off, if you set it too large it's annoying as hell
+# 3 pixels is just right.
+OpaqueMoveSize -1
+SnapAttraction 4 SameType
+SnapGrid 1 1
+MoveThreshold 3
+BugOpts FlickeringMoveWorkAround True
+
+# Handle some Mouse bindings now...
+#  L1  C3  R2
+# Binding Functions
+# "I" stands for Immediate
+# "M" stands for Motion
+# "C" stands for Click
+# "H" stands for Hold
+# "D" stands for Double Click
+# ---------------------------------------------------------------------------
+# Contexts:
+#     R = Root Window                 rrrrrrrrrrrrrrrrrrrrrr
+#     W = Application Window          rIrrrrFSSSSSSSSSFrrrrr
+#     F = Frame Corners               rrrrrrS13TTTT642Srrrrr
+#     S = Frame Sides                 rIrrrrSwwwwwwwwwSrrrrr
+#     T = Title Bar                   rrrrrrSwwwwwwwwwSrrrrr
+#     I = Icon                        rIrrrrFSSSSSSSSSFrrrrr
+#                                     rrrrrrrrrrrrrrrrrrrrrr
+# Numbers are buttons: 1 3 5 7 9   0 8 6 4 2
+# Modifiers: (A)ny, (C)ontrol, (S)hift, (M)eta, (N)othing
+# ---------------------------------------------------------------------------
+Mouse 1     R       A       Menu FvwmMenuRoot
+Mouse 2     R       A       Menu FvwmMenuWindowOps
+Mouse 3     RFT     A       WindowList
+Mouse 1     SFT     A       FuncFvwmMoveOrRaiseOrShade
+Mouse 1     SF      A       FuncFvwmResizeOrRaiseOrShade Maximize
+Mouse 1     I       A       FuncIconifyDeIconify
+Mouse 3     I       A       Menu FvwmMenuWindowOps
+Mouse 3     SFT     A       Menu FvwmMenuWindowOps
+Mouse 0     1       A       FuncWindowOpsOrClose
+Mouse 0     4       A       FuncIconifyDeIconify
+Mouse 0     2       A       FuncFvwmMaximizeFullScreen
+Mouse 0     4       S       FuncDeIconifyAll
+
+# Now some keyboard shortcuts. ...
+Key Up     W 4   Move w 0
+Key Down   W 4   Move w -0
+Key Left   W 4   Move 0 w
+Key Right  W 4   Move -0 w
+Key Space  W 4   Move 50-50w 50-50w
+key Escape W M   Maximize 0 100
+Key Escape W MS  Maximize 100 0
+
+key BackSpace A 4 Exec exec xscreensaver-command -lock
+#key BackSpace A 4 Exec exec lxlock
+#key Delete A MC  Exec exec lxtask
+Key F1     A M   Function FuncDeIconifyAll
+Key F2     A M   Iconify
+Key F3     A M   Function FuncFvwmMaximizeFullScreen
+Key F4     A M   Close
+Key F5     A M   Exec exec dmenu_run
+Key F5     A MS  Exec exec bash -c 'cat /dev/null | dmenu | xargs -i roxterm -e {}'
+Key F6     A M   Exec exec gvim
+Key F7     A M   Exec exec roxterm
+#x-terminal-emulator
+Key F7     A MS  Exec exec roxterm -e 'ipython --pylab'
+Key F8     A M   Exec exec pcmanfm
+Key F9     A M   Exec exec firefox
+#x-www-browser
+Key F10    W M   Popup     FvwmMenuWindowOps
+Key F11    W M   Move
+Key F12    W M   Maximize 66 66
+Key F12    W MS  Maximize 50 50
+Key F12    W MCS Maximize 34 34
+#Key F12    W M   Maximize layer grow grow
+#Key F12    W MCS Resize
+
+Key Menu                 A N    Popup FvwmMenuRoot
+Key XF86AudioMute        A N    Exec exec amixer set Master  toggle
+Key XF86AudioLowerVolume A N    Exec exec amixer set Master  3%-
+Key XF86AudioRaiseVolume A N    Exec exec amixer set Master  3%+
+Key XF86MicMute          A N    Exec exec amixer set Capture toggle
+key XF86Calculator       A N    Exec exec roxterm -e 'ipython --pylab'
+key XF86Terminal         A N    Exec exec roxterm
+key XF86MyComputer       A N    Exec exec pcmanfm
+key XF86WWW              A N    Exec exec firefox
+key XF86PowerOff         A N    Exec exec gksu pm-suspend
+# kdeinit4_shutdown not for sure
+key Print                A N    Exec exec xfce4-screenshooter
+#key Print                A N    Exec exec scrot
+#key Print                A M    Exec exec scrot -u -b
+
+AddToFunc WindowListFunc I WarpToWindow 68 68
+
+# Menu styles...
+MenuStyle MWM
+MenuStyle * Font "xft:Vera Sans YuanTi Mono:Medium:Size=12:Encoding=iso10646-1"
+##############################################################
+#These taken from fvwm-themes 'default' theme.
+MenuStyle * Hilight3DThickness 2
+MenuStyle * PopupDelayed, PopupDelay 150, PopdownDelayed, PopdownDelay 150
+MenuStyle * PopupOffset -15 100, TitleWarpOff
+MenuStyle * TitleUnderlines2, SeparatorsLong, TrianglesRelief
+MenuStyle * BorderWidth 2, SidePic, SideColor
+MenuStyle * PopupAsSubmenu, HoldSubmenus, SubmenusRight
+MenuStyle * ItemFormat "%.4s%.1|%.5i%.5l%.5l%.5r%.5i%2.3>%1|"
+MenuStyle * VerticalItemSpacing, VerticalTitleSpacing
+BusyCursor  DynamicMenu True
+
+DestroyFunc FuncDeIconifyAll
+AddToFunc   FuncDeIconifyAll
++ I All (CurrentPage !Iconic AcceptsFocus) Iconify
+#
+DestroyFunc FuncFvwmMoveOrRaiseOrShade
+AddToFunc   FuncFvwmMoveOrRaiseOrShade
++ H     Move
++ M     Move
++ C     Raise
++ D     Maximize
+#
+DestroyFunc FuncFvwmResizeOrRaiseOrShade
+AddToFunc   FuncFvwmResizeOrRaiseOrShade
++ H     Resize $0
++ M     Resize $0
++ C     Raise
++ D     Maximize
+#
+DestroyFunc FuncFvwmMoveOrRaiseLower
+AddToFunc   FuncFvwmMoveOrRaiseLower
++ H     Move
++ M     Move
++ C     RaiseLower
+#
+DestroyFunc FuncFvwmMoveOrIconify
+AddToFunc   FuncFvwmMoveOrIconify
++ M     Move
++ D     Iconify
+#
+DestroyFunc FuncFvwmMaximizeFullScreen
+AddToFunc   FuncFvwmMaximizeFullScreen
++ I Maximize 100 100
+#
+DestroyFunc FuncIconifyDeIconify
+AddToFunc   FuncIconifyDeIconify
++ C ThisWindow (!Iconic) Iconify
++ D ThisWindow (Iconic) Iconify
+#
+DestroyFunc FuncWindowOpsOrClose
+AddToFunc FuncWindowOpsOrClose
++ H Menu FvwmMenuWindowOps
++ C Menu FvwmMenuWindowOps
++ D Close
+
+#########
+DestroyMenu "FvwmMenuWindowOps"
+AddToMenu "FvwmMenuWindowOps" "[F10] WindowOps" Title
++              "[F1] &Desktop"  Function   FuncDeIconifyAll
++              "[F2] &Iconify"  Iconify
++              "[F3] Ma&ximize" Function FuncFvwmMaximizeFullScreen
++              "[F11] &Move"    Pick Move
++              "[F12] &Resize"  Pick Resize
++              "" Nop
+#+              "R&aise" Raise
+#+              "&Lower" Lower
+#+              "" Nop
++              "[F4] &Close"        Delete
+
+DestroyMenu "FvwmMenuRoot"
+AddToMenu "FvwmMenuRoot" "Root Menu" Title
++       "[F6] &gvim"    Exec gvim &
++       "[F7] &terminal" Exec roxterm &
++       "[F8] &fileman"  Exec pcmanfm &
++       "[F9] &browser"  Exec firefox &
++       "" Nop
++       "[F5] &launcher" Exec dmenu_run &
+# +       "&Debian"    PopUp /Debian
++       "" Nop
++       "&Restart" Restart
+ +       "" Nop
+ +       "E&xit"    Quit
+
+# AddToMenu /Debian
+# Read /etc/X11/fvwm/main-menu-pre.hook
+# Read /etc/X11/fvwm/menudefs.hook
+# Read /etc/X11/fvwm/main-menu.hook
+
+##########################################
+#####
+
+AddToFunc StartFunction
++ I Module FvwmCommandS
++ I Module FvwmForm
+#+ I Module FvwmIconMan
+#+ I Module FvwmButtons FvwmTaskbar
+
+DestroyFunc InitFunction
+AddToFunc InitFunction
++ I Exec exec xscreensaver -no-splash
++ I Exec exec xfce4-power-manager
++ I Exec exec tint2
+#+ I Exec exec xfce4-panel
+##+ I Exec exec trayer --SetDockType true --tint 0x000000 --expand true
+##+ I Exec exec conky
++ I Exec exec fcitx -d
++ I Exec exec nm-applet
+#+ I Exec exec kmix
+##+ I Exec exec xsetroot -cursor_name left_ptr
+##+ I Exec exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+
+##### ##### ##### #####
+#
+AddToFunc ExitFunction
++ I All (xscreensaver) Close
++ I All (xclock)       Close
++ I All (nm-applet)    Close

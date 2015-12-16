@@ -1,0 +1,1150 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; http://sawfish.wikia.com/wiki/User_Guide
+;; http://sawfish.wikia.com/wiki/Scripts
+;; http://sawfish.wikia.com/wiki/Themes
+;; http://code.google.com/p/iimw
+;; Rename this file to rc, and move it to ~/.sawfish
+;; M.W. 2012-2014 China
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'sawfish.wm)
+(require 'sawfish.wm.custom)
+(require 'sawfish.wm.defaults)
+(require 'sawfish.wm.edge.hot-spots)
+(require 'sawfish.wm.events)
+(require 'sawfish.wm.focus)
+(require 'sawfish.wm.frames)
+(require 'sawfish.wm.misc)
+(require 'sawfish.wm.placement)
+(require 'sawfish.wm.util.rects)
+(require 'sawfish.wm.util.prompt)
+(require 'sawfish.wm.util.window-order)
+(require 'sawfish.wm.util.display-window)
+(require 'sawfish.wm.windows)
+(require 'rep)
+(require 'rep.regexp)
+(require 'rep.system)
+(require 'rep.io.files)
+(require 'rep.io.timers)
+(require 'rep.io.processes)
+
+;; Timers
+(defvar-setq edge-flip-delay 250)
+(defvar-setq hot-spot-delay 125)
+
+;; Activate screen edges
+(activate-edges t)
+(setq edge-actions-enabled t)
+(defvar-setq hot-spots-enable t)
+(defvar-setq hot-spot-delay 150)
+(defvar-setq hot-spots-area 50)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; smart-tile.jl --- Tile Sawfish windows in an intelligent (hah!) fashion
+;;
+;; Description: Handles tiling of all windows on the current workspace.
+;; Windows are automatically sized and arranged to make best use of the
+;; workspace without overlapping.
+;;
+;; Author: Mark Triggs <mst@dishevelled.net>
+;;
+;; Usage:
+;;   (require 'smart-tile)
+;;   (bind-keys global-keymap "M-t" 'tile-windows)
+;;
+
+
+;; For windows at least, wideness is preferable to tallness. So, the minimum
+;; height specifies how short you are willing to tolerate your windows before
+;; an extra column should be used.
+(defvar min-height (/ (screen-height) 4))
+
+(defun window-workspace (w)
+  (car (window-get w 'workspaces)))
+
+(defun find-if (fn l)
+  (cond ((null l) nil)
+        ((fn (car l)) (car l))
+        (t (find-if fn (cdr l)))))
+
+(defun window-on-current-workspace-p (w)
+  (= (window-workspace w) current-workspace))
+
+(defun window-touching-p (w)
+  "Is W touching another window?"
+  (find-if (lambda (other) (overlap-p w other))
+           (remove w (remove-if window-ignored-p
+                                (filter-windows
+                                 window-on-current-workspace-p)))))
+
+(defun window-x (w) (car (window-position w)))
+(defun window-y (w) (cdr (window-position w)))
+(defun window-width (w) (car (window-frame-dimensions w)))
+(defun window-height (w) (cdr (window-frame-dimensions w)))
+
+(defun overlap-p (w1 w2)
+  "Do W1 and W2 overlap?"
+  (and (< (abs (- (window-x w1) (window-x w2)))
+          (window-width (if (< (window-x w1) (window-x w2))
+                            w1 w2)))
+       (< (abs (- (window-y w1) (window-y w2)))
+          (window-height (if (< (window-y w1) (window-y w2))
+                             w1 w2)))))
+
+(defun resize-frame-to (w width height)
+  (let ((width-offset (- (car (window-frame-dimensions w))
+                         (car (window-dimensions w))))
+        (height-offset (- (cdr (window-frame-dimensions w))
+                          (cdr (window-dimensions w)))))
+    (resize-window-to w (- width width-offset) (- height height-offset))))
+
+(defmacro pop (l) `(setq ,l (cdr ,l)))
+
+(defun mwtile-windows ()
+  (interactive)
+  (let ((windows (remove-if window-ignored-p
+                            (filter-windows window-on-current-workspace-p))))
+    (when (> (length windows) 1)
+      (let* ((columns (do ((c 1 (1+ c)))
+                          ((> (/ (screen-height) (/ (length windows) c))
+                              min-height)
+                           c)))
+             (rows (ceiling (/ (length windows) columns)))
+             (width (floor (/ (screen-width) columns)))
+             (height (floor (/ (screen-height) rows))))
+        (let ((w windows))
+          (do ((x 0 (1+ x)))
+              ((or (>= x columns) (null w)) nil)
+            (do ((y 0 (1+ y)))
+                ((or (>= y rows) (null w) nil))
+              (resize-frame-to (car w) width height)
+              (move-window-to (car w) (+ (* x width) 2) (* y height))
+              (pop w))))
+        ;; Resize the windows horizontally to use any remaining space.
+        (mapc (lambda (w)
+                (let ((old-width (window-width w))
+                      (old-height (window-height w))
+                      (new-width (- (screen-width) (window-x w))))
+                  (resize-frame-to w new-width old-height)
+                  (when (window-touching-p w)
+                    ;; oops. Roll back to the original size
+                    (resize-frame-to w old-width old-height))))
+              windows)))))
+
+;; (provide 'smart-tile)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; run-application.jl -- prompt for an application and run it
+
+;; Copyright (C) 2008 Sergey I. Sharybin <sharybin@nm.ru>
+;; Copyright (C) 2007 Sven Schoenung <sven.schoenung@gmail.com>
+;; Copyright (C) 2000 John Harper <john@dcs.warwick.ac.uk>
+
+;; Version: 0.1
+;;  - Initial release
+;;
+;; Version: 0.2
+;;  - Custom path support
+;;  - Application exclusion support
+;;
+;; Version 0.3
+;;  - Added customization of font and colors
+;;    NOTE: New version of prompt.jl is required
+
+(defgroup run-application "Run application"
+  :group misc)
+
+(defcustom run-application:font default-font
+  "Font: \\w"
+  :type font
+  :group (misc run-application))
+
+(defcustom run-application:color (cons (get-color "black") (get-color "white"))
+    " "
+    :type (pair (labelled "Foreground:" color) (labelled "Background:" color))
+    :group (misc run-application))
+
+(defcustom run-application:x-position nil
+  "X:  Position: \\w"
+  :type (choice (nil "Center")
+		(left "Left")
+		(right "Right"))
+  :group (misc run-application))
+
+(defcustom run-application:x-offset 0
+  "X:  Offset: \\w"
+  :type (number 0)
+  :group (misc run-application)
+  :depends run-application:x-position)
+
+(defcustom run-application:y-position nil
+  "Y:  Position: \\w"
+  :type (choice (nil "Center")
+		(top "Top")
+		(bottom "Bottom"))
+  :group (misc run-application))
+
+(defcustom run-application:y-offset 0
+  "Y:  Offset: \\w"
+  :type (number 0)
+  :group (misc run-application)
+  :depends run-application:y-position)
+
+(defcustom run-application:use-custom-path nil
+  "Use custom PATH: "
+  :type boolean
+  :group (misc run-application))
+
+(defcustom run-application:custom-path (getenv "PATH")
+  " (colon seperated list)"
+  :type string
+  :group (misc run-application)
+  :depends run-application:use-custom-path)
+
+(defcustom run-application:use-application-exclude t
+  "Exclude applications: "
+  :type boolean
+  :group (misc run-application))
+
+(defcustom run-application:application-exclude "^\\."
+  " (regular expression)"
+  :type string
+  :group (misc run-application)
+  :depends run-application:use-application-exclude)
+
+;; FIXME: This could probably be better ...
+(define (prompt-application-executable file dir)
+   (let ((f (expand-file-name file dir)))
+    (and (not (file-directory-p f))
+	 (string-match "x" (file-modes-as-string f)))))
+
+(define (prompt-application-duplicate file dirs)
+  (delete-if-not (lambda (dir)
+		   (file-exists-p (expand-file-name file dir)))
+		 dirs))
+
+(define (prompt-mismatch-application str dir file dirs)
+  (or (not (string-head-eq file str))
+      (prompt-application-duplicate file dirs)
+      (not (prompt-application-executable file dir))
+      (and run-application:use-application-exclude
+	   (string-match run-application:application-exclude file))))
+
+(define (prompt-application-path)
+  (let ((path (if run-application:use-custom-path
+		  run-application:custom-path
+		  (getenv "PATH")))
+        (path-list '())
+        (dir "")
+        (start 0)
+        (end 0))
+   (while (< start (length path))
+     (setq end (if (string-match ":" path start)
+		   (match-start) (length path)))
+     (setq dir (substring path start end))
+     (when (file-exists-p dir)
+       (setq path-list (append path-list (list dir))))
+     (setq start (1+ end)))
+   path-list))
+
+(define (prompt-complete-application str)
+  (let ((path (prompt-application-path)))
+    (apply #'nconc 
+	   (mapcar (lambda (dir)
+		     (let ((dirs (cdr (member dir path))))
+		       (delete-if 
+			 (lambda (file) 
+			   (prompt-mismatch-application str dir file dirs))
+			 (directory-files dir))))
+		   path))))
+
+(define (prompt-for-application #!optional title start default)
+  "Prompt for an application in $PATH"
+  (unless (stringp title)
+    (setq title "Enter application:"))
+  (let* ((prompt-completion-fun prompt-complete-application)
+	 (str (prompt title start `(
+       (foreground . ,(car run-application:color))
+       (background . ,(cdr run-application:color))
+       (font . ,run-application:font)
+     ))))
+    (when (and (string= str "") default)
+      (setq str default))
+    str))
+
+(define (run-application)
+  "Prompt for an application and run it"
+  (setq prompt-window-position 
+	(cons (case run-application:x-position
+		('left run-application:x-offset)
+		('right (- -1 run-application:x-offset))
+		(nil nil))
+	      (case run-application:y-position
+		('top run-application:y-offset)
+		('bottom (- -1 run-application:y-offset))
+		(nil nil))))
+  (system (format nil "%s &" (prompt-for-application "Run application: "))))
+
+(define-command 'run-application run-application)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; from No-mouse.jl, revised
+
+(defun mwrsk-shove-size-window (whatToDo)
+  "to 'dec or 'inc the focused window"
+  (interactive)
+  (let* ((win (input-focus)) (dim (window-dimensions win)) (dimx (car dim)) (dimy (cdr dim)))
+    (cond   ((and (eq whatToDo 'dec) (> dimx 320)) (setq dimx (- dimx 160)))   ((eq whatToDo 'inc) (setq dimx (+ dimx 160))))
+    (cond   ((and (eq whatToDo 'dec) (> dimy 180)) (setq dimy (- dimy  90)))   ((eq whatToDo 'inc) (setq dimy (+ dimy 90))))
+    (setq dimx (truncate dimx)) (setq dimy (truncate dimy))  (resize-window-to win dimx dimy)))
+
+(defun mwrsk-grid-place-window (grid)
+  "move the window to the grid position specified by the numeric keypad"
+  (interactive)
+  (let* ((win (input-focus))
+	 (pos (window-position win)) (posx (car pos)) (posy (cdr pos))
+	 (dim (window-frame-dimensions win)) (dimx (car dim)) (dimy (cdr dim))
+	 (panel-height 0) (bottom (- (screen-height) panel-height))
+   (x 0) (y 0))
+   (cond
+    ((or (equal grid 7) (equal grid 8) (equal grid 9)) (setq y 0))
+	  ((or (equal grid 4) (equal grid 5) (equal grid 6)) (setq y (- (- (/ bottom 2) (/ dimy 2)) 0)))
+	  ((or (equal grid 1) (equal grid 2) (equal grid 3)) (setq y (- (- bottom dimy) 0))))
+   (cond
+    ((or (equal grid 1) (equal grid 4) (equal grid 7)) (setq x 0))
+	  ((or (equal grid 2) (equal grid 5) (equal grid 8)) (setq x (+ (- (/ (screen-width) 2) (/ dimx 2)) 0)))
+	  ((or (equal grid 3) (equal grid 6) (equal grid 9)) (setq x (- (screen-width) dimx))))
+   ;; the following is necessary because "/" function can result in fractional numbers
+    (setq x (truncate x)) (setq y (truncate y)) (move-window-to win x y) ))
+
+;; mwEnhanced-NoMouse  --- move and resize
+(defun mwrsk-grid-resize-place-window (grid win)
+  "resize the window, and move it to the grid position specified by the numeric keypad"
+  (let* ( (x 0) (y 0)
+	        (dim (window-frame-dimensions win)) (dimx (car dim)) (dimy (cdr dim))
+          (a (/ (screen-width) 2)) (b (/ (screen-height) 2)) )
+   (cond
+    ((or (eq grid 1) (eq grid 2) (eq grid 4) (eq grid 7) (eq grid 8)) (setq x 0))
+    ((or (eq grid 3) (eq grid 6) (eq grid 9)) (setq x (+ (/ (screen-width) 2) 0) ))
+    ((or (eq grid 5)) (setq x (+ (/ (screen-width) 4) 0) )))
+   (cond
+    ((or (eq grid 4) (eq grid 6) (eq grid 7) (eq grid 8) (eq grid 9)) (setq y 0))
+    ((or (eq grid 1) (eq grid 2) (eq grid 3)) (setq y (- (/ (screen-height) 2) 0) ))
+    ((or (eq grid 5)) (setq y (- (/ (screen-height) 4) 0))))
+   (cond
+    ((or (eq grid 2) (eq grid 8)) (setq a (- (screen-width) 0)))
+    ( t (setq a (/ (- (screen-width) 0) 2))))
+   (cond
+    ((or (eq grid 4) (eq grid 6)) (setq b (- (screen-height) 0)))
+    ( t (setq b (- (/ (screen-height) 2) 0))))
+   ;; the following is necessary because "/" function can result in fractional numbers
+    (setq x (truncate x)) (setq y (truncate y)) (setq a (truncate a)) (setq b (truncate b))
+    (move-resize-window-to win x y a b)
+    ))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; direction.jl -- focus window east/west/north/south of current one
+;;;; (C) Ives Aerts <ives.aerts@sonycom.com>, 12 June 2002
+;;
+;; First some helper functions.
+;; The window must be 'visible' (i.e.: not hidden/iconified), not
+;; 'fully obscured' (completely behind another window or on another
+;; viewport), in the window cycle list, and not 'ignored'.
+
+(defun window-dfocusable-p (w)
+  "Is window focusable by direction?"
+  (and (window-visible-p w)
+       (window-mapped-p w)
+       (not (equal `fully-obscured (window-visibility w)))
+       (window-in-cycle-p w)
+       (not (window-get w `ignored)) ) )
+
+(defun abs (x) (if (> x 0) x (- x)))
+  
+(defun window-center (w)
+  "Compute the center of a window."
+  (let ((x (car (window-position w)))
+        (y (cdr (window-position w)))
+        (w (car (window-dimensions w)))
+        (h (cdr (window-dimensions w))) )
+       (cons (+ x (/ w 2)) (+ y (/ h 2))) ) )
+
+(defun horizontal-distance (w1 w2)
+  "Compute horizontal distance between two windows."
+  (let ((w1_x (car (window-position w1)))
+        (w1_y (cdr (window-position w1)))
+        (w2_x (car (window-position w2)))
+        (w2_y (cdr (window-position w2))) )
+       (+ (abs (- w1_x w2_x)) (* 2 (abs (- w1_y w2_y)))) ) )
+
+(defun vertical-distance (w1 w2)
+  "Compute vertical distance between two windows."
+  (let ((w1_x (car (window-position w1)))
+        (w1_y (cdr (window-position w1)))
+        (w2_x (car (window-position w2)))
+        (w2_y (cdr (window-position w2))) )
+       (+ (* 2 (abs (- w1_x w2_x))) (abs (- w1_y w2_y))) ) )
+
+(defun nearest (window window-list distfunc)
+  "Using 'distfunc', find the nearest window in 'window-list' to 'window'."
+  (when window-list
+    (let* ((result-win (car window-list))
+           (result-dist (distfunc window result-win)) )
+      (mapc (lambda (w)
+              (let ((dist (distfunc window w)))
+                (when (< dist result-dist) (setq result-win w) (setq result-dist dist) ) ) )
+            (cdr window-list) )
+      result-win) ) )
+
+;;; These functions could be used for other purposes than focussing nearby windows.
+
+(defun direction-west (w)
+  "Return nearest window west of w."
+  (let* ((wx (car (window-center w)))
+         (dfocusable-windows (filter (lambda (w) (and (window-dfocusable-p w) (< (car (window-center w)) wx))) (managed-windows))))
+        (nearest w dfocusable-windows horizontal-distance)))
+
+(defun direction-east (w)
+  "Return nearest window east of w."
+  (let* ((wx (car (window-center w)))
+         (dfocusable-windows (filter (lambda (w) (and (window-dfocusable-p w) (> (car (window-center w)) wx))) (managed-windows))))
+        (nearest w dfocusable-windows horizontal-distance)))
+
+(defun direction-north (w)
+  "Return nearest window north of w."
+  (let* ((wy (cdr (window-center w)))
+         (dfocusable-windows (filter (lambda (w) (and (window-dfocusable-p w) (< (cdr (window-center w)) wy))) (managed-windows))))
+        (nearest w dfocusable-windows vertical-distance)))
+
+(defun direction-south (w)
+  "Return nearest window south of w."
+  (let* ((wy (cdr (window-center w)))
+         (dfocusable-windows (filter (lambda (w) (and (window-dfocusable-p w) (> (cdr (window-center w)) wy))) (managed-windows))))
+        (nearest w dfocusable-windows vertical-distance)))
+
+;;; And now the actual focussing functions, which can be used from sawmill-ui.
+
+(defun focus-west (w)
+  "Focus nearest window west of w."
+  (interactive "%W") (let ((nearest (direction-west w))) (when nearest (raise-window (set-input-focus nearest))) ) )
+
+(defun focus-east (w)
+  "Focus nearest window east of w."
+  (interactive "%W") (let ((nearest (direction-east w))) (when nearest (raise-window (set-input-focus nearest))) ) )
+
+(defun focus-north (w)
+  "Focus nearest window north of w."
+  (interactive "%W") (let ((nearest (direction-north w))) (when nearest (raise-window (set-input-focus nearest))) ) )
+
+(defun focus-south (w)
+  "Focus nearest window south of w."
+  (interactive "%W") (let ((nearest (direction-south w))) (when nearest (raise-window (set-input-focus nearest))) ) )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; File: undo.jl Version: $Revision: 1.4 $
+;;    Remembers window activity (moving, resizing, iconifying, shading, workspace switching) and lets you undo it.
+;; Author: Terry Weissman <terry@weissman.org> www.weissman.org/sawfish
+
+(defvar l "")
+(defun undo-eval (cmd) (eval cmd))
+(defun undo-record (l) (setq undo-curcmd-list (cons l undo-curcmd-list)))
+
+(defun undo ()
+  "Undo last window move or resize"
+  (interactive)
+  (let ((cmd (car undo-list))
+        (x (cdr undo-list))
+        (r undo-redo-list))
+    (setq undo-list ())
+    (setq undo-curcmd-list ())
+    (undo-eval cmd)
+    (undo-transfer-to-undo-list)
+    (if undo-list (setq r (cons (car undo-list) r)))
+    (setq undo-redo-list r)
+    (setq undo-list x)
+    (setq undo-curcmd-list ())))
+
+(defun undo-redo ()
+  "Redo last window move or resize"
+  (interactive)
+  (let ((cmd (car undo-redo-list)) (r (cdr undo-redo-list)))
+    (undo-eval cmd)
+    (make-timer (lambda () (setq undo-redo-list r)) 0 1)))
+
+(defun undo-record-move (w)
+  (let ((oldloc (window-get w 'undo-loc))
+        (newloc (window-position w)))
+    (if oldloc (unless (equal oldloc newloc) (undo-record (list 'move-window-to w (car oldloc) (cdr oldloc)))))
+    (window-put w 'undo-loc newloc)))
+    
+(defun undo-record-resize (w)
+  (let ((oldsize (window-get w 'undo-size))
+        (newsize (window-dimensions w)))
+    (if oldsize (unless (equal oldsize newsize) (undo-record (list 'resize-window-to w (car oldsize) (cdr oldsize)))))
+    (window-put w 'undo-size newsize)))
+  
+(defun undo-record-stacking-for-real ()
+  (setq l (concat l "s"))
+  (let ((newstack (stacking-order)))
+  (unless (equal undo-cur-stack newstack) (undo-record `(restack-windows (quote ,undo-cur-stack))) (setq undo-cur-stack newstack))))
+
+(defun undo-record-stacking () (undo-record-stacking-for-real))
+(defun undo-record-workspace (w) (undo-record (list 'select-workspace w)))
+(defun undo-record-iconify (w) (undo-record (list 'uniconify-window w)))
+(defun undo-record-uniconify (w) (undo-record (list 'iconify-window w)))
+(defun undo-record-shade (w) (undo-record (list 'unshade-window w)))
+(defun undo-record-unshade (w) (undo-record (list 'shade-window w)))
+
+(defun undo-transfer-to-undo-list ()
+  (if undo-check-stacking (progn (undo-record-stacking-for-real) (setq undo-check-stacking nil)))
+  (if undo-curcmd-list
+      (progn
+        (setq undo-list (cons (cons 'progn undo-curcmd-list) undo-list))
+        (setq undo-curcmd-list nil)
+        (setq undo-redo-list nil)
+        (while (> (length undo-list) 50) (setq undo-list (nreverse (cdr (nreverse undo-list))))))))
+
+(defun undo-transfer-if-done ()
+  (unless (or undo-in-command undo-in-interactive (< 0 undo-group-depth)) (undo-transfer-to-undo-list)))
+
+(defun undo-pre-command () (setq undo-in-command t))
+(defun undo-post-command () (setq undo-in-command nil) ( undo-transfer-if-done))
+(defun undo-pre-interactive () (setq undo-in-interactive t))
+
+(defun undo-post-interactive (w)
+  (setq undo-in-interactive nil)
+  (undo-record-resize w)                ;These two lines shouldn't be
+  (undo-record-move w)                  ;necessary, but they don't hurt...
+  (undo-transfer-if-done))
+
+(defun undo-start-group () (setq undo-group-depth (+ undo-group-depth 1)))
+(defun undo-end-group () (setq undo-group-depth (- undo-group-depth 1)) (undo-transfer-if-done))
+
+(defun undo-record-all-locs ()
+  (setq undo-cur-stack (stacking-order))
+  (map-windows (lambda (w) (window-put w 'undo-loc (window-position w)) (window-put w 'undo-size (window-dimensions w)))))
+
+;;;;; Initialize global variables.
+(defvar undo-list ())
+(defvar undo-redo-list ())
+(defvar undo-curcmd-list ())
+(defvar undo-in-command nil)
+(defvar undo-in-interactive nil)
+(defvar undo-cur-stack nil)
+(defvar undo-check-stacking nil)
+(defvar undo-group-depth 0)
+
+;;;;; Set hooks for operations that we want to be able to undo.
+
+(unless (in-hook-p 'window-moved-hook undo-record-move) (add-hook 'window-moved-hook undo-record-move))
+(unless (in-hook-p 'window-resized-hook undo-record-resize) (add-hook 'window-resized-hook undo-record-resize))
+(unless (in-hook-p 'leave-workspace-hook undo-record-workspace) (add-hook 'leave-workspace-hook undo-record-workspace))
+(unless (in-hook-p 'iconify-window-hook undo-record-iconify) (add-hook 'iconify-window-hook undo-record-iconify))
+(unless (in-hook-p 'uniconify-window-hook undo-record-uniconify) (add-hook 'uniconify-window-hook undo-record-uniconify))
+(unless (in-hook-p 'shade-window-hook undo-record-shade) (add-hook 'shade-window-hook undo-record-shade))
+(unless (in-hook-p 'unshade-window-hook undo-record-unshade) (add-hook 'unshade-window-hook undo-record-unshade))
+; (unless (in-hook-p 'after-restacking-hook undo-record-stacking)  (add-hook 'after-restacking-hook undo-record-stacking))
+; (unless (in-hook-p 'window-depth-changed-hook undo-record-stacking) (add-hook 'window-depth-changed-hook undo-record-stacking))
+; (unless (in-hook-p 'visibilty-notify-hook undo-record-stacking) (add-hook 'visibilty-notify-hook undo-record-stacking))
+
+;;;;; Set hooks for operations that tend to group un-do-able operations.
+
+(unless (in-hook-p 'pre-command-hook undo-pre-command) (add-hook 'pre-command-hook undo-pre-command))
+(unless (in-hook-p 'post-command-hook undo-post-command) (add-hook 'post-command-hook undo-post-command))
+(unless (in-hook-p 'before-move-hook undo-pre-interactive) (add-hook 'before-move-hook undo-pre-interactive))
+(unless (in-hook-p 'after-move-hook undo-post-interactive) (add-hook 'after-move-hook undo-post-interactive))
+(unless (in-hook-p 'before-resize-hook undo-pre-interactive) (add-hook 'before-resize-hook undo-pre-interactive))
+(unless (in-hook-p 'after-resize-hook undo-post-interactive) (add-hook 'after-resize-hook undo-post-interactive))
+
+;;; Remember the initial size and locations of all windows, so that if they
+;;; change we will know what their old values were.
+
+(make-timer undo-record-all-locs 1 0)
+
+; (setq log "")
+; (add-hook 'window-moved-hook (lambda () (setq log (concat log "*"))))
+; (add-hook 'before-move-hook (lambda () (setq log (concat log "m"))))
+; (add-hook 'after-move-hook (lambda () (setq log (concat log "M"))))
+; (add-hook 'pre-command-hook (lambda () (setq log (concat log "c"))))
+; (add-hook 'post-command-hook (lambda () (setq log (concat log "C"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; File: repel.jl ;; Version: $Revision: 1.3 $ ;;     OK, this is just plain silly.
+;; This teaches windows to push each other out of the way. This results in a layout of minimum overlap.
+;; The reality is that the resulting layout may not be so great, but it's sure fun watching it get there.
+;; Author: Terry Weissman <terry@weissman.org> www.weissman.org/sawfish
+
+(defvar repel-timer nil)
+ 
+(defun repel-log (str)
+  (let* ((fid (open-file "/tmp/repellog" 'append))) (write fid (prin1-to-string str)) (write fid "\n") (close-file fid)))
+
+(defun repel-limit-delta (win)
+  (let* ((delta (window-get win 'repel-delta)) (dx (car delta)) (dy (cdr delta)))
+    (if (or (> dx 10.0) (< dx -10.0) (> dy 10.0) (< dy -10.0))
+        (let* ((m (max (abs dx) (abs dy))))
+          (setq dx (* 10.0 (/ dx m)))
+          (setq dy (* 10.0 (/ dy m)))
+          (window-put win 'repel-delta (cons dx dy))))))
+
+(defun repel-not-zero (v) (if (= v 0) (- (/ (random 10) 10) 0.5) v))
+
+(defun repel-one-rect (win rect)
+  (let* ((dims (window-frame-dimensions win))
+         (point (window-position win))
+         (weight (rect-2d-overlap dims point rect)))
+    (if (> weight 0)
+        (let* ((cx (+ (car point) (/ (car dims) 2)))
+               (cy (+ (cdr point) (/ (cdr dims) 2)))
+               (rx (/ (+ (car rect) (caddr rect)) 2))
+               (ry (/ (+ (cadr rect) (nth 3 rect)) 2))
+               (delta (window-get win 'repel-delta))
+               (dx (car delta))
+               (dy (cdr delta))
+               (diffx (repel-not-zero (- cx rx)))
+               (diffy (repel-not-zero (- cy ry))))
+          (setq dx (+ dx (* weight (- cx rx))))
+          (setq dy (+ dy (* weight (- cy ry))))
+          (window-put win 'repel-delta (cons dx dy))))))
+
+(defun repel-move-window-limiting (win x y)
+  (let* ((oldloc (window-position win))
+         (oldx (car oldloc))
+         (oldy (cdr oldloc))
+         (dims (window-frame-dimensions win))
+         (width (car dims))
+         (height (cdr dims))
+         (maxx (- (- (screen-width) width) 0))
+         (maxy (- (- (screen-height) height) 0)))
+;     (if (and (> x maxx) (<= oldx maxx))    (setq x maxx))
+;     (if (and (< x 0) (>= oldx 0))          (setq x 0))
+;     (if (and (> y maxy) (<= oldy maxy))    (setq y maxy))
+;     (if (and (< y 0) (>= oldy 0))          (setq y 0))
+    (if (and (> x maxx) (> x oldx)) (setq x oldx))
+    (if (and (< x 0) (< x oldx)) (setq x oldx))
+    (if (and (> y maxy) (> y oldy)) (setq y oldy))
+    (if (and (< y 0) (< y oldy)) (setq y oldy))
+    (move-window-to win x y)))
+
+(defun repel-once ()
+  (if repel-timer (set-timer repel-timer))
+  (display-message "Repelling")
+  (let* ((ws current-workspace)
+         (masterlist (append (avoided-windows) (window-order ws)))
+         (glued nil)
+         (mobile nil)
+         (moved nil)
+         (sw (screen-width))
+         (sh (screen-height))
+         (borderrects `((-10000 -10000 10000 0) (-10000 -10000 0 10000) (-10000 ,sh 10000 10000) (,sw -10000 10000 10000))))
+    (mapc (lambda (x)
+            (if (or (window-avoided-p x) (window-get x 'sticky)) (setq glued (cons x glued)) (setq mobile (cons x mobile))))
+          masterlist)
+    (mapc
+     (lambda (me)
+       (let* ((rects
+              (append borderrects (rectangles-from-windows (filter (lambda (x) (not (equal x me))) masterlist))))
+              (trueloc (window-position me))
+              (loc (window-get me 'repel-loc)))
+         (if (or (null loc) (/= (car trueloc) (round (car loc))) (/= (cdr trueloc) (round (cdr loc))))
+             (progn (setq loc trueloc) (window-put me 'repel-loc loc)))
+         (window-put me 'repel-delta '(0 . 0))
+         (mapc (lambda (x) (repel-one-rect me x)) rects)
+         (repel-limit-delta me)
+         (let* ((delta (window-get me 'repel-delta)))
+           (unless (equal delta '(0 . 0)) (setq moved t))
+           (setq loc (cons (+ (car loc) (car delta)) (+ (cdr loc) (cdr delta))))
+           (window-put me 'repel-loc loc)
+           (repel-move-window-limiting me (round (car loc)) (round (cdr loc))))))
+     mobile)
+    (unless moved (if repel-timer (repel-toggle)))))
+
+(defun repel-toggle ()
+  "Turn on or off the repel stuff"
+  (interactive)
+  (if repel-timer
+      (progn
+        (delete-timer repel-timer)
+        (setq repel-timer nil)
+        (display-message nil)
+        (if (boundp 'undo-end-group) (eval '(undo-end-group))))
+      (progn
+        (if (boundp 'undo-start-group) (eval '(undo-start-group)))
+        (setq repel-timer (make-timer repel-once 0 100))
+        (repel-once))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; from Yin Wang's configuration; very little revised
+
+(defun wy-raise-window-layer (window)
+  (interactive "%w")
+  (let ((layer (1+ (window-get window 'depth))))
+    ;; (display-message (concat "Layer " (prin1-to-string layer)))
+    (set-window-depth window layer)))
+
+(defun wy-lower-window-layer (window)
+  (interactive "%w")
+  (let ((layer (1- (window-get window 'depth))))
+    ;; (display-message (concat "Layer " (prin1-to-string layer)))
+    (set-window-depth window layer)))
+
+(defun wy-reset-window-layer (window)
+  (interactive "%w")
+  (let ((layer 0))
+    ;; (display-message (concat "Layer " (prin1-to-string layer)))
+    (set-window-depth window layer)))
+
+;;; switch to last workspace or window
+(define window-or-workspace? 'window)
+(add-hook 'leave-workspace-hook
+          (lambda (current)
+            (setq workspace-last current)
+            (setq window-or-workspace? 'workspace)))
+
+(add-hook 'focus-out-hook
+          (lambda (current)
+            (setq window-last current)
+            (setq window-or-workspace? 'window)))
+
+(defun wy-warp-to (x y)
+  (interactive)
+  (let* ((win (input-focus))
+         (xpix (floor (inexact->exact (* x (car (window-dimensions win))))))
+         (ypix (floor (inexact->exact (* y (cdr (window-dimensions win)))))))
+    (warp-cursor-to-window win xpix ypix)))
+(setq warp-to-window-enabled t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; emacs.jl --- Interaction with emacs
+;; Copyright (C) 2009 Jeremy Hankins
+;; $Date: 2009-10-23 14:49:04 -0500 (Fri, 23 Oct 2009) $
+;; $Revision: 908 $
+;; Author: Jeremy Hankins <nowan at nowan dot org>
+;; This module is designed to allow greater integration between emacs
+;; and sawfish.  Using `emacs-eval' you can run emacs lisp, with
+;; `emacs-edit' you can have emacs pop up a frame to edit a file, or
+;; (if it's already displayed) pop you to that window.  It's meant to
+;; be fairly open-ended; have fun.
+;;
+;; NOTE: One possible concern is deadlocks between sawfish and emacs.
+;; If (as I do) you also call sawfish code from emacs the potential
+;; exists for sawfish to call emacs code which calls sawfish code,
+;; with obvious results.  To prevent this `emacs-eval' checks to see
+;; if `running-from-emacs-p' is set, and if it is refuses to call
+;; emacs code.  It also sets `running-from-sawfish-p' in any emacs
+;; expression that it runs so that a similar check can be done on the
+;; emacs side.
+;;; Code:
+
+;;(define-structure emacs
+;;
+    ;;(export emacs-path
+            ;;emacsclient-path
+            ;;emacs-eval
+	    ;;emacs-running-p
+            ;;emacs-start
+	    ;;emacs-run
+	    ;;emacs-edit
+	    ;;emacs-files
+	    ;;emacs-display-buffer
+	    ;;emacs-buffers-menu
+	    ;;emacs-call-info
+	    ;;running-from-emacs-p)
+
+    ;;(open rep
+	  ;;rep.system
+	  ;;rep.io.processes
+	  ;;rep.io.timers
+	  ;;rep.io.files
+	  ;;sawfish.wm
+	  ;;sawfish.wm.util.display-window)
+
+  (defvar emacs-path "/usr/bin/emacs"
+    "Where to find the executable for emacs.")
+
+  (defvar emacs-check "[ ! -e /tmp/emacs`id -u`/server ]"
+    "Bourne shell expression to use to make sure the emacs socket
+does not yet exist -- it should evaluate to false if the socket
+exists.  If nil the check will be disabled.")
+
+  (defvar emacsclient-path "/usr/bin/emacsclient"
+    "Where to find the emacsclient executable.")
+
+  (defvar emacs-wait-secs 10
+    "How long (in seconds) to wait for the emacs server to start
+before giving up.")
+
+  (defvar running-from-emacs-p nil
+    "Indicates whether sawfish is currently running on behalf of
+emacs, to prevent deadlocks.")
+
+  (define (emacs-eval exp #!optional style)
+    "Have the emacs server run the provided expression.  If
+`style' is 'parse then emacsclient will be run synchronously and
+`running-from-sawfish-p' will be set to 't -- any emacs code
+which interacts with sawfish should check this to prevent
+deadlocks.  Any output will be read as a lisp object and
+returned.  If `style' is 'frame then emacsclient will be asked to
+create a new frame.  If `style' has any other value emacsclient
+will simply be run in the background."
+    (if running-from-emacs-p
+	(message "Refusing to call emacsclient from emacs.")
+      (cond ((eq style 'parse)
+	     (let* ((stream (make-string-output-stream))
+		    (process (make-process stream))
+		    (retval (call-process
+			     process nil
+			     emacsclient-path "-e"
+			     (concat "(let ((running-from-sawfish-p t)) "
+				     exp ")"))))
+	       (if (eql retval 0)
+		   (let ((s (get-output-stream-string stream)))
+		     (if (eq (length s) 0)
+			 nil
+		       (read (make-string-input-stream s))))
+		 nil)))
+	    ((eq style 'frame)
+	     (start-process (make-process) emacsclient-path
+			    "-n" "-c" "-e" exp))
+	    (t
+	     (start-process (make-process) emacsclient-path
+			    "-n" "-e" exp)))))
+
+
+  (define (emacs-running-p)
+    "Checks to see if an emacs server process is running."
+    (emacs-eval "t" 'parse))
+
+  (define (emacs-start #!optional exp style)
+    "Start an emacs server process.  If the optional `exp' is
+provided, call it once the emacs server is started."
+    (when (not (emacs-running-p))
+      ;; I really ought to rework this to report an error when the
+      ;; emacs server isn't accessible, but emacs-check returns true.
+      ;; XXX
+      (let ((status (system (concat
+			     emacs-check " && "
+			     emacs-path " --daemon &"))))
+	(when (and status exp)
+	  (let* ((checker (make-timer
+			   (lambda (timer)
+			     (if (emacs-running-p)
+				 (emacs-eval exp style)
+			       (set-timer timer)))
+			   1)))
+	    (make-timer
+	     (lambda ()
+	       (delete-timer checker))
+	     emacs-wait-secs)))
+	status)))
+
+  (define (emacs-run exp #!optional style)
+    "Run `exp' in the emacs server, starting the emacs server if
+necessary."
+    (if (emacs-running-p)
+	(emacs-eval exp style)
+      (emacs-start exp style)))
+
+  (define (emacs-files)
+    "Generate a list of active emacs buffers."
+    (emacs-eval
+     "(delq nil
+	    (mapcar (lambda (b)
+		      (with-current-buffer b
+			(let ((name (buffer-name))
+			      (file buffer-file-name))
+			  (unless
+			      (or
+			       ;; Don't mention internal buffers.
+			       (and (string= (substring name 0 1) \" \")
+				    (null file)))
+			    (cons name file)))))
+		    (buffer-list)))"
+     'parse))
+
+  (define (emacs-get-buffer-frame buffer)
+    "Find a window displaying the given emacs buffer."
+    (let ((xid (emacs-eval (concat
+			    "(let ((w (get-buffer-window \"" buffer "\" t)))
+			       (when w
+				 (frame-parameter
+				  (window-frame w)
+				  'outer-window-id)))")
+			   'parse)))
+      (when xid
+	(get-window-by-id (string->number xid)))))
+
+  (define (emacs-display-buffer buf)
+    "Display buffer in emacs, opening a new frame if the buffer is not
+already being displayed."
+    (let ((win (emacs-get-buffer-frame buf)))
+      (if win
+	  (display-window win)
+	(emacs-run (concat "(switch-to-buffer \"" buf "\")")
+		   'frame))))
+
+  (define (emacs-call-info document node)
+    "Call up the requested info page in emacs."
+    (emacs-run (concat "(info \"(" document ")" node "\")") 'frame))
+
+  (define (emacs-edit f)
+    "Have emacs edit the file, doing the right thing if it's
+already displayed."
+    (let* ((file (canonical-file-name f))
+	   (buf (car (car (filter (lambda (b)
+				    (equal (cdr b) file))
+				  (emacs-files)))))
+	   (win (and buf (emacs-get-buffer-frame buf))))
+      (if win
+	  (display-window win)
+	(system (concat
+		 emacsclient-path
+		 " --alternate-editor= -c '" file "' > /dev/null &")))))
+
+  (define (emacs-buffers-menu)
+    "Returns a menu of buffers open in emacs."
+    (mapcar
+     (lambda (i)
+       (list (car i) `(emacs-display-buffer ,(car i))))
+     (emacs-files)))
+
+  ;;)
+
+;;; emacs.jl ends here
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; iswitch-window.jl 1.4 -- incremental search for windows
+;; Time-stamp: <03/05/28 18:35:49 karlheg>
+;;
+;; Copyright (C) 2000 Topi Paavola <tjp@iki.fi>
+;; Modifications and enhancements by Jens-Ulrik Petersen
+;; <jens-ulrik.petersen@nokia.com> And
+;; Karl M. Hegbloom <hegbloom@pdx.edu>
+;;
+;;; Commentary:
+;; Incremental window search, similar to iswitchb.el in emacs.
+;; Default keys (change in iswitch-get-window; ideally we should have an iswitch-keymap):
+;;
+;; Down,TAB    find next matching window
+;; Up,C-TAB    find previous matching window
+;; ESC         quit iswitch
+;; C-c            clear input buffer
+;; backspace      delete previous character
+;; C-s            iconify window
+;; RET            select window
+;; 
+;; Other keys insert themselves. A-s (or H-s, depending on your
+;; modifiers) would be a good key to bind iswitch-window to; for example,
+;;
+;;   (bind-keys global-keymap "A-s" 'iswitch-window)
+;;
+;; The iswitch-window-with function also does something to the current
+;; window. For example,
+;;
+;;   (bind-keys global-keymap "A-s" '(iswitch-window-with
+;;                                    (lambda (w) (iconify-window w))))
+;;
+;; would iconify the currently focused window and focus the newly selected window.
+;;
+;; (provide 'iswitch-window)
+;; (require 'window-order)
+
+;; Use the following to customize the look of the menu.
+
+(defvar iswitch-font default-font "Font for iswitch-window popup")
+(defvar iswitch-background-color "white" "Background color for iswitch-window popup")
+(defvar iswitch-foreground-color "black" "Foreground color for iswitch-window popup")
+(defvar iswitch-show-window-class nil "Display WM_CLASS of windows in the iswitch menu.")
+(defvar iswitch-show-window-machine t "Display WM_CLIENT_MACHINE of windows in the iswitch menu.")
+(defvar iswitch-filter-out-window-name-regexp-list '("^\.gnome-desktop$" "^lxlauncher$" "^gnome-panel$" "^unity-2d-shell$" "^unity-2d-panel$" "^lxpanel$" "^pcmanfm$" "^xfce4-panel$" "^xfdesktop4$" "^avant-window-navigator$" "^gmc$" "^panel$"))
+
+; event callback for iswitch-get-window
+(defun iswitch-read-event () (throw 'iswitch-read (event-name (current-event))))
+
+; (iswitch-rotate-from 2 '(1 2 3 4)) -> (2 3 4 1)
+(defun iswitch-rotate-from (elem lst) (if elem (append (memq elem lst) (reverse (cdr (memq elem (reverse lst))))) lst))
+
+; find next window matching input string
+(defun iswitch-rotate-to-next-match (input wlist &optional previous)
+  (setq wlist
+        (iswitch-rotate-from
+         (catch 'iswitch-found
+           (mapc (lambda (w) (when (string-match input (window-name w) 0 t) (throw 'iswitch-found w)))
+                 (if previous (reverse (cdr wlist)) (cdr wlist))))
+         wlist)))
+
+(defun iswitch-update-match (input wlist) (filter (lambda (w) (string-match input (window-name w) 0 t)) wlist))
+
+(setq iswitch-visibility-alist
+      '((unobscured	    . "+")
+	(partially-obscured . "%")
+	(fully-obscured	    . "@")))
+
+(setq iswitch-viewport-direction-alist
+      '(((1  . 0)  . ">")
+	((-1 . 0)  . "<")
+	((0  . 1)  . "v")
+	((0  . -1) . "^")
+	((1  . 1)  . ".")
+	((-1 . 1)  . ",")
+	((-1 . -1) . "`")
+	((1  . -1) . "'")))
+
+(defun sign (num) (cond ((> num 0) 1) ((zerop num) 0) ((< num 0) -1)))
+
+(defun iswitch-viewport-direction (wv cv)
+  (let ((wvx (car wv))
+	(wvy (cdr wv))
+	(cvx (car cv))
+	(cvy (cdr cv)))
+    (cdr (assoc (cons (sign (- wvx cvx)) (sign (- wvy cvy)))
+		iswitch-viewport-direction-alist))))
+
+(defun iswitch-window-line (w)
+    (concat
+     (cond ((window-get w 'iconified) "i")
+	   ((window-get w 'sticky) "=")
+	   ((not (window-in-workspace-p w current-workspace)) "X")
+	   ((window-outside-viewport-p w) (iswitch-viewport-direction (window-viewport w) (screen-viewport)))
+	   ((window-get w 'shaded) "s")
+	   ((cdr (assoc (window-visibility w) iswitch-visibility-alist))))
+     " "
+     (window-name w)
+     (let ((class-name (get-x-text-property w 'WM_CLASS)))
+       (if (and iswitch-show-window-class class-name)
+           (concat "  <" (aref class-name 1) ">")))
+     (let ((machine-name (get-x-text-property w 'WM_CLIENT_MACHINE)))
+       (if (and iswitch-show-window-machine machine-name)
+	   (concat " [" (aref machine-name 0) "]")))
+     "\n"))
+
+; format user input and window list for display-message
+(defun iswitch-display-format (input wlist)
+  (concat "  " input "_\n\n" (apply concat (mapcar iswitch-window-line wlist))))
+
+(defun iswitch-filter-wlist-func (window)
+  (let loop ((fow-nrl iswitch-filter-out-window-name-regexp-list))
+       (cond
+	 ((null fow-nrl) t)
+	 ((string-match (car fow-nrl) (window-name window) 0 nil) nil)
+	 (t (loop (cdr fow-nrl))))))
+
+(defun iswitch-get-window ()
+  "Let user pick a window with incremental search and return that window."
+  (when (grab-keyboard)
+    (unwind-protect
+        (let* ((override-keymap '(keymap))
+	      (input "")
+	      (key "")
+	      (init-wlist (filter iswitch-filter-wlist-func (window-order nil t t)))
+	      (focused-window (car init-wlist))
+	      wlist)
+	  (setq init-wlist (append (cdr init-wlist) (list focused-window))
+		wlist init-wlist)
+          (add-hook 'unbound-key-hook iswitch-read-event)
+          (catch 'exit-iswitch
+            (while t
+              (display-message (iswitch-display-format input wlist)
+                               `((font . ,iswitch-font)
+                                 (background . ,iswitch-background-color)
+                                 (foreground . ,iswitch-foreground-color)))
+              (setq key (catch 'iswitch-read (recursive-edit)))
+              (cond ((or (equal key "ESC")) (throw 'exit-iswitch nil))
+                    ((or (equal key "C-c")) (setq input "" wlist (iswitch-update-match input init-wlist)))
+                    ((equal key "BS") (when (> (length input) 0) (setq input (substring input 0 (1- (length input)))))
+                                       (setq wlist (iswitch-update-match input init-wlist)))
+		    ((or (equal key "Down") (equal key "TAB")) (setq wlist (iswitch-rotate-to-next-match input wlist)))
+		    ((or (equal key "Up") (equal key "C-TAB")) (setq wlist (iswitch-rotate-to-next-match input wlist t)))
+		    ((equal key "SPC") (setq input (concat input " ") wlist (iswitch-update-match input init-wlist)))
+		    ((equal key "RET") (throw 'exit-iswitch (car wlist)))
+		    ((or (equal key "C-s") ) (let ((w (car wlist))) (if (window-get w 'iconified) (uniconify-window w) (iconify-window w))))
+		    ;; ((or (equal key "C-h") ) (toggle-window-shaded (car wlist)))
+        ((= 1 (length key)) (setq input (concat input key) wlist (iswitch-update-match input wlist)))))))
+      (remove-hook 'unbound-key-hook iswitch-read-event)
+      (display-message nil)
+      (ungrab-keyboard))))
+
+(defun iswitch-window ()
+  "Pick a window by incremental search and select it."
+  (interactive) (display-window (iswitch-get-window)))
+
+(defun iswitch-window-with (act)
+  "Pick a window by incremental search, select it and ACT on previous."
+  (interactive)
+  (let ((old (car (window-order)))
+	(new (iswitch-get-window)))
+    (when new (unless (or (eq new old) (window-get old 'sticky) (window-outside-viewport-p new)) (act old))
+      (display-window new))))
+
+(defun iswitch-swap-top-two ()
+  "Flip between the top two windows in the iswitch-window list."
+  (interactive) (display-window (cadr (filter iswitch-filter-wlist-func (window-order nil t t)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(bind-keys window-keymap "W-Up"    'focus-north)
+(bind-keys window-keymap "W-Left"  'focus-west)
+(bind-keys window-keymap "W-Right" 'focus-east)
+(bind-keys window-keymap "W-Down"  'focus-south)
+
+(bind-keys global-keymap "W-[" '(mwrsk-shove-size-window 'dec))
+(bind-keys global-keymap "W-]" '(mwrsk-shove-size-window 'inc))
+
+(bind-keys global-keymap "W-v" '(mwrsk-grid-place-window 1))
+(bind-keys global-keymap "W-b" '(mwrsk-grid-place-window 2))
+(bind-keys global-keymap "W-n" '(mwrsk-grid-place-window 3))
+(bind-keys global-keymap "W-f" '(mwrsk-grid-place-window 4))
+(bind-keys global-keymap "W-g" '(mwrsk-grid-place-window 5))
+(bind-keys global-keymap "W-h" '(mwrsk-grid-place-window 6))
+(bind-keys global-keymap "W-r" '(mwrsk-grid-place-window 7))
+(bind-keys global-keymap "W-t" '(mwrsk-grid-place-window 8))
+(bind-keys global-keymap "W-y" '(mwrsk-grid-place-window 9))
+
+(bind-keys global-keymap "W-V" '(mwrsk-grid-resize-place-window 1 (input-focus)))
+(bind-keys global-keymap "W-B" '(mwrsk-grid-resize-place-window 2 (input-focus)))
+(bind-keys global-keymap "W-N" '(mwrsk-grid-resize-place-window 3 (input-focus)))
+(bind-keys global-keymap "W-F" '(mwrsk-grid-resize-place-window 4 (input-focus)))
+(bind-keys global-keymap "W-G" '(mwrsk-grid-resize-place-window 5 (input-focus)))
+(bind-keys global-keymap "W-H" '(mwrsk-grid-resize-place-window 6 (input-focus)))
+(bind-keys global-keymap "W-R" '(mwrsk-grid-resize-place-window 7 (input-focus)))
+(bind-keys global-keymap "W-T" '(mwrsk-grid-resize-place-window 8 (input-focus)))
+(bind-keys global-keymap "W-Y" '(mwrsk-grid-resize-place-window 9 (input-focus)))
+
+(bind-keys global-keymap "W-`" 'undo)
+(bind-keys global-keymap "W-~" 'undo-redo)
+(bind-keys global-keymap "W-;" 'repel-toggle)
+(bind-keys global-keymap "W-\\" 'mwtile-windows)
+
+(bind-keys window-keymap "W-," 'wy-lower-window-layer)
+(bind-keys window-keymap "W-." 'wy-raise-window-layer)
+(bind-keys window-keymap "W-/" 'wy-reset-window-layer)
+(bind-keys global-keymap "W-'" '(wy-warp-to 0.68 0.68))
+
+(bind-keys global-keymap "W-Insert" '(system "import -window root root.png &"))
+(bind-keys global-keymap "W-DEL"    '(system "lxtask &"))
+(bind-keys global-keymap "W-Home"   '(system "amixer -q sset Master playback 5%- &"))
+(bind-keys global-keymap "W-End"    '(system "amixer -q sset Master playback 5%+ &"))
+(bind-keys global-keymap "W-ESC"    'iswitch-window)
+
+(bind-keys global-keymap "W-x" 'run-application)
+
+(define-command 'emacs (lambda () (emacs-run "t" 'frame))) (bind-keys global-keymap "W-C" 'emacs)
+(define-command 'edit emacs-edit #:spec "FEdit file:")     (bind-keys global-keymap "W-c" 'edit)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; HotMove & HotSpot
+(defvar-setq bottom-edge-move-function
+ (lambda () (let ((win (current-event-window))) (mwrsk-grid-resize-place-window 2 win) (release-windows #:center win))))
+
+(defvar-setq left-edge-move-function
+ (lambda () (let ((win (current-event-window))) (mwrsk-grid-resize-place-window 4 win) (release-windows #:center win))))
+
+(defvar-setq right-edge-move-function
+ (lambda () (let ((win (current-event-window))) (mwrsk-grid-resize-place-window 6 win) (release-windows #:center win))))
+
+(defvar-setq top-edge-move-function
+ (lambda () (let ((win (current-event-window))) (mwrsk-grid-resize-place-window 8 win) (release-windows #:center win))))

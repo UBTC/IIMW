@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<JWM>
+
+<!-- JWM configuration
+
+m.w.'s JWM configuration (~/.jwmrc)
+
+ 20130530  0 : the basic configuration;
+                   refers to the help pages ["man jwm" and http://joewing.net/projects/jwm/config.shtml],
+                             Adamlau's configuration [https://bbs.archlinux.org/viewtopic.php?id=94120],
+                             my previous configurations for SAWFISH, WMII, I3WM, XMONAD, OPENBOX, etc.
+
+               Programs in use
+                   emacs, pcmanfm, suckless-tools (dmenu, slock) (-, scrot, gmrun, evince, catfish-), etc.
+
+
+ 20130531  1 : jumpto desktop# added
+               change the "JWM" button to "mEnu"
+               use the item of desktops with "W-d" in rootmenu
+               some other minor revisions
+
+           2 : replace all the ALT key with mod4 (the win flag key)
+               use only 1 desktop now
+               change onroot="3" (and root:3) to 1
+               change insert mode of TaskListStyle to left
+               mod4+L/R changed to switch tasks
+
+
+ 20130601  3 : revised the startup/shutdown programs
+               change xscreensaver to slock
+               removed the xfce powermanager
+               added fcitx, mentohust (for the poor Chinese guys only)
+               does not use with lxsession in lxde anylonger
+
+           4 : added keybindings for fullscreen and window-menu
+               revised the reboot/shutdown/suspend/hibernate actions in the rootmenu
+               removed restart jwm and edit .jwmrc from the rootmenu
+
+
+ 20130607  5 : fixed logout programs, since
+                            the xsession-manager may be running
+               format some code alignment
+               revise/reduce some keybindings
+               reduce some items from the root menu
+               ( Keep it simple, stupid :-)
+
+           6 : exec:gmrun evince catfish scrot alsamixergui;
+               exec:x-terminal-emulator -e 'ipython - -pylab';
+               resize move fullscreen
+               - - - that are the commands that have been dropped in ver 5
+
+
+ 20130611  7 : revised some keybindings
+               some other minor revisions
+               back to 2 desktops, mod4+L/R jump between them
+
+
+ 20140611  8 : revised StartupCommand
+               change editor to gvim
+               some other minor revisions
+
+ 20151128  9 : revised StartupCommand
+               change editor to nvim
+               change most key bindings
+               change a lot of styles
+               some other minor revisions
+
+By M.W. (mogeiwang@gmail.com). -->
+
+<RootMenu height="0" onroot="1">
+    <Program label="Doc Manager">pcmanfm</Program>
+    <Program label="Editing txt">
+        stterm -c Neovim -T Neovim -f 'Liberation Mono:pixelsize=15:antialias=true:autohint=true' -e fish -c 'nvim'
+    </Program>
+    <Program label="Web Browser">firefox</Program>
+    <Program label="Sh Terminal">roxterm</Program>
+
+    <Separator/>
+
+    <Program  label="z  Launcher">dmenu_run</Program>
+    <Desktops label="a  Desktops"></Desktops>
+    <Program  label="q  thisMenu">:</Program>
+    <Include>/etc/jwm/debian-menu</Include>
+
+    <Separator/>
+
+    <Program label="Suspend">
+        dbus-send --system --print-reply --dest=org.freedesktop.Hal /org/freedesktop/Hal/devices/computer org.freedesktop.Hal.Device.SystemPowerManagement.Suspend int32:0
+    </Program>
+
+    <Program label="Reboot">
+        dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart
+    </Program>
+
+    <Program label="Shutdown">
+        dbus-send --system --print-reply --dest=org.freedesktop.ConsoleKit /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop
+    </Program>
+
+    <!-- Restart label="Reconf"></Restart -->
+    <Exit label="Logout"></Exit>
+    <!-- Program label="Logout">
+        if test $( pgrep -f lxsession | wc -l ) -eq 0
+        ; then jwm -exit
+        ; else lxsession-logout
+        ; fi
+    </Program -->
+</RootMenu>
+
+<!-- Additional tray attributes: autohide, width, border, layer, layout -->
+<Tray  x="0" y="-1" height="30" autohide="false">
+   <!-- Additional TrayButton attribute: label -->
+   <TrayButton label="menu">root:1</TrayButton>
+   <TrayButton label="/">showdesktop</TrayButton>
+   <!-- Additional Pager attribute: labeled -->
+   <Pager labeled="true"/>
+   <TaskList maxwidth="256"/>
+   <Dock/>
+   <!-- Additional Swallow attribute: height -->
+   <Swallow name="xload" width="64">
+      xload -nolabel -bg black -fg red -hl white
+   </Swallow>
+   <Clock format="%T">roxterm</Clock>
+</Tray>
+
+<!-- Visual Styles -->
+<WindowStyle>
+   <Font>-*-fixed-*-r-*-*-10-*-*-*-*-*-*-*</Font>
+   <Width>4</Width>
+   <Height>20</Height>
+   <Active>
+      <Text>white</Text>
+   <!-- #DEBIAN <Title>#70849d:#2e3a67</Title> -->
+      <Title>gray30:gray60</Title>
+      <Outline>black</Outline>
+      <Opacity>1.0</Opacity>
+   </Active>
+   <Inactive>
+      <Text>#aaaaaa</Text>
+      <Title>#808488:#303438</Title>
+      <Outline>black</Outline>
+      <Opacity>0.5:0.9:0.1</Opacity>
+   </Inactive>
+</WindowStyle>
+
+<TaskListStyle>
+   <Font>-*-fixed-*-r-*-*-10-*-*-*-*-*-*-*</Font>
+   <ActiveForeground>black</ActiveForeground>
+   <ActiveBackground>gray75:gray90</ActiveBackground>
+   <Foreground>black</Foreground>
+   <Background>gray15:white</Background>
+</TaskListStyle>
+
+<!-- Additional TrayStyle attribute: insert -->
+<TrayStyle>
+   <Font>-*-fixed-*-r-*-*-10-*-*-*-*-*-*-*</Font>
+   <Background>gray90</Background>
+   <Foreground>black</Foreground>
+   <Opacity>0.75</Opacity>
+</TrayStyle>
+
+<PagerStyle>
+   <Outline>black</Outline>
+   <Foreground>gray90</Foreground>
+   <Background>#808488</Background>
+   <ActiveForeground>#70849d</ActiveForeground>
+   <ActiveBackground>#2e3a67</ActiveBackground>
+</PagerStyle>
+
+<MenuStyle>
+   <Font>-*-fixed-*-r-*-*-10-*-*-*-*-*-*-*</Font>
+   <Foreground>black</Foreground>
+   <Background>gray90</Background>
+   <ActiveForeground>white</ActiveForeground>
+   <ActiveBackground>#70849d:#2e3a67</ActiveBackground>
+   <Opacity>0.85</Opacity>
+</MenuStyle>
+
+<PopupStyle>
+   <Font>-*-fixed-*-r-*-*-10-*-*-*-*-*-*-*</Font>
+   <Outline>black</Outline>
+   <Foreground>black</Foreground>
+   <Background>yellow</Background>
+</PopupStyle>
+
+<Desktops height="1" width="2">
+      <Background type="image">/export0/images/formulae.jpg</Background>
+</Desktops>
+
+<IconPath>
+    /usr/share/icons/wm-icons/32x32-gant
+</IconPath>
+
+<DoubleClickSpeed>400</DoubleClickSpeed>
+<DoubleClickDelta>2</DoubleClickDelta>
+<FocusModel>click</FocusModel>
+<SnapMode distance="10">border</SnapMode>
+<MoveMode>opaque</MoveMode>
+<ResizeMode>opaque</ResizeMode>
+
+<Key key="Up">up</Key>
+<Key key="Down">down</Key>
+<Key key="Right">right</Key>
+<Key key="Left">left</Key>
+<Key key="Return">select</Key>
+<Key key="Escape">escape</Key>
+
+<Key mask="4" key="d">exec:pcmanfm</Key>
+<Key mask="4" key="e">exec:stterm -c Neovim -T Neovim -f 'Liberation Mono:pixelsize=15:antialias=true:autohint=true' -e fish -c 'nvim'</Key>
+<Key mask="4" key="w">exec:firefox</Key>
+<Key mask="4" key="s">exec:roxterm</Key>
+<Key mask="4" key="q">root:1</Key>
+<Key mask="4" key="a">showdesktop</Key>
+<Key mask="4" key="x">window</Key>
+<Key mask="4" key="z">exec:dmenu_run -i -fn '-bitstream-*-*-*-*-*-15-*-*-*-*-*-*-*'</Key>
+<Key mask="4S" key="z">exec:bash -c "cat /dev/null | dmenu -i -fn '-bitstream-*-*-*-*-*-15-*-*-*-*-*-*-*' | xargs -i roxterm -e {}"</Key>
+<Key mask="4S" key="c">close</Key>
+<Key mask="4" key="r">exec:slock</Key>
+
+<Key mask="4" key="Down">minimize</Key>
+<Key mask="4" key="Up">maximize</Key>
+<Key mask="4" key="Tab"> nextstacked</Key>
+<Key mask="4S" key="Tab">prevstacked</Key>
+<Key mask="4" key="Left"> ldesktop</Key>
+<Key mask="4" key="Right">rdesktop</Key>
+<!-- Key mask="4S" key="Left"> sendl</Key -->
+<!-- Key mask="4S" key="Right">sendr</Key -->
+<Key mask="4" key="#">desktop#</Key>
+
+<StartupCommand>
+    xsetroot -solid black -cursor_name left_ptr ;
+    setxkbmap -option caps:swapescape ;
+    xautolock -time 5 -locker slock ;
+    pactl set-sink-volume 0 '10%' ;
+    xfce4-power-manager ;
+    xbacklight = 20% ;
+    fcitx-autostart ;
+    nm-applet ;
+    megasync ;
+    skype ;
+    play /home/mw/MEGAsync/Music/login-sound/ubuntu11/desktop-login.ogg
+</StartupCommand>
+
+<RestartCommand>
+    pkill megasync ; megasync ;
+    pkill skype ; skype ;
+</RestartCommand>
+
+<ShutdownCommand> </ShutdownCommand>
+
+</JWM>

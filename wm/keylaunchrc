@@ -1,0 +1,56 @@
+# Format:
+# key=...KeyName:Command
+#
+# *.. Shift
+# .*. Ctrl
+# ..* Alt
+
+key=.**q:dmenu_run -i -fn '-bitstream-*-*-*-*-*-22-*-*-*-*-*-*-*'
+key=***q:xfce4-appfinder --no-server
+key=.**s:xfce4-terminal
+key=.**e:stterm -c Neovim -T Neovim -f 'Liberation Mono:pixelsize=15:antialias=true:autohint=true' -e fish -c 'nvim'
+key=.**d:thunar
+key=.**w:firefox
+key=.**r:amixer -D pulse sset Master 5%
+key=***r:amixer -D pulse sset Master 20%
+
+key=.**Left:wmctrl -s 0
+key=.**Right:wmctrl -s 1
+key=***Left:wmctrl -r :ACTIVE: -t 0;wmctrl -s 0
+key=***Right:wmctrl -r :ACTIVE: -t 1;wmctrl -s 1
+key=.**Up:wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
+key=.**Down:wmctrl -r :ACTIVE: -b toggle,hidden
+
+key=.**i:amixer -D pulse sset Master 10%-
+key=***i:amixer -D pulse sset Master 5%+
+key=.**o:xbacklight -10%
+key=***o:xbacklight +5%
+
+
+# 1366x768:
+#   738./2=369.0  738./4=184.5
+#   1366./2=683.0 1366./4=341.5
+#   738./3=246.0
+#   1366./3=455.3
+# 0,30,369,184,341,399=369+30
+key=.**t:wmctrl -r :ACTIVE: -e 0,0,30,683,369
+key=.**y:wmctrl -r :ACTIVE: -e 0,341,30,683,369
+key=.**u:wmctrl -r :ACTIVE: -e 0,683,30,683,369
+key=.**g:wmctrl -r :ACTIVE: -e 0,0,184,683,369
+key=.**h:wmctrl -r :ACTIVE: -e 0,341,184,683,369
+key=.**j:wmctrl -r :ACTIVE: -e 0,683,184,683,369
+key=.**b:wmctrl -r :ACTIVE: -e 0,0,399,683,369
+key=.**n:wmctrl -r :ACTIVE: -e 0,341,399,683,369
+key=.**m:wmctrl -r :ACTIVE: -e 0,683,399,683,369
+
+# 0,30,246,455,276=246+30,522=246*2+30,910=455*2
+key=***t:wmctrl -r :ACTIVE: -e 0,0,30,455,246
+key=***y:wmctrl -r :ACTIVE: -e 0,455,30,455,246
+key=***u:wmctrl -r :ACTIVE: -e 0,910,30,455,246
+key=***g:wmctrl -r :ACTIVE: -e 0,0,276,455,246
+key=***h:wmctrl -r :ACTIVE: -e 0,455,276,455,246
+key=***j:wmctrl -r :ACTIVE: -e 0,910,276,455,246
+key=***b:wmctrl -r :ACTIVE: -e 0,0,522,455,246
+key=***n:wmctrl -r :ACTIVE: -e 0,455,522,455,246
+key=***m:wmctrl -r :ACTIVE: -e 0,910,522,455,246
+

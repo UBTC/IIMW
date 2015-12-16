@@ -1,0 +1,10 @@
+# ~/.ssh/config
+# ssh -X server
+# sftp://server
+HOST server
+User mw---
+HostName 202.120.1.121
+Port 502
+TCPKeepAlive yes
+ServerAliveInterval 90
+ServerAliveCountMax 90000
