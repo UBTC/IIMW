@@ -35,6 +35,11 @@ sudo echo "tmpfs /mnt/tmpDisk tmpfs nodev,nosuid,noexec,nodiratime,size=1024M 0 
 mv ~/.ssh ~/.ssh.backup
 mkdir -p ~/.ssh
 cp ./shell/config.ssh ~/.ssh/config
+# ---
+echo "seting up github user!!! <<< --- Please check again!!!"
+git config --global push.default simple
+git config --global user.name mogeiwang
+git config --global user.email mogeiwang@gmail.com
 
 echo "configuring"
 mv ~/.config/openbox ~/.config/openbox.backup
