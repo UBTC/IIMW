@@ -16,9 +16,13 @@ sudo apt-get install neovim firefox ipython obconf goldendict alsamixergui \
   plank gdebi auctex xfce4 clamav aspell exuberant-ctags python-setuptools \
   gksu python-sklearn python-matplotlib python-sympy python-pandas openbox \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
-  amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels
+  amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
+  python-networkx python-igraph python-regex python-yaml python-scitools
+echo
+echo ">>> Installing all packages recommended by  python-scitools  is a good idea!!!"
 sudo apt-get autoremove --purge -y
 sudo pip install neovim
+sudo pip install pillow
 
 echo "setting up"
 sudo ufw enable
