@@ -17,7 +17,8 @@ sudo apt-get install neovim firefox ipython obconf goldendict alsamixergui \
   gksu python-sklearn python-matplotlib python-sympy python-pandas openbox \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
   amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
-  python-networkx python-igraph python-regex python-yaml python-scitools
+  python-networkx python-igraph python-yaml python-scitools xmonad mdpress \
+  python-regex yi
 echo
 echo ">>> Installing all packages recommended by  python-scitools  is a good idea!!!"
 sudo apt-get autoremove --purge -y
@@ -47,23 +48,26 @@ git config --global user.email mogeiwang@gmail.com
 
 echo "configuring"
 mv ~/.config/openbox ~/.config/openbox.backup
-git clone 'https://github.com/mogeiwang/boxer' ~/.config/openbox
+git clone 'https://github.com/ubtc/boxer' ~/.config/openbox
+mv ~/.xmonad ~/.xmonad.backup
+git clone '(https://github.com/ubtc/fmonad' ~/.xmonad
+xmonad --recompile
 # ---
 mv ~/.config/ipython ~/.config/ipython.backup
-git clone 'https://github.com/mogeiwang/wipy' ~/.config/ipython
+git clone 'https://github.com/ubtc/wipy' ~/.config/ipython
 # ---
 mv ~/.config/fish ~/.config/fish.backup
-git clone 'https://github.com/mogeiwang/goFish' ~/.config/fish
+git clone 'https://github.com/ubtc/goFish' ~/.config/fish
 # ---
 sh ~/.config/fish/instpkg.sh
 
 echo "editors"
 mv ~/.emacs.d ~/.emacs.d.backup
-git clone 'https://github.com/mogeiwang/vim-plus-emacs.git' ~/.emacs.d
+git clone 'https://github.com/ubtc/vpemacs.git' ~/.emacs.d
 emacs -nw --batch -l ~/.emacs.d/init.el -f package-refresh-contents
 # ---
 mv ~/.config/nvim ~/.config/nvim.backup
-git clone 'https://github.com/mogeiwang/vine' ~/.config/nvim
+git clone 'https://github.com/ubtc/vine' ~/.config/nvim
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 mkdir -p ~/.config/nvim/backup
 mkdir -p ~/.config/nvim/tmp
