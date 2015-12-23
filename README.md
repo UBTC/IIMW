@@ -8,7 +8,7 @@ Languages
 
 Win manager
 - [boxer](https://github.com/ubtc/boxer) for setting up [openbox window manager](http://openbox.org/wiki/Main_Page)
-- [fmonad](https://github.com/ubtc/fmonad) for setting up [xmonad window manager](http://xmonad.org/)
+- [monadic](https://github.com/ubtc/monadic) for setting up [xmonad window manager](http://xmonad.org/)
 
 Dock
 - zero configuration for [plank](http://wiki.go-docky.com/index.php?title=Plank:Introduction)

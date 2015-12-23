@@ -49,9 +49,14 @@ git config --global user.email mogeiwang@gmail.com
 echo "configuring"
 mv ~/.config/openbox ~/.config/openbox.backup
 git clone 'https://github.com/ubtc/boxer' ~/.config/openbox
+# ---
 mv ~/.xmonad ~/.xmonad.backup
-git clone '(https://github.com/ubtc/fmonad' ~/.xmonad
+git clone '(https://github.com/ubtc/monadic' ~/.xmonad
 xmonad --recompile
+# ---
+mv ~/.config/tint2 ~/.config/tint2.backup
+mkdir -p ~/.config/tint2
+cp ./wm/tint2rc ~/.config/tint2/
 # ---
 mv ~/.config/ipython ~/.config/ipython.backup
 git clone 'https://github.com/ubtc/wipy' ~/.config/ipython
