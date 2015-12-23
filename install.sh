@@ -18,7 +18,7 @@ sudo apt-get install neovim firefox ipython obconf goldendict alsamixergui \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
   amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
   python-networkx python-igraph python-yaml python-scitools xmonad mdpress \
-  python-regex yi
+  python-regex yi tint2
 echo
 echo ">>> Installing all packages recommended by  python-scitools  is a good idea!!!"
 sudo apt-get autoremove --purge -y
@@ -58,7 +58,6 @@ git clone 'https://github.com/ubtc/wipy' ~/.config/ipython
 # ---
 mv ~/.config/fish ~/.config/fish.backup
 git clone 'https://github.com/ubtc/goFish' ~/.config/fish
-# ---
 sh ~/.config/fish/instpkg.sh
 
 echo "editors"
