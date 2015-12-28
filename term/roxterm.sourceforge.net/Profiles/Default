@@ -1,6 +1,6 @@
 [roxterm profile]
 colour_scheme=
-font=Ubuntu Mono 12
+font=Ubuntu Mono 14
 scrollback_lines=100000
 scroll_on_keystroke=1
 win_title=%s roxterm
