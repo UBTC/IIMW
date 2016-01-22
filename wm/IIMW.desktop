@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=IIMW
+comment=Improving Improving M.W.
+Exec=/usr/bin/startIIMW
+TryExec=/usr/bin/startIIMW
+Type=Application
