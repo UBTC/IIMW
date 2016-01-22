@@ -5,35 +5,35 @@
 # .*. Ctrl
 # ..* Alt
 
-# Format:
-# key=...KeyName:Command
-#
-# *.. Shift
-# .*. Ctrl
-# ..* Alt
-
-key=..*F1:xfce4-appfinder --disable-server
+key=..*F1:wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
 key=..*F2:dmenu_run -i -fn '-bitstream-*-*-*-*-*-22-*-*-*-*-*-*-*'
-key=.**s:roxterm
-key=.**d:stterm -c Neovim -T Neovim -f 'Liberation Mono:pixelsize=15:antialias=true:autohint=true' -e fish -c 'nvim'
-key=.**e:pcmanfm
-key=.**w:firefox
-
 key=.**Left:wmctrl -s 0
 key=.**Right:wmctrl -s 1
 key=***Left:wmctrl -r :ACTIVE: -t 0;wmctrl -s 0
 key=***Right:wmctrl -r :ACTIVE: -t 1;wmctrl -s 1
-key=.**Up:wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
-key=.**Down:wmctrl -r :ACTIVE: -b toggle,hidden
 
-key=.**q:wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
-key=.**a:wmctrl -k on
-key=.**z:wmctrl -r :ACTIVE: -b toggle,hidden
+# key=..*F1:xfce4-appfinder --disable-server
+# key=..*F2:dmenu_run -i -fn '-bitstream-*-*-*-*-*-22-*-*-*-*-*-*-*'
+# key=.**s:roxterm
+# key=.**d:stterm -c Neovim -T Neovim -f 'Liberation Mono:pixelsize=15:antialias=true:autohint=true' -e fish -c 'nvim'
+# key=.**e:pcmanfm
+# key=.**w:firefox
 
-key=.**x:amixer -D pulse sset Master 10%-
-key=***x:amixer -D pulse sset Master 5%+
-key=.**c:xbacklight -10%
-key=***c:xbacklight +5%
+# key=.**Left:wmctrl -s 0
+# key=.**Right:wmctrl -s 1
+# key=***Left:wmctrl -r :ACTIVE: -t 0;wmctrl -s 0
+# key=***Right:wmctrl -r :ACTIVE: -t 1;wmctrl -s 1
+# key=.**Up:wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
+# key=.**Down:wmctrl -r :ACTIVE: -b toggle,hidden
+
+# key=.**q:wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
+# key=.**a:wmctrl -k on
+# key=.**z:wmctrl -r :ACTIVE: -b toggle,hidden
+
+# key=.**x:amixer -D pulse sset Master 10%-
+# key=***x:amixer -D pulse sset Master 5%+
+# key=.**c:xbacklight -10%
+# key=***c:xbacklight +5%
 
 # 1366x768:
 #   738./2=369.0  738./4=184.5
