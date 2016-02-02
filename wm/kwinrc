@@ -6,7 +6,7 @@ AnimationSpeed=3
 Backend=OpenGL
 Enabled=true
 GLColorCorrection=false
-GLCore=false
+GLCore=true
 GLLegacy=false
 GLPreferBufferSwap=a
 GLTextureFilter=1
@@ -18,7 +18,7 @@ UnredirectFullscreen=false
 XRenderSmoothScale=false
 
 [Desktops]
-Number=2
+Number=1
 Rows=1
 
 [Effect-BoxSwitch]
@@ -26,8 +26,8 @@ TabBox=false
 TabBoxAlternative=false
 
 [Effect-CoverSwitch]
-TabBox=false
-TabBoxAlternative=false
+TabBox=true
+TabBoxAlternative=true
 
 [Effect-Cube]
 BorderActivate=9
@@ -44,8 +44,8 @@ TabBox=false
 TabBoxAlternative=false
 
 [Effect-PresentWindows]
-BorderActivate=9
-BorderActivateAll=9
+BorderActivate=7
+BorderActivateAll=1
 BorderActivateClass=9
 
 [Effect-Zoom]
@@ -132,19 +132,19 @@ videowallEnabled=false
 [Style]
 BorderSize=1
 ButtonsOnLeft=M
-ButtonsOnRight=IAX
+ButtonsOnRight=X
 CustomButtonPositions=true
 PluginLib=kwin3_oxygen
 ShowToolTips=true
 
 [TabBox]
 ActivitiesMode=1
-ApplicationsMode=0
+ApplicationsMode=1
 BorderActivate=9
 BorderAlternativeActivate=9
 DesktopMode=1
-HighlightWindows=false
-LayoutName=informative
+HighlightWindows=true
+LayoutName=thumbnails
 ListMode=0
 MinimizedMode=0
 MultiScreenMode=0
@@ -155,7 +155,7 @@ SwitchingMode=0
 
 [TabBoxAlternative]
 ActivitiesMode=1
-ApplicationsMode=0
+ApplicationsMode=1
 BorderActivate=9
 BorderAlternativeActivate=9
 DesktopMode=1
@@ -172,8 +172,8 @@ SwitchingMode=0
 ActiveMouseScreen=false
 AutoRaise=false
 AutoRaiseInterval=750
-AutogroupInForeground=false
-AutogroupSimilarWindows=false
+AutogroupInForeground=true
+AutogroupSimilarWindows=true
 BorderSnapZone=10
 BorderlessMaximizedWindows=false
 CenterSnapZone=0
