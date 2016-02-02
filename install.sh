@@ -18,6 +18,7 @@ sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
   amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
   python-yaml python-scitools python-regex evince mdpress okular kwin nvim \
+  tmux konsole roxterm stterm
 echo
 echo ">>> Installing all packages recommended by  python-scitools  is a good idea!!!"
 sudo apt-get autoremove --purge -y
@@ -52,6 +53,10 @@ git clone 'https://github.com/ubtc/wipy' ~/.config/ipython
 mv ~/.config/fish ~/.config/fish.backup
 git clone 'https://github.com/ubtc/goFish' ~/.config/fish
 sh ~/.config/fish/instpkg.sh
+# ---
+mv ~/.tmux.conf ~/.tmux.conf.backup
+git clone https://github.com/ubtc/tmux-config.git ~/.tmux
+ln -s ~/.tmux/.tmux.conf ~/.tmux.conf
 
 echo "windows"
 mv ~/.kde/share/config/kwinrc ~/.kde/share/config/kwinrc.backup
