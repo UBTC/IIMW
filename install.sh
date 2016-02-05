@@ -2,10 +2,18 @@
 #  -*- coding:utf-8 -*-
 
 echo "installing"
-nano /etc/apt/sources.list
+sudo apt-get install lsb-core vim
+sudo echo '' >> /etc/apt/sources.list
+sudo echo '# Julia' >> /etc/apt/sources.list
+sudo echo 'deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
+sudo echo 'deb-src http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
+sudo echo '' >> /etc/apt/sources.list
+sudo echo '# neovim' >> /etc/apt/sources.list
+sudo echo 'deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
+sudo echo 'deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
+cat /etc/apt/sources.list
 sudo apt-get update -y
 sudo apt-get upgrade -y
-# PPA may be required by neovim:
 sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   wireshark catfish jabref xbacklight xarchiver alsa-utils python-networkx \
   ufw suckless-tools xautolock hamster-indicator emacs24 fish tor synaptic \
@@ -17,10 +25,10 @@ sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   gksu python-sklearn python-matplotlib python-sympy python-pandas dolphin \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
   amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
-  python-yaml python-scitools python-regex evince mdpress okular kwin nvim \
-  tmux konsole roxterm stterm
+  python-yaml python-scitools python-regex evince mdpress okular neovim sl \
+  tmux roxterm stterm kde-window-manager julia
 echo
-echo ">>> Installing all packages recommended by  python-scitools  is a good idea!!!"
+echo "Installing all packages recommended by  python-scitools  may be a good idea!"
 sudo apt-get autoremove --purge -y
 sudo pip install neovim
 sudo pip install pillow
@@ -43,7 +51,7 @@ cp ./shell/config.ssh ~/.ssh/config
 # ---
 echo "seting up github user!!! <<< --- Please check again!!!"
 git config --global push.default simple
-git config --global user.name mogeiwang
+git config --global user.name mogei
 git config --global user.email mogeiwang@gmail.com
 
 echo "Languages"
@@ -51,8 +59,13 @@ mv ~/.config/ipython ~/.config/ipython.backup
 git clone 'https://github.com/ubtc/wipy' ~/.config/ipython
 # ---
 mv ~/.config/fish ~/.config/fish.backup
-git clone 'https://github.com/ubtc/goFish' ~/.config/fish
-sh ~/.config/fish/instpkg.sh
+git clone 'https://github.com/ubtc/JuliaGoFish' ~/.config/fish
+sh ~/.config/fish/install_go_pkg.sh
+go env
+julia ~/.config/fish/install_jl_pkg.jl
+mkdir -p ~/julia/juliaFunc
+mv ~/.juliarc.jl ~/.julia.backup.jl
+cp ~/.config/fish/_juliarc.jl ~/.juliarc.jl
 # ---
 mv ~/.tmux.conf ~/.tmux.conf.backup
 git clone https://github.com/ubtc/tmux-config.git ~/.tmux
@@ -60,10 +73,10 @@ ln -s ~/.tmux/.tmux.conf ~/.tmux.conf
 
 echo "windows"
 mv ~/.kde/share/config/kwinrc ~/.kde/share/config/kwinrc.backup
-cp ./wm/kwinrc ~/.kde/share/config/kwinrc
-cp ./wm/_keylaunchrc ~/.keylaunchrc
-sudo cp ./wm/IIMW.desktop /usr/share/xsessions/
-sudo cp ./wm/startIIMW /usr/bin/
+cp ./kwinrc ~/.kde/share/config/kwinrc
+cp ./_keylaunchrc ~/.keylaunchrc
+sudo cp ./IIMW.desktop /usr/share/xsessions/
+sudo cp ./startIIMW /usr/bin/
 
 echo "editors"
 mv ~/.emacs.d ~/.emacs.d.backup

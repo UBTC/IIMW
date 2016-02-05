@@ -1,0 +1,13 @@
+# Format:
+# key=...KeyName:Command
+#
+# *.. Shift
+# .*. Ctrl
+# ..* Alt
+
+key=..*F1:dmenu_run -i -fn '-bitstream-*-*-*-*-*-22-*-*-*-*-*-*-*' -l 12
+key=..*F2:wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
+key=.**Left:wmctrl -s 0
+key=.**Right:wmctrl -s 1
+key=***Left:wmctrl -r :ACTIVE: -t 0;wmctrl -s 0
+key=***Right:wmctrl -r :ACTIVE: -t 1;wmctrl -s 1

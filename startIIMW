@@ -1,8 +1,6 @@
 #!/bin/sh
-# this is the file `/usr/bin/startIIMW`
 
 xbacklight = 20 &
-pkill docky; docky &
 pkill skype; skype &
 pkill megasync; megasync &
 pkill keylaunch; keylaunch &
@@ -15,6 +13,3 @@ pkill xfce4-power-manager; xfce4-power-manager &
 xautolock -time 5 -locker slock -nowlocker slock &
 play /home/mw/MEGAsync/Music/login-sound/ubuntu11/desktop-login.ogg
 kwin
-# gala
-# xfwm4
-# metacity

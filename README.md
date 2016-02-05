@@ -3,7 +3,7 @@
 Inheriting the previous version of [IIMW](https://code.google.com/p/iimw/), this repository collects scripts which are used for setting up my [Ubuntu](http://www.ubuntu.com/).
 
 Languages
-- [goFish](https://github.com/ubtc/goFish) for setting up [fish](http://fishshell.com/) and [golang](https://golang.org/)
+- [JuliaGoFish](https://github.com/ubtc/JuliaGoFish) for setting up [Julia](http://julialang.org/), [fish](http://fishshell.com/) and [golang](https://golang.org/)
 - [wipy](https://github.com/ubtc/wipy) for setting up [ipython](http://ipython.org/)
 
 Win manager
