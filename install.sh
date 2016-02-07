@@ -26,7 +26,7 @@ sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
   amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
   python-yaml python-scitools python-regex evince mdpress okular neovim sl \
-  tmux roxterm stterm kde-window-manager julia
+  tmux roxterm stterm kde-window-manager julia hdf5-tools
 echo
 echo "Installing all packages recommended by  python-scitools  may be a good idea!"
 sudo apt-get autoremove --purge -y
