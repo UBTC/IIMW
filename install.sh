@@ -16,7 +16,7 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   wireshark catfish jabref xbacklight xarchiver alsa-utils python-networkx \
-  ufw suckless-tools xautolock hamster-indicator emacs24 fish tor synaptic \
+  ufw suckless-tools xautolock hamster-indicator emacs24 tmux tor synaptic \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan python-chaco gtk-recordmydesktop \
   skype unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng \
@@ -26,16 +26,17 @@ sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
   amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
   python-yaml python-scitools python-regex evince mdpress okular neovim sl \
-  tmux roxterm stterm kde-window-manager julia hdf5-tools
+  zsh roxterm stterm kde-window-manager julia hdf5-tools curl
 echo
 echo "Installing all packages recommended by  python-scitools  may be a good idea!"
 sudo apt-get autoremove --purge -y
+sudo pip install jupyter
 sudo pip install neovim
 sudo pip install pillow
 
 echo "setting up"
 sudo ufw enable
-sudo chsh -s /usr/bin/fish
+sudo chsh -s /usr/bin/zsh
 sudo groupadd wireshark
 sudo chgrp wireshark /usr/bin/dumpcap
 sudo chmod 4755 /usr/bin/dumpcap
@@ -47,7 +48,9 @@ sudo echo "tmpfs /mnt/tmpDisk tmpfs nodev,nosuid,noexec,nodiratime,size=1024M 0 
 # ---
 mv ~/.ssh ~/.ssh.backup
 mkdir -p ~/.ssh
-cp ./shell/config.ssh ~/.ssh/config
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+mv ~/.zshrc .zshrc.omzs
+cp ./shell/_zshrc ~/.zshrc
 # ---
 echo "seting up github user!!! <<< --- Please check again!!!"
 git config --global push.default simple
@@ -58,18 +61,16 @@ echo "Languages"
 mv ~/.config/ipython ~/.config/ipython.backup
 git clone 'https://github.com/ubtc/wipy' ~/.config/ipython
 # ---
-mv ~/.config/fish ~/.config/fish.backup
-git clone 'https://github.com/ubtc/JuliaGoFish' ~/.config/fish
-sh ~/.config/fish/install_go_pkg.sh
+git clone 'https://github.com/ubtc/goJulia' ~/.goJulia
+sh ~/.goJulia/fish/install_go_pkg.sh
 go env
-julia ~/.config/fish/install_jl_pkg.jl
+julia ~/.goJulia/install_jl_pkg.jl
 mkdir -p ~/julia/juliaFunc
 mv ~/.juliarc.jl ~/.julia.backup.jl
-cp ~/.config/fish/_juliarc.jl ~/.juliarc.jl
+cp ~/.goJulia/_juliarc.jl ~/.juliarc.jl
 # ---
 mv ~/.tmux.conf ~/.tmux.conf.backup
-git clone https://github.com/ubtc/tmux-config.git ~/.tmux
-ln -s ~/.tmux/.tmux.conf ~/.tmux.conf
+cp ./term/_tmux.conf ~/.tmux.conf
 
 echo "windows"
 mv ~/.kde/share/config/kwinrc ~/.kde/share/config/kwinrc.backup
