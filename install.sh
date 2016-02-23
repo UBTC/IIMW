@@ -3,6 +3,9 @@
 
 echo "installing"
 sudo apt-get install lsb-core vim
+sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
+sudo apt-get update
+sudo apt-get install emacs-snapshot-el emacs-snapshot
 sudo echo '' >> /etc/apt/sources.list
 sudo echo '# Julia' >> /etc/apt/sources.list
 sudo echo 'deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
@@ -16,7 +19,7 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   wireshark catfish jabref xbacklight xarchiver alsa-utils python-networkx \
-  ufw suckless-tools xautolock hamster-indicator emacs24 tmux tor synaptic \
+  ufw suckless-tools xautolock hamster-indicator tmux tor synaptic roxterm \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan python-chaco gtk-recordmydesktop \
   skype unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng \
@@ -26,7 +29,7 @@ sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
   amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
   python-yaml python-scitools python-regex evince mdpress okular neovim sl \
-  zsh roxterm stterm kde-window-manager julia hdf5-tools curl
+  zsh stterm kde-window-manager julia hdf5-tools curl
 echo
 echo "Installing all packages recommended by  python-scitools  may be a good idea!"
 sudo apt-get autoremove --purge -y
@@ -54,7 +57,7 @@ cp ./shell/_zshrc ~/.zshrc
 # ---
 echo "seting up github user!!! <<< --- Please check again!!!"
 git config --global push.default simple
-git config --global user.name mogei
+git config --global user.name mogeiwang
 git config --global user.email mogeiwang@gmail.com
 
 echo "Languages"
@@ -81,7 +84,7 @@ sudo cp ./startIIMW /usr/bin/
 
 echo "editors"
 mv ~/.emacs.d ~/.emacs.d.backup
-git clone 'https://github.com/ubtc/vpemacs.git' ~/.emacs.d
+git clone 'https://github.com/ubtc/PULSE.git' ~/.emacs.d
 emacs -nw --batch -l ~/.emacs.d/init.el -f package-refresh-contents
 # ---
 mv ~/.config/nvim ~/.config/nvim.backup
