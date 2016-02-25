@@ -2,10 +2,9 @@
 #  -*- coding:utf-8 -*-
 
 echo "installing"
-sudo apt-get install lsb-core vim
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 sudo apt-get update
-sudo apt-get install emacs-snapshot-el emacs-snapshot
+sudo apt-get install
 sudo echo '' >> /etc/apt/sources.list
 sudo echo '# Julia' >> /etc/apt/sources.list
 sudo echo 'deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
@@ -29,7 +28,8 @@ sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
   amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
   python-yaml python-scitools python-regex evince mdpress okular neovim sl \
-  zsh stterm kde-window-manager julia hdf5-tools curl
+  zsh julia stterm kde-window-manager hdf5-tools curl fish emacs-snapshot  \
+  lsb-core vim emacs-snapshot-el
 echo
 echo "Installing all packages recommended by  python-scitools  may be a good idea!"
 sudo apt-get autoremove --purge -y
@@ -54,6 +54,7 @@ mkdir -p ~/.ssh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 mv ~/.zshrc .zshrc.omzs
 cp ./shell/_zshrc ~/.zshrc
+cp ./shell/config.fish ~/.config/fish/
 # ---
 echo "seting up github user!!! <<< --- Please check again!!!"
 git config --global push.default simple
@@ -65,7 +66,7 @@ mv ~/.config/ipython ~/.config/ipython.backup
 git clone 'https://github.com/ubtc/wipy' ~/.config/ipython
 # ---
 git clone 'https://github.com/ubtc/goJulia' ~/.goJulia
-sh ~/.goJulia/fish/install_go_pkg.sh
+sh ~/.goJulia/install_go_pkg.sh
 go env
 julia ~/.goJulia/install_jl_pkg.jl
 mkdir -p ~/julia/juliaFunc
