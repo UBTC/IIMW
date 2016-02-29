@@ -85,7 +85,8 @@ export ARCHFLAGS="-arch x86_64"
 # For a full list of active aliases, run `alias`.
 #
 alias ed='vim'
-alias em='emacs'
+alias em='emacs -nw'
+alias ec='emacs'
 alias vi='gvim'
 alias ne='nvim'
 alias nd='nvim -d'

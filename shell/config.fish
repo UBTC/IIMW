@@ -23,6 +23,8 @@ set -x JULIAFUNCDIR ~/julia/juliaFunc
 
 # Aliases
 alias ed='vim'
+alias em='emacs -nw'
+alias ec='emacs'
 alias vi='gvim'
 alias ne='nvim'
 alias nd='nvim -d'
