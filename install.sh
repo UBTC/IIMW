@@ -2,9 +2,8 @@
 #  -*- coding:utf-8 -*-
 
 echo "installing"
+sudo apt-get install lsb-core -y
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
-sudo apt-get update
-sudo apt-get install
 sudo echo '' >> /etc/apt/sources.list
 sudo echo '# Julia' >> /etc/apt/sources.list
 sudo echo 'deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
@@ -28,13 +27,14 @@ sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
   vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
   amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
   python-yaml python-scitools python-regex evince mdpress okular neovim sl \
-  zsh julia stterm kde-window-manager hdf5-tools curl fish emacs-snapshot  \
-  lsb-core vim emacs-snapshot-el
+  zsh julia stterm kde-window-manager emacs-snapshot emacs-snapshot-el vim \
+  hdf5-tools curl fish -y
 echo
 echo "Installing all packages recommended by  python-scitools  may be a good idea!"
 sudo apt-get autoremove --purge -y
 sudo pip install jupyter
 sudo pip install neovim
+sudo pip install pynvim
 sudo pip install pillow
 
 echo "setting up"

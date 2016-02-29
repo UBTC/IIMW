@@ -30,8 +30,8 @@ alias jl='julia'
 alias jp='jupyter'
 alias jn='jupyter notebook'
 alias jc='jupyter nbconvert --to'
-alias mm='tmux -2; fish'
-alias tmux='tmux -2; fish'
+alias mm='tmux -2'
+alias tmux='tmux -2'
 alias nv="stterm -c Neovim -T Neovim -f 'Liberation Mono:pixelsize=15:antialias=true:autohint=true' -e fish -c 'nvim'"
 alias mc="pandoc -f markdown+lhs slides.md -o slides.html -t dzslides -i -s -S --toc"
 alias gb="go build -compiler gccgo -gccgoflags='-O3' "
