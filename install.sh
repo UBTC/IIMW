@@ -1,44 +1,45 @@
 #  !/usr/bin/env bash
 #  -*- coding:utf-8 -*-
 
-echo "installing"
-sudo apt-get install lsb-core -y
+echo "Installing"
+sudo apt-get install lsb-core vim -y
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
-sudo echo '' >> /etc/apt/sources.list
-sudo echo '# Julia' >> /etc/apt/sources.list
-sudo echo 'deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
-sudo echo 'deb-src http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
-sudo echo '' >> /etc/apt/sources.list
-sudo echo '# neovim' >> /etc/apt/sources.list
-sudo echo 'deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
-sudo echo 'deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu ' $(lsb_release -cs) ' main' >> /etc/apt/sources.list
-cat /etc/apt/sources.list
+sudo echo "" >> /etc/apt/sources.list
+sudo echo "# Julia" >> /etc/apt/sources.list
+sudo echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
+sudo echo "deb-src http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
+sudo echo "" >> /etc/apt/sources.list
+sudo echo "# neovim" >> /etc/apt/sources.list
+sudo echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
+sudo echo "deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
+cat /etc/apt/sources.list # vim /etc/apt/sources.list
 sudo apt-get update -y
 sudo apt-get upgrade -y
-sudo apt-get install firefox ipython goldendict alsamixergui python-igraph \
-  wireshark catfish jabref xbacklight xarchiver alsa-utils python-networkx \
+
+sudo apt-get install firefox goldendict alsamixergui vym golang sl calibre \
+  wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 evince zsh \
   ufw suckless-tools xautolock hamster-indicator tmux tor synaptic roxterm \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
-  transmission-gtk zip pyflakes gtkorphan python-chaco gtk-recordmydesktop \
+  transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu dolphin \
   skype unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
-  docky gdebi auctex xfce4 clamav aspell exuberant-ctags python-setuptools \
-  gksu python-sklearn python-matplotlib python-sympy python-pandas dolphin \
-  vym golang python-scipy python-scientific python-pygraphviz pep8 calibre \
-  amule gimp gmchess python-simpy gnupg gnuplot openvpn python-statsmodels \
-  python-yaml python-scitools python-regex evince mdpress okular neovim sl \
-  zsh julia stterm kde-window-manager emacs-snapshot emacs-snapshot-el vim \
-  hdf5-tools curl fish -y
-echo
-echo "Installing all packages recommended by  python-scitools  may be a good idea!"
-sudo apt-get autoremove --purge -y
-sudo pip install jupyter
-sudo pip install neovim
-sudo pip install pynvim
-sudo pip install pillow
-sudo pip install plotly
+  docky gdebi auctex xfce4 clamav aspell exuberant-ctags amule vim gmchess \
+  gnuplot julia stterm kde-window-manager emacs-snapshot emacs-snapshot-el \
+  gnupg openvpn mdpress okular neovim gimp hdf5-tools curl fish -y
 
-echo "setting up"
+sudo apt-get install -y ipython3 ipython3-notebook ipython3-qtconsole python3-regex python3-pip \
+  python3-pygraph python3-setuptools python3-yaml python3-matplotlib python3-sympy python3-h5py \
+  python3-networkx python3-scipy python3-simpy python3-pandas python3-mpmath
+
+sudo pip3 install jupyter
+sudo pip3 install neovim
+sudo pip3 install pillow
+sudo pip3 install plotly
+sudo pip3 install statsmodels
+
+sudo apt-get autoremove --purge -y
+
+echo "Setting"
 sudo ufw enable
 sudo chsh -s /usr/bin/zsh
 sudo groupadd wireshark
@@ -64,9 +65,9 @@ git config --global user.email mogeiwang@gmail.com
 
 echo "Languages"
 mv ~/.config/ipython ~/.config/ipython.backup
-git clone 'https://github.com/ubtc/wipy' ~/.config/ipython
+git clone "https://github.com/ubtc/wipy" ~/.config/ipython
 # ---
-git clone 'https://github.com/ubtc/goJulia' ~/.goJulia
+git clone "https://github.com/ubtc/goJulia" ~/.goJulia
 sh ~/.goJulia/install_go_pkg.sh
 go env
 julia ~/.goJulia/install_jl_pkg.jl
@@ -77,23 +78,24 @@ cp ~/.goJulia/_juliarc.jl ~/.juliarc.jl
 mv ~/.tmux.conf ~/.tmux.conf.backup
 cp ./term/_tmux.conf ~/.tmux.conf
 
-echo "windows"
+echo "Windows"
 mv ~/.kde/share/config/kwinrc ~/.kde/share/config/kwinrc.backup
 cp ./kwinrc ~/.kde/share/config/kwinrc
 cp ./_keylaunchrc ~/.keylaunchrc
 sudo cp ./IIMW.desktop /usr/share/xsessions/
 sudo cp ./startIIMW /usr/bin/
+sudo chmod +r /usr/bin/startIIMW
 
-echo "editors"
+echo "Editors"
 mv ~/.emacs.d ~/.emacs.d.backup
-git clone 'https://github.com/ubtc/PULSE.git' ~/.emacs.d
+git clone "https://github.com/ubtc/PULSE.git" ~/.emacs.d
 emacs -nw --batch -l ~/.emacs.d/init.el -f package-refresh-contents
 # ---
 mv ~/.config/nvim ~/.config/nvim.backup
-git clone 'https://github.com/ubtc/vine' ~/.config/nvim
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+git clone "https://github.com/ubtc/vine" ~/.config/nvim
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 mkdir -p ~/.config/nvim/backup
 mkdir -p ~/.config/nvim/tmp
 nvim --headless -c PlugInstall
 
-echo "done"
+echo "Done"

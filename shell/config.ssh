@@ -1,8 +1,8 @@
 # ~/.ssh/config
-# ssh -X server
-# sftp://server
-HOST server
-User mw---
+# ssh -X svr
+# sftp://svr
+HOST svr
+User m..
 HostName 202.120.1.121
 Port 502
 TCPKeepAlive yes
