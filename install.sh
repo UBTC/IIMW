@@ -36,6 +36,7 @@ sudo pip install jupyter
 sudo pip install neovim
 sudo pip install pynvim
 sudo pip install pillow
+sudo pip install plotly
 
 echo "setting up"
 sudo ufw enable
