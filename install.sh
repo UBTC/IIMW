@@ -25,7 +25,7 @@ sudo apt-get install firefox goldendict alsamixergui vym golang sl calibre \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   docky gdebi auctex xfce4 clamav aspell exuberant-ctags amule vim gmchess \
   gnuplot julia stterm kde-window-manager emacs-snapshot emacs-snapshot-el \
-  gnupg openvpn mdpress okular neovim gimp hdf5-tools curl fish -y
+  gnupg openvpn mdpress okular neovim gimp hdf5-tools curl fish iptux -y
 
 sudo apt-get install -y ipython3 ipython3-notebook ipython3-qtconsole python3-regex python3-pip \
   python3-pygraph python3-setuptools python3-yaml python3-matplotlib python3-sympy python3-h5py \
@@ -51,14 +51,7 @@ sudo mkdir /mnt/tmpDisk
 mount -t tmpfs -o size=1024m tmpfs /mnt/tmpDisk
 sudo echo "tmpfs /mnt/tmpDisk tmpfs nodev,nosuid,noexec,nodiratime,size=1024M 0 0" >> /etc/fstab
 # ---
-mv ~/.ssh ~/.ssh.backup
-mkdir -p ~/.ssh
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-mv ~/.zshrc .zshrc.omzs
-cp ./shell/_zshrc ~/.zshrc
-cp ./shell/config.fish ~/.config/fish/
-# ---
-echo "seting up github user!!! <<< --- Please check again!!!"
+echo -e "\n\nseting up github user!!! <<< --- Please check again!!!\n\n"
 git config --global push.default simple
 git config --global user.name mogeiwang
 git config --global user.email mogeiwang@gmail.com
@@ -74,9 +67,6 @@ julia ~/.goJulia/install_jl_pkg.jl
 mkdir -p ~/julia/juliaFunc
 mv ~/.juliarc.jl ~/.julia.backup.jl
 cp ~/.goJulia/_juliarc.jl ~/.juliarc.jl
-# ---
-mv ~/.tmux.conf ~/.tmux.conf.backup
-cp ./term/_tmux.conf ~/.tmux.conf
 
 echo "Windows"
 mv ~/.kde/share/config/kwinrc ~/.kde/share/config/kwinrc.backup
@@ -96,6 +86,20 @@ git clone "https://github.com/ubtc/vine" ~/.config/nvim
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 mkdir -p ~/.config/nvim/backup
 mkdir -p ~/.config/nvim/tmp
-nvim --headless -c PlugInstall
+# nvim --headless -c PlugInstall
 
+echo "Shells"
+mv ~/.tmux.conf ~/.tmux.conf.backup
+cp ./term/_tmux.conf ~/.tmux.conf
+# ---
+mv ~/.ssh ~/.ssh.backup
+mkdir -p ~/.ssh
+cp ./shell/config.ssh ~/.ssh/config
+# ---
+cp ./shell/config.fish ~/.config/fish/
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+mv ~/.zshrc .zshrc.omzs
+cp ./shell/_zshrc ~/.zshrc
+
+echo -e "Run `PlugInstall` in neovim to use plugins;\n\n vim has been installed, but has not been set up."
 echo "Done"
