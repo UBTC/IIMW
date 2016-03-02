@@ -87,6 +87,7 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs "https://raw.githubuser
 mkdir -p ~/.config/nvim/backup
 mkdir -p ~/.config/nvim/tmp
 # nvim --headless -c PlugInstall
+echo -e "Run `PlugInstall` in neovim to use plugins;\n\n vim has been installed, but has not been set up."
 
 echo "Shells"
 mv ~/.tmux.conf ~/.tmux.conf.backup
@@ -101,5 +102,4 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 mv ~/.zshrc .zshrc.omzs
 cp ./shell/_zshrc ~/.zshrc
 
-echo -e "Run `PlugInstall` in neovim to use plugins;\n\n vim has been installed, but has not been set up."
 echo "Done"
