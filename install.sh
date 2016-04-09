@@ -25,16 +25,19 @@ sudo apt-get install firefox goldendict alsamixergui vym golang sl calibre \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   docky gdebi auctex xfce4 clamav aspell exuberant-ctags amule vim gmchess \
   gnuplot julia stterm kde-window-manager emacs-snapshot emacs-snapshot-el \
-  gnupg openvpn mdpress okular neovim gimp hdf5-tools curl fish iptux -y
+  gnupg openvpn mdpress okular neovim gimp hdf5-tools curl fish -y # iptux
 
 sudo apt-get install -y ipython3 ipython3-notebook ipython3-qtconsole python3-regex python3-pip \
   python3-pygraph python3-setuptools python3-yaml python3-matplotlib python3-sympy python3-h5py \
   python3-networkx python3-scipy python3-simpy python3-pandas python3-mpmath
+# Instead of `apt-get install`, maybe more `pip3 install` for keeping up to date..
 
 sudo pip3 install jupyter
 sudo pip3 install neovim
 sudo pip3 install pillow
-sudo pip3 install plotly
+# sudo pip3 install plotly
+# sudo pip3 install six
+sudo pip3 install future
 sudo pip3 install statsmodels
 
 sudo apt-get autoremove --purge -y
