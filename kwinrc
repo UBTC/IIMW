@@ -1,5 +1,5 @@
 [$Version]
-update_info=kwin_remove_effects.upd:kwin4.7_effects
+update_info=kwin_remove_effects.upd:kwin4.10_effects
 
 [Compositing]
 AnimationSpeed=3
@@ -18,7 +18,7 @@ UnredirectFullscreen=false
 XRenderSmoothScale=false
 
 [Desktops]
-Number=1
+Number=2
 Rows=1
 
 [Effect-BoxSwitch]
@@ -26,8 +26,8 @@ TabBox=false
 TabBoxAlternative=false
 
 [Effect-CoverSwitch]
-TabBox=true
-TabBoxAlternative=true
+TabBox=false
+TabBoxAlternative=false
 
 [Effect-Cube]
 BorderActivate=9
@@ -144,7 +144,7 @@ BorderActivate=9
 BorderAlternativeActivate=9
 DesktopMode=1
 HighlightWindows=true
-LayoutName=thumbnails
+LayoutName=big_icons
 ListMode=0
 MinimizedMode=0
 MultiScreenMode=0
@@ -160,7 +160,7 @@ BorderActivate=9
 BorderAlternativeActivate=9
 DesktopMode=1
 HighlightWindows=true
-LayoutName=thumbnails
+LayoutName=small_icons
 MinimizedMode=0
 MultiScreenMode=0
 ShowDesktopMode=0
