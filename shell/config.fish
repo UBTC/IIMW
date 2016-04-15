@@ -22,9 +22,15 @@ set -x JULIAFUNCDIR ~/julia/juliaFunc
 # set -x JULIA_PKGDIR /usr/local/julia/julia-packages
 
 # Aliases
+alias ,='cd ..'
+alias ,,='cd ../..'
+alias ,,,='cd ../../..'
+alias ,,,,='cd ../../../..'
+alias ,,,,,='cd ../../../../..'
+alias -='cd -'
 alias ed='vim'
 alias em='emacs -nw'
-alias ec='emacs'
+alias ex='emacs'
 alias vi='gvim'
 alias ne='nvim'
 alias nd='nvim -d'
