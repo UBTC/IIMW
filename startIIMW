@@ -1,5 +1,6 @@
 #!/bin/sh
 
+setxkbmap -option caps:swapescape &
 xbacklight = 20 &
 pkill skype; skype &
 pkill megasync; megasync &
@@ -8,7 +9,6 @@ pkill nm-applet; nm-applet &
 pkill dropbox; dropbox start &
 pactl set-sink-volume 0 '20%'&
 pkill xfce4-panel; xfce4-panel &
-setxkbmap -option caps:swapescape &
 pkill xfce4-power-manager; xfce4-power-manager &
 xautolock -time 5 -locker slock -nowlocker slock &
 play /home/mw/MEGAsync/Music/login-sound/ubuntu11/desktop-login.ogg
