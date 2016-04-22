@@ -5,9 +5,7 @@
 # .*. Ctrl
 # ..* Alt
 
-key=..*Escape:dmenu_run -i -fn '-bitstream-*-*-*-*-*-22-*-*-*-*-*-*-*' -l 12
-
-key=..*F1:wmctrl -a chrome
+key=..*F1:dmenu_run -i -fn '-bitstream-*-*-*-*-*-22-*-*-*-*-*-*-*' -l 12
 key=..*F2:wmctrl -a emacs
 
 key=.**Up:wmctrl -r :ACTIVE: -b toggle,maximized_vert,maximized_horz
