@@ -7,9 +7,7 @@ Languages
 - [wipy](https://github.com/ubtc/wipy) for setting up [ipython](http://ipython.org/)
 
 Win manager
-- setting up [kwin window manager](http://github.com/KDE/kwin) by default
-- [boxer](https://github.com/ubtc/boxer) for setting up [openbox window manager](http://openbox.org/wiki/Main_Page)
-- [monadic](https://github.com/ubtc/monadic) for setting up [xmonad window manager](http://xmonad.org/)
+- [iiiE](https://github.com/ubtc/iiiE) for setting up [i3 window manager](http://i3wm.org/).
 
 Text editor
 - [vine](https://github.com/ubtc/vine) for setting up [neovim editor](https://neovim.io/)

@@ -17,20 +17,21 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 
 sudo apt-get install firefox goldendict alsamixergui vym golang sl calibre \
-  wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 evince zsh \
-  ufw suckless-tools xautolock hamster-indicator tmux tor synaptic roxterm \
+  wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 zathura i3 \
+  ufw xautolock hamster-indicator tmux tor synaptic roxterm zsh julia fish \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu dolphin \
   skype unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   docky gdebi auctex xfce4 clamav aspell exuberant-ctags amule vim gmchess \
-  gnuplot julia stterm kde-window-manager emacs-snapshot emacs-snapshot-el \
-  gnupg openvpn mdpress okular neovim gimp hdf5-tools curl fish -y # iptux
+  gnuplot emacs-snapshot emacs-snapshot-el gnupg openvpn mdpress gimp curl \
+  okular neovim hdf5-tools evince feh scrot pavucontrol -y # iptux
+
+echo "please consider to use more pip installs."
 
 sudo apt-get install -y ipython3 ipython3-notebook ipython3-qtconsole python3-regex python3-pip \
   python3-pygraph python3-setuptools python3-yaml python3-matplotlib python3-sympy python3-h5py \
   python3-networkx python3-scipy python3-simpy python3-pandas python3-mpmath
-# Instead of `apt-get install`, maybe more `pip3 install` for keeping up to date..
 
 sudo pip3 install jupyter
 sudo pip3 install neovim
@@ -71,13 +72,9 @@ mkdir -p ~/julia/juliaFunc
 mv ~/.juliarc.jl ~/.julia.backup.jl
 cp ~/.goJulia/_juliarc.jl ~/.juliarc.jl
 
-echo "Windows"
-mv ~/.kde/share/config/kwinrc ~/.kde/share/config/kwinrc.backup
-cp ./kwinrc ~/.kde/share/config/kwinrc
-cp ./_keylaunchrc ~/.keylaunchrc
-sudo cp ./IIMW.desktop /usr/share/xsessions/
-sudo cp ./startIIMW /usr/bin/
-sudo chmod +r /usr/bin/startIIMW
+echo "Desktop"
+mv ~/.i3 ~/.i3.backup
+git clone "https://github.com/UBTC/iiiE" ~/.i3
 
 echo "Editors"
 mv ~/.emacs.d ~/.emacs.d.backup
