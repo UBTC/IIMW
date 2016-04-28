@@ -2,7 +2,7 @@
 
 Inheriting the previous version of [IIMW](https://code.google.com/p/iimw/), this repository collects scripts which are used for setting up my [Ubuntu](http://www.ubuntu.com/).
 
-Languages
+Programming Language
 - [goJulia](https://github.com/ubtc/goJulia) for setting up [Julia](http://julialang.org/) and [golang](https://golang.org/)
 - [wipy](https://github.com/ubtc/wipy) for setting up [ipython](http://ipython.org/)
 
