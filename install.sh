@@ -55,7 +55,7 @@ sudo apt-get autoremove --purge -y
 
 echo "Setting"
 sudo ufw enable
-sudo chsh -s /usr/bin/zsh
+sudo chsh -s /usr/bin/fish mw
 sudo groupadd wireshark
 sudo chgrp wireshark /usr/bin/dumpcap
 sudo chmod 4755 /usr/bin/dumpcap
