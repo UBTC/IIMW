@@ -13,6 +13,4 @@ Text editor
 - [vine](https://github.com/ubtc/vine) for setting up [neovim editor](https://neovim.io/)
 - [pulse](https://github.com/ubtc/pulse) for setting up [emacs editor](http://www.gnu.org/software/emacs/)
 
-Others applications are mostly [Xubuntu](https://www.xubuntu.org), and may switch to [Lubuntu](http://lubuntu.net/) later.
-
 M.W.

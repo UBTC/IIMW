@@ -2,8 +2,10 @@
 #  -*- coding:utf-8 -*-
 
 echo "Installing"
-sudo apt-get install lsb-core vim -y
+sudo apt-get install lsb-core -y
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 sudo echo "" >> /etc/apt/sources.list
 sudo echo "# Julia" >> /etc/apt/sources.list
 sudo echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
@@ -16,7 +18,7 @@ cat /etc/apt/sources.list # vim /etc/apt/sources.list
 sudo apt-get update -y
 sudo apt-get upgrade -y
 
-sudo apt-get install firefox goldendict alsamixergui vym golang sl calibre \
+sudo apt-get install -y firefox goldendict alsamixergui vym golang calibre \
   wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 zathura i3 \
   ufw xautolock hamster-indicator tmux tor synaptic roxterm zsh julia fish \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
@@ -25,17 +27,25 @@ sudo apt-get install firefox goldendict alsamixergui vym golang sl calibre \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   docky gdebi auctex xfce4 clamav aspell exuberant-ctags amule vim gmchess \
   gnuplot emacs-snapshot emacs-snapshot-el gnupg openvpn mdpress gimp curl \
-  okular neovim hdf5-tools evince feh scrot pavucontrol -y # iptux
+  neovim evince scrot pavucontrol google-chrome hdf5-tools feh python3-pip
 
-echo "please consider to use more pip installs."
-
-sudo apt-get install -y ipython3 ipython3-notebook ipython3-qtconsole python3-regex python3-pip \
-  python3-pygraph python3-setuptools python3-yaml python3-matplotlib python3-sympy python3-h5py \
-  python3-networkx python3-scipy python3-simpy python3-pandas python3-mpmath
-
+sudo pip3 install ipython
+sudo pip3 install notebook
+sudo pip3 install qtconsole
+sudo pip3 install regex
+sudo pip3 install setuptools
+sudo pip3 install h5py
+sudo pip3 install python-nmap
+sudo pip3 install mpmath
+sudo pip3 install sympy
 sudo pip3 install jupyter
 sudo pip3 install neovim
 sudo pip3 install pillow
+sudo pip3 install numpy
+sudo pip3 install scipy
+sudo pip3 install matplotlib
+sudo pip3 install networkx
+sudo pip3 install pandas
 # sudo pip3 install plotly
 # sudo pip3 install six
 sudo pip3 install future
