@@ -3,9 +3,10 @@
 
 echo "Installing"
 sudo apt-get install lsb-core -y
+
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 sudo echo "" >> /etc/apt/sources.list
 sudo echo "# Julia" >> /etc/apt/sources.list
 sudo echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
@@ -14,11 +15,15 @@ sudo echo "" >> /etc/apt/sources.list
 sudo echo "# neovim" >> /etc/apt/sources.list
 sudo echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 sudo echo "deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
+sudo echo "" >> /etc/apt/sources.list
+sudo echo "# i3WM" >> /etc/apt/sources.list
+sudo echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" >> /etc/apt/sources.list
 cat /etc/apt/sources.list # vim /etc/apt/sources.list
 sudo apt-get update -y
 sudo apt-get upgrade -y
 
-sudo apt-get install -y firefox goldendict alsamixergui vym golang calibre \
+sudo apt-get --allow-unauthenticated -y install \
+  firefox goldendict alsamixergui vym golang calibre sur5r-keyring openvpn \
   wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 zathura i3 \
   ufw xautolock hamster-indicator tmux tor synaptic roxterm zsh julia fish \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
@@ -26,8 +31,8 @@ sudo apt-get install -y firefox goldendict alsamixergui vym golang calibre \
   skype unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   docky gdebi auctex xfce4 clamav aspell exuberant-ctags amule vim gmchess \
-  gnuplot emacs-snapshot emacs-snapshot-el gnupg openvpn mdpress gimp curl \
-  neovim evince scrot pavucontrol google-chrome hdf5-tools feh python3-pip
+  neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
+  gnuplot emacs-snapshot emacs-snapshot-el mdpress gimp curl volumeicon-alsa
 
 sudo pip3 install ipython
 sudo pip3 install notebook
