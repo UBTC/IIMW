@@ -20,7 +20,6 @@ sudo echo "# i3WM" >> /etc/apt/sources.list
 sudo echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" >> /etc/apt/sources.list
 cat /etc/apt/sources.list # vim /etc/apt/sources.list
 sudo apt-get update -y
-sudo apt-get upgrade -y
 
 sudo apt-get --allow-unauthenticated -y install \
   firefox goldendict alsamixergui vym golang calibre sur5r-keyring openvpn \
@@ -33,6 +32,7 @@ sudo apt-get --allow-unauthenticated -y install \
   docky gdebi auctex xfce4 clamav aspell exuberant-ctags amule vim gmchess \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
   gnuplot emacs-snapshot emacs-snapshot-el mdpress gimp curl volumeicon-alsa
+sudo apt-get upgrade -y
 
 sudo pip3 install ipython
 sudo pip3 install notebook
