@@ -1,7 +1,7 @@
-########################################################
+#=======================================================
 #
 # M.W.'s fvwm configuration.
-# COPYRIGHT 2013-2014
+# COPYRIGHT 2013-2016
 #
 # RENAME THIS FILE TO config, AND COPY IT TO ~/.fvwm
 #
@@ -10,7 +10,7 @@
 #    http://www.fvwm.org/documentation/manpages/stable/
 #    and some of my old configurations.
 #
-########################################################
+#=======================================================
 
 SetEnv fvwm   $[HOME]/.fvwm/
 #               L  R  U  D
@@ -123,52 +123,43 @@ Mouse 0     2       A       FuncFvwmMaximizeFullScreen
 Mouse 0     4       S       FuncDeIconifyAll
 
 # Now some keyboard shortcuts. ...
-Key Up     W 4   Move w 0
-Key Down   W 4   Move w -0
-Key Left   W 4   Move 0 w
-Key Right  W 4   Move -0 w
-Key Space  W 4   Move 50-50w 50-50w
-key Escape W M   Maximize 0 100
-Key Escape W MS  Maximize 100 0
-
-key BackSpace A 4 Exec exec xscreensaver-command -lock
-#key BackSpace A 4 Exec exec lxlock
-#key Delete A MC  Exec exec lxtask
-Key F1     A M   Function FuncDeIconifyAll
-Key F2     A M   Iconify
-Key F3     A M   Function FuncFvwmMaximizeFullScreen
-Key F4     A M   Close
-Key F5     A M   Exec exec dmenu_run
-Key F5     A MS  Exec exec bash -c 'cat /dev/null | dmenu | xargs -i roxterm -e {}'
-Key F6     A M   Exec exec gvim
-Key F7     A M   Exec exec roxterm
-#x-terminal-emulator
-Key F7     A MS  Exec exec roxterm -e 'ipython --pylab'
-Key F8     A M   Exec exec pcmanfm
-Key F9     A M   Exec exec firefox
-#x-www-browser
-Key F10    W M   Popup     FvwmMenuWindowOps
-Key F11    W M   Move
-Key F12    W M   Maximize 66 66
-Key F12    W MS  Maximize 50 50
-Key F12    W MCS Maximize 34 34
-#Key F12    W M   Maximize layer grow grow
-#Key F12    W MCS Resize
+Key Up        W 4S  Move w 0
+Key Down      W 4S  Move w -0
+Key Left      W 4S  Move 0 w
+Key Right     W 4S  Move -0 w
+Key C         W 4   Move 50-50w 50-50w
+key BackSpace A 4S  Exec exec xscreensaver-command -lock
+key Delete    A 4S  Exec exec xfce4-taskmanager
+Key D         A 4   Function FuncDeIconifyAll
+Key Down      A 4   Iconify
+Key Up        A 4   Function FuncFvwmMaximizeFullScreen
+Key E         A 4S  Exec exec emacs
+Key T         A 4S  Exec exec xfce4-terminal
+Key F         A 4S  Exec exec thunar
+Key S         A 4S  Exec exec catfish
+Key W         A 4S  Exec exec google-chrome
+Key A         W 4   Popup     FvwmMenuWindowOps
+Key R         A 4   Popup     FvwmMenuRoot
+Key X         A 4   Exec exec xfce4-appfinder --disable-server
+Key Z         W 4   Resize
+Key Q         A 4S  Close
+Key B         W 4S  Maximize 66 66
+Key N         W 4S  Maximize 50 50
+Key M         W 4S  Maximize 34 34
+Key Tab       A 4   WindowList SortByClass,NoHotkeys,NoGeometry,NoCurrentDeskTitle
+Key Tab       A M   Nop
 
 Key Menu                 A N    Popup FvwmMenuRoot
-Key XF86AudioMute        A N    Exec exec amixer set Master  toggle
+#Key XF86AudioMute        A N    Exec exec amixer set Master  toggle
 Key XF86AudioLowerVolume A N    Exec exec amixer set Master  3%-
 Key XF86AudioRaiseVolume A N    Exec exec amixer set Master  3%+
 Key XF86MicMute          A N    Exec exec amixer set Capture toggle
-key XF86Calculator       A N    Exec exec roxterm -e 'ipython --pylab'
-key XF86Terminal         A N    Exec exec roxterm
-key XF86MyComputer       A N    Exec exec pcmanfm
-key XF86WWW              A N    Exec exec firefox
+key XF86Calculator       A N    Exec exec xfce4-terminal -e 'ipython'
+key XF86Terminal         A N    Exec exec xfce4-terminal
+key XF86MyComputer       A N    Exec exec thunar
+key XF86WWW              A N    Exec exec google-chrome
 key XF86PowerOff         A N    Exec exec gksu pm-suspend
-# kdeinit4_shutdown not for sure
 key Print                A N    Exec exec xfce4-screenshooter
-#key Print                A N    Exec exec scrot
-#key Print                A M    Exec exec scrot -u -b
 
 AddToFunc WindowListFunc I WarpToWindow 68 68
 
@@ -187,9 +178,11 @@ MenuStyle * ItemFormat "%.4s%.1|%.5i%.5l%.5l%.5r%.5i%2.3>%1|"
 MenuStyle * VerticalItemSpacing, VerticalTitleSpacing
 BusyCursor  DynamicMenu True
 
+#
 DestroyFunc FuncDeIconifyAll
 AddToFunc   FuncDeIconifyAll
 + I All (CurrentPage !Iconic AcceptsFocus) Iconify
+
 #
 DestroyFunc FuncFvwmMoveOrRaiseOrShade
 AddToFunc   FuncFvwmMoveOrRaiseOrShade
@@ -197,6 +190,7 @@ AddToFunc   FuncFvwmMoveOrRaiseOrShade
 + M     Move
 + C     Raise
 + D     Maximize
+
 #
 DestroyFunc FuncFvwmResizeOrRaiseOrShade
 AddToFunc   FuncFvwmResizeOrRaiseOrShade
@@ -204,26 +198,31 @@ AddToFunc   FuncFvwmResizeOrRaiseOrShade
 + M     Resize $0
 + C     Raise
 + D     Maximize
+
 #
 DestroyFunc FuncFvwmMoveOrRaiseLower
 AddToFunc   FuncFvwmMoveOrRaiseLower
 + H     Move
 + M     Move
 + C     RaiseLower
+
 #
 DestroyFunc FuncFvwmMoveOrIconify
 AddToFunc   FuncFvwmMoveOrIconify
 + M     Move
 + D     Iconify
+
 #
 DestroyFunc FuncFvwmMaximizeFullScreen
 AddToFunc   FuncFvwmMaximizeFullScreen
 + I Maximize 100 100
+
 #
 DestroyFunc FuncIconifyDeIconify
 AddToFunc   FuncIconifyDeIconify
 + C ThisWindow (!Iconic) Iconify
 + D ThisWindow (Iconic) Iconify
+
 #
 DestroyFunc FuncWindowOpsOrClose
 AddToFunc FuncWindowOpsOrClose
@@ -233,27 +232,26 @@ AddToFunc FuncWindowOpsOrClose
 
 #########
 DestroyMenu "FvwmMenuWindowOps"
-AddToMenu "FvwmMenuWindowOps" "[F10] WindowOps" Title
-+              "[F1] &Desktop"  Function   FuncDeIconifyAll
-+              "[F2] &Iconify"  Iconify
-+              "[F3] Ma&ximize" Function FuncFvwmMaximizeFullScreen
-+              "[F11] &Move"    Pick Move
-+              "[F12] &Resize"  Pick Resize
+AddToMenu "FvwmMenuWindowOps" "Actions" Title
++              "&Iconify"  Iconify
++              "Ma&ximize" Function FuncFvwmMaximizeFullScreen
++              "&Move"    Pick Move
++              "&Resize"  Pick Resize
 +              "" Nop
 #+              "R&aise" Raise
 #+              "&Lower" Lower
 #+              "" Nop
-+              "[F4] &Close"        Delete
++              "&Close"        Delete
 
 DestroyMenu "FvwmMenuRoot"
 AddToMenu "FvwmMenuRoot" "Root Menu" Title
-+       "[F6] &gvim"    Exec gvim &
-+       "[F7] &terminal" Exec roxterm &
-+       "[F8] &fileman"  Exec pcmanfm &
-+       "[F9] &browser"  Exec firefox &
++       "&editor"     Exec emacs
++       "&terminal"   Exec xfce4-terminal
++       "&fileman"    Exec thunar
++       "&webrowser"  Exec google-chrome
 +       "" Nop
-+       "[F5] &launcher" Exec dmenu_run &
-# +       "&Debian"    PopUp /Debian
++       "&launcher"   Exec xfce4-appfinder --disable-server
+#+       "&Debian"     PopUp /Debian
 +       "" Nop
 +       "&Restart" Restart
  +       "" Nop
@@ -264,9 +262,7 @@ AddToMenu "FvwmMenuRoot" "Root Menu" Title
 # Read /etc/X11/fvwm/menudefs.hook
 # Read /etc/X11/fvwm/main-menu.hook
 
-##########################################
-#####
-
+##############################################
 AddToFunc StartFunction
 + I Module FvwmCommandS
 + I Module FvwmForm
@@ -277,19 +273,28 @@ DestroyFunc InitFunction
 AddToFunc InitFunction
 + I Exec exec xscreensaver -no-splash
 + I Exec exec xfce4-power-manager
-+ I Exec exec tint2
-#+ I Exec exec xfce4-panel
-##+ I Exec exec trayer --SetDockType true --tint 0x000000 --expand true
-##+ I Exec exec conky
-+ I Exec exec fcitx -d
++ I Exec exec xfce4-panel
+#+ I Exec exec fcitx -d
 + I Exec exec nm-applet
-#+ I Exec exec kmix
-##+ I Exec exec xsetroot -cursor_name left_ptr
-##+ I Exec exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
+#+ I Exec exec xfdesktop -D
++ I Exec exec xbacklight = 20
++ I Exec exec skype
++ I Exec exec megasync
+#+ I Exec exec dropbox start
++ I Exec exec pactl set-sink-volume 0 '20%'
++ I Exec exec xfce4-clipman
++ I Exec exec setxkbmap -option caps:swapescape
++ I Exec exec xrandr --output eDP1 --right-of DP2 --auto
++ I Exec exec xsetroot -solid black  -cursor_name left_ptr
++ I Exec exec play /home/mw/MEGAsync/Music/login-sound/ubuntu11/desktop-login.ogg
++ I Exec exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 
 ##### ##### ##### #####
-#
 AddToFunc ExitFunction
 + I All (xscreensaver) Close
-+ I All (xclock)       Close
++ I All (xfce4-power-manager) Close
++ I All (xfce4-panel) Close
++ I All (skype) Close
++ I All (megasync) Close
++ I All (xfce4-clipman) Close
 + I All (nm-applet)    Close
