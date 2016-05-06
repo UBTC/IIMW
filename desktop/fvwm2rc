@@ -14,7 +14,7 @@
 
 SetEnv fvwm   $[HOME]/.fvwm/
 #               L  R  U  D
-EwmhBaseStruts  0  0 30  0
+EwmhBaseStruts  0  0  0 30
 
 # Set the main colorset
 Colorset 0 fg black, bg rgb:60/a0/c0
@@ -127,12 +127,14 @@ Key Up        W 4S  Move w 0
 Key Down      W 4S  Move w -0
 Key Left      W 4S  Move 0 w
 Key Right     W 4S  Move -0 w
+Key Down      A 4   Iconify
+Key Up        A 4   Function FuncFvwmMaximizeFullScreen
+Key Left      W 4   ResizeMaximize 0 100
+Key Right     W 4   ResizeMaximize 100 0
 Key C         W 4   Move 50-50w 50-50w
 key BackSpace A 4S  Exec exec xscreensaver-command -lock
 key Delete    A 4S  Exec exec xfce4-taskmanager
 Key D         A 4   Function FuncDeIconifyAll
-Key Down      A 4   Iconify
-Key Up        A 4   Function FuncFvwmMaximizeFullScreen
 Key E         A 4S  Exec exec emacs
 Key T         A 4S  Exec exec xfce4-terminal
 Key F         A 4S  Exec exec thunar
@@ -143,9 +145,9 @@ Key R         A 4   Popup     FvwmMenuRoot
 Key X         A 4   Exec exec xfce4-appfinder --disable-server
 Key Z         W 4   Resize
 Key Q         A 4S  Close
-Key B         W 4S  Maximize 66 66
-Key N         W 4S  Maximize 50 50
-Key M         W 4S  Maximize 34 34
+Key B         W 4S  ResizeMaximize 66 66
+Key N         W 4S  ResizeMaximize 50 50
+Key M         W 4S  ResizeMaximize 34 34
 Key Tab       A 4   WindowList SortByClass,NoHotkeys,NoGeometry,NoCurrentDeskTitle
 Key Tab       A M   Nop
 
@@ -166,7 +168,6 @@ AddToFunc WindowListFunc I WarpToWindow 68 68
 # Menu styles...
 MenuStyle MWM
 MenuStyle * Font "xft:Vera Sans YuanTi Mono:Medium:Size=12:Encoding=iso10646-1"
-##############################################################
 #These taken from fvwm-themes 'default' theme.
 MenuStyle * Hilight3DThickness 2
 MenuStyle * PopupDelayed, PopupDelay 150, PopdownDelayed, PopdownDelay 150
@@ -240,8 +241,7 @@ AddToMenu "FvwmMenuWindowOps" "Actions" Title
 +              "" Nop
 #+              "R&aise" Raise
 #+              "&Lower" Lower
-#+              "" Nop
-+              "&Close"        Delete
++              "&Quit"        Delete
 
 DestroyMenu "FvwmMenuRoot"
 AddToMenu "FvwmMenuRoot" "Root Menu" Title
@@ -276,7 +276,7 @@ AddToFunc InitFunction
 + I Exec exec xfce4-panel
 #+ I Exec exec fcitx -d
 + I Exec exec nm-applet
-#+ I Exec exec xfdesktop -D
++ I Exec exec xfdesktop -D
 + I Exec exec xbacklight = 20
 + I Exec exec skype
 + I Exec exec megasync

@@ -16,22 +16,22 @@ sudo echo "# neovim" >> /etc/apt/sources.list
 sudo echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 sudo echo "deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 sudo echo "" >> /etc/apt/sources.list
-sudo echo "# i3WM" >> /etc/apt/sources.list
-sudo echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" >> /etc/apt/sources.list
+#sudo echo "# i3WM" >> /etc/apt/sources.list
+#sudo echo "deb http://debian.sur5r.net/i3/ $(lsb_release -c -s) universe" >> /etc/apt/sources.list
 cat /etc/apt/sources.list # vim /etc/apt/sources.list
 sudo apt-get update -y
 
-sudo apt-get --allow-unauthenticated -y install \
-  firefox goldendict alsamixergui vym golang calibre sur5r-keyring openvpn \
-  wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 zathura i3 \
-  ufw xautolock hamster-indicator tmux tor synaptic roxterm zsh julia fish \
+sudo apt-get --allow-unauthenticated -y install firefox goldendict calibre \
+  wireshark catfish jabref xbacklight xarchiver alsa-utils gmchess zathura \
+  ufw xautolock hamster-indicator tmux tor synaptic fvwm zsh julia fish sl \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu dolphin \
   skype unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
-  docky gdebi auctex xfce4 clamav aspell exuberant-ctags amule vim gmchess \
-  neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  gnuplot emacs-snapshot emacs-snapshot-el mdpress gimp curl volumeicon-alsa
+  gnuplot gdebi auctex xfce4 clamav aspell exuberant-ctags amule curl pep8 \
+  neovim evince pavucontrol google-chrome hdf5-tools vim python3-pip gnupg \
+  emacs-snapshot emacs-snapshot-el mdpress gimp volumeicon-alsa vym golang \
+  alsamixergui openvpn
 sudo apt-get upgrade -y
 
 sudo pip3 install ipython
@@ -88,8 +88,8 @@ mv ~/.juliarc.jl ~/.julia.backup.jl
 cp ~/.goJulia/_juliarc.jl ~/.juliarc.jl
 
 echo "Desktop"
-mv ~/.i3 ~/.i3.backup
-git clone "https://github.com/UBTC/iiiE" ~/.i3
+mkdir -p ~/.fvwm
+cp ./desktop/fvwm2rc ~/.fvwm/config
 
 echo "Editors"
 mv ~/.emacs.d ~/.emacs.d.backup
