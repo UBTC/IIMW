@@ -44,6 +44,7 @@ Style "*"   !IconTitle
 #Application specific styles.
 Style Fvwm*  Sticky, WindowListSkip, !Title, CirculateSkip, !Handles
 Style "*panel"  !Iconifiable, !Handles, CirculateSkip, WindowListSkip
+Style "*dock*"  !Iconifiable, !Handles, CirculateSkip, WindowListSkip
 
 BorderStyle Simple
 IconFont "xft:Vera Sans YuanTi Mono:Medium:Size=12:Encoding=iso10646-1"
@@ -147,17 +148,22 @@ Key M         W 4S  ResizeMaximize 34 34
 Key Tab       A 4   WindowList SortByClass,NoHotkeys,NoGeometry,NoCurrentDeskTitle
 Key Tab       A M   Nop
 
-Key Menu                 A N    Popup FvwmMenuRoot
+Key Menu                  A N    Popup FvwmMenuRoot
 #Key XF86AudioMute        A N    Exec exec amixer set Master  toggle
-Key XF86AudioLowerVolume A N    Exec exec amixer set Master  3%-
-Key XF86AudioRaiseVolume A N    Exec exec amixer set Master  3%+
-Key XF86MicMute          A N    Exec exec amixer set Capture toggle
-key XF86Calculator       A N    Exec exec xfce4-terminal -e 'ipython'
-key XF86Terminal         A N    Exec exec xfce4-terminal
-key XF86MyComputer       A N    Exec exec thunar
-key XF86WWW              A N    Exec exec google-chrome
-key XF86PowerOff         A N    Exec exec gksu pm-suspend
-key Print                A N    Exec exec xfce4-screenshooter
+#key XF86MicMute          A N    Exec exec amixer set Capture toggle
+key XF86AudioRaiseVolume  A N    Exec exec amixer set Master 5%+ unmute
+key XF86AudioLowerVolume  A N    Exec exec amixer set Master 10%- unmute
+key XF86MonBrightnessUp   A N    Exec exec xbacklight -inc 5
+key XF86MonBrightnessDown A N    Exec exec xbacklight -dec 10
+Key XF86MicMute           A N    Exec exec amixer set Capture toggle
+key XF86Calculator        A N    Exec exec xfce4-terminal -e 'ipython'
+key XF86Terminal          A N    Exec exec xfce4-terminal
+key XF86MyComputer        A N    Exec exec thunar
+key XF86WWW               A N    Exec exec google-chrome
+key XF86HomePage          A N    Exec exec google-chrome www.265.com
+key XF86PowerOff          A N    Exec exec gksudo pm-hibernate
+key XF86Sleep             A N    Exec exec gksudo pm-suspend
+key Print                 A N    Exec exec xfce4-screenshooter
 
 # Menu styles...
 MenuStyle MWM
@@ -251,16 +257,10 @@ AddToMenu "FvwmMenuRoot" "Root Menu" Title
 +       "&webrowser"  Exec google-chrome
 +       "" Nop
 +       "&launcher"   Exec xfce4-appfinder --disable-server
-#+       "&Debian"     PopUp /Debian
-+       "" Nop
-+       "&Restart" Restart
+#+       "" Nop
+#+       "&Restart" Restart
  +       "" Nop
  +       "E&xit"    Quit
-
-# AddToMenu /Debian
-# Read /etc/X11/fvwm/main-menu-pre.hook
-# Read /etc/X11/fvwm/menudefs.hook
-# Read /etc/X11/fvwm/main-menu.hook
 
 ##############################################
 AddToFunc StartFunction
