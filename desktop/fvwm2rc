@@ -125,8 +125,8 @@ Key Left      W 4S  Move 0 w
 Key Right     W 4S  Move -0 w
 Key Down      A 4   Iconify
 Key Up        A 4   Function FuncFvwmMaximizeFullScreen
-Key Left      W 4   ResizeMaximize 0 100
-Key Right     W 4   ResizeMaximize 100 0
+Key Left      W 4   Maximize 0 100
+Key Right     W 4   Maximize 100 0
 Key C         W 4   Move 50-50w 50-50w
 key BackSpace A 4S  Exec exec xscreensaver-command -lock
 key Delete    A 4S  Exec exec xfce4-taskmanager
