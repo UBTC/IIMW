@@ -44,10 +44,6 @@ Style "*"   !IconTitle
 #Application specific styles.
 Style Fvwm*  Sticky, WindowListSkip, !Title, CirculateSkip, !Handles
 Style "*panel"  !Iconifiable, !Handles, CirculateSkip, WindowListSkip
-Style "Plasma*" !Title, !Iconifiable, !Handles, CirculateSkip, WindowListSkip, Sticky
-Style "plasma*" !Title, !Iconifiable, !Handles, CirculateSkip, WindowListSkip, Sticky
-Style "*dock*"  !Iconifiable, !Handles, CirculateSkip, WindowListSkip
-#Style "*tray*" #StaysOnbottom, !Iconifiable, !Title, NeverFocus, !Borders
 
 BorderStyle Simple
 IconFont "xft:Vera Sans YuanTi Mono:Medium:Size=12:Encoding=iso10646-1"
@@ -143,7 +139,7 @@ Key W         A 4S  Exec exec google-chrome
 Key A         W 4   Popup     FvwmMenuWindowOps
 Key R         A 4   Popup     FvwmMenuRoot
 Key X         A 4   Exec exec xfce4-appfinder --disable-server
-Key Z         W 4   Resize
+Key Z         W 4   ResizeSE
 Key Q         A 4S  Close
 Key B         W 4S  ResizeMaximize 66 66
 Key N         W 4S  ResizeMaximize 50 50
@@ -163,8 +159,6 @@ key XF86WWW              A N    Exec exec google-chrome
 key XF86PowerOff         A N    Exec exec gksu pm-suspend
 key Print                A N    Exec exec xfce4-screenshooter
 
-AddToFunc WindowListFunc I WarpToWindow 68 68
-
 # Menu styles...
 MenuStyle MWM
 MenuStyle * Font "xft:Vera Sans YuanTi Mono:Medium:Size=12:Encoding=iso10646-1"
@@ -178,6 +172,12 @@ MenuStyle * PopupAsSubmenu, HoldSubmenus, SubmenusRight
 MenuStyle * ItemFormat "%.4s%.1|%.5i%.5l%.5l%.5r%.5i%2.3>%1|"
 MenuStyle * VerticalItemSpacing, VerticalTitleSpacing
 BusyCursor  DynamicMenu True
+
+#
+AddToFunc WindowListFunc I WarpToWindow 68 68
+
+#
+AddToFunc ResizeSE I Resize Direction SE
 
 #
 DestroyFunc FuncDeIconifyAll
