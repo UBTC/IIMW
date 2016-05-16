@@ -7,7 +7,7 @@ Programming Language
 - [wipy](https://github.com/ubtc/wipy) for setting up [ipython](http://ipython.org/)
 
 Win manager
-- [iiiE](https://github.com/ubtc/iiiE) for setting up [i3 window manager](http://i3wm.org/).
+- [boxer](https://github.com/ubtc/boxer) for setting up [openbox window manager](http://openbox.org/)
 
 Text editor
 - [vine](https://github.com/ubtc/vine) for setting up [neovim editor](https://neovim.io/)
