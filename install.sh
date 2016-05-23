@@ -19,7 +19,7 @@ cat /etc/apt/sources.list # vim /etc/apt/sources.list
 sudo apt-get update -y
 
 sudo apt-get --allow-unauthenticated -y install \
-  xfce4 goldendict alsamixergui vym golang calibre openvpn fluxbox mdpress \
+  xfce4 goldendict alsamixergui vym golang calibre openvpn openbox mdpress \
   wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 zathura sl \
   ufw xautolock hamster-indicator tmux tor synaptic zsh julia fish gnuplot \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
@@ -70,6 +70,13 @@ git config --global push.default simple
 git config --global user.name mogeiwang
 git config --global user.email mogeiwang@gmail.com
 
+echo "Desktop"
+mv ~/.config/openbox ~/.config/openbox.backup
+git clone "https://github.com/UBTC/boxer" ~/.config/openbox
+sudo mv ~/.config/openbox/IIMW.desktop /usr/share/xsessions/IIMW.desktop
+sudo mv ~/.config/openbox/startIIMW    /usr/bin/startIIMW
+sudo chmod +x /usr/bin/startIIMW
+
 echo "Languages"
 mv ~/.config/ipython ~/.config/ipython.backup
 git clone "https://github.com/ubtc/wipy" ~/.config/ipython
@@ -81,10 +88,6 @@ julia ~/.goJulia/install_jl_pkg.jl
 mkdir -p ~/julia/juliaFunc
 mv ~/.juliarc.jl ~/.julia.backup.jl
 cp ~/.goJulia/_juliarc.jl ~/.juliarc.jl
-
-echo "Desktop"
-mv ~/.fluxbox ~/.fluxbox.backup
-git clone "https://github.com/UBTC/bFox" ~/.fluxbox
 
 echo "Editors"
 mv ~/.emacs.d ~/.emacs.d.backup
