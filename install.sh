@@ -19,7 +19,7 @@ cat /etc/apt/sources.list # vim /etc/apt/sources.list
 sudo apt-get update -y
 
 sudo apt-get --allow-unauthenticated -y install \
-  xfce4 goldendict alsamixergui vym golang calibre openvpn openbox mdpress \
+  xfce4 goldendict alsamixergui vym golang calibre openvpn fluxbox mdpress \
   wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 zathura sl \
   ufw xautolock hamster-indicator tmux tor synaptic zsh julia fish gnuplot \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
@@ -71,11 +71,8 @@ git config --global user.name mogeiwang
 git config --global user.email mogeiwang@gmail.com
 
 echo "Desktop"
-mv ~/.config/openbox ~/.config/openbox.backup
-git clone "https://github.com/UBTC/boxer" ~/.config/openbox
-sudo mv ~/.config/openbox/IIMW.desktop /usr/share/xsessions/IIMW.desktop
-sudo mv ~/.config/openbox/startIIMW    /usr/bin/startIIMW
-sudo chmod +x /usr/bin/startIIMW
+mv ~/.fluxbox ~/.fluxbox.backup
+git clone "https://github.com/UBTC/bFox" ~/.fluxbox
 
 echo "Languages"
 mv ~/.config/ipython ~/.config/ipython.backup
