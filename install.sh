@@ -28,7 +28,7 @@ sudo apt-get --allow-unauthenticated -y install \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  emacs-snapshot-el gimp volumeicon-alsa
+  emacs-snapshot-el gimp volumeicon-alsa scala roxterm nautilus
 sudo apt-get upgrade -y
 
 sudo pip3 install ipython
@@ -102,6 +102,9 @@ echo -e "Run `PlugInstall` in neovim to use plugins;\n\n vim has been installed,
 echo "Shells"
 mv ~/.tmux.conf ~/.tmux.conf.backup
 cp ./term/_tmux.conf ~/.tmux.conf
+# ---
+mv ~/.config/roxterm.sourceforge.net ~/.config/roxterm.sourceforge.net.backup
+cp ./term/roxterm.sourceforge.net ~/.config/roxterm.sourceforge.net
 # ---
 mv ~/.ssh ~/.ssh.backup
 mkdir -p ~/.ssh
