@@ -3,7 +3,6 @@
 
 echo "Installing"
 sudo apt-get install lsb-core -y
-
 # emacs
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 # chrome
@@ -13,8 +12,6 @@ sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/s
 # sbt (of scala)
 wget http://apt.typesafe.com/repo-deb-build-0002.deb
 sudo dpkg -i repo-deb-build-0002.deb
-sudo apt-get update
-sudo apt-get install sbt
 # Julia
 sudo echo "" >> /etc/apt/sources.list
 sudo echo "# Julia" >> /etc/apt/sources.list
@@ -38,7 +35,7 @@ sudo apt-get --allow-unauthenticated -y install \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  emacs-snapshot-el gimp volumeicon-alsa scala roxterm
+  emacs-snapshot-el gimp volumeicon-alsa scala roxterm sbt
 sudo apt-get upgrade -y
 
 sudo pip3 install ipython
