@@ -4,14 +4,24 @@
 echo "Installing"
 sudo apt-get install lsb-core -y
 
+# emacs
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
+# chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo echo "" >> /etc/apt/sources.list
 sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+# sbt (of scala)
+wget http://apt.typesafe.com/repo-deb-build-0002.deb
+sudo dpkg -i repo-deb-build-0002.deb
+sudo apt-get update
+sudo apt-get install sbt
+# Julia
 sudo echo "" >> /etc/apt/sources.list
 sudo echo "# Julia" >> /etc/apt/sources.list
 sudo echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 sudo echo "deb-src http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 sudo echo "" >> /etc/apt/sources.list
+# neovim
 sudo echo "# neovim" >> /etc/apt/sources.list
 sudo echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 sudo echo "deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
@@ -28,7 +38,7 @@ sudo apt-get --allow-unauthenticated -y install \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  emacs-snapshot-el gimp volumeicon-alsa scala roxterm nautilus
+  emacs-snapshot-el gimp volumeicon-alsa scala roxterm
 sudo apt-get upgrade -y
 
 sudo pip3 install ipython
@@ -50,6 +60,7 @@ sudo pip3 install networkx
 sudo pip3 install pandas
 sudo pip3 install future
 sudo pip3 install statsmodels
+sudo pip3 install mdp
 
 sudo apt-get autoremove --purge -y
 
@@ -75,6 +86,10 @@ mv ~/.fluxbox ~/.fluxbox.backup
 git clone "https://github.com/UBTC/bFox" ~/.fluxbox
 
 echo "Languages"
+mv ~/scala ~/.scala.backup
+mkdir ~/scala/package -p
+git clone "https://github.com/ubtc/impala" ~/scala/import
+# ---
 mv ~/.config/ipython ~/.config/ipython.backup
 git clone "https://github.com/ubtc/wipy" ~/.config/ipython
 # ---
