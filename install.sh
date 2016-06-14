@@ -38,7 +38,7 @@ sudo apt-get --allow-unauthenticated -y install \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  emacs-snapshot-el gimp volumeicon-alsa roxterm sbt
+  emacs-snapshot-el gimp volumeicon-alsa roxterm sbt unetbootin
 sudo apt-get upgrade -y
 
 sudo pip3 install ipython
