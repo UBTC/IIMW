@@ -25,7 +25,7 @@ sudo echo "deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_r
 cat /etc/apt/sources.list # vim /etc/apt/sources.list
 # install the latest scala 2.11
 wget http://www.scala-lang.org/files/archive/scala-2.11.8.deb
-sudo gdebi --n  scala-2.11.6.deb
+sudo gdebi --n  scala-2.11.8.deb
 
 sudo apt-get update -y
 sudo apt-get --allow-unauthenticated -y install \
