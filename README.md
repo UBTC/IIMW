@@ -1,10 +1,12 @@
 # IIMW
 
-Inheriting the previous version of [IIMW](https://code.google.com/p/iimw/), this repository collects scripts which are used for setting up my [Ubuntu](http://www.ubuntu.com/).
+Inheriting the previous version of [IIMW](https://code.google.com/p/iimw/),
+    this repository collects scripts which are used for setting up my [Ubuntu](http://www.ubuntu.com/).
 
 Programming Language
 - [goJulia](https://github.com/ubtc/goJulia) for setting up [Julia](http://julialang.org/) and [golang](https://golang.org/)
 - [wipy](https://github.com/ubtc/wipy) for setting up [ipython](http://ipython.org/)
+- [impala](https://github.com/ubtc/impala) for setting up [Scala](http://scala-lang.org/)
 
 Win manager
 - [bFox](https://github.com/ubtc/bFox) for setting up [fluxbox window manager](http://fluxbox.org/)

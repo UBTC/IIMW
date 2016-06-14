@@ -10,8 +10,8 @@ wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-ke
 sudo echo "" >> /etc/apt/sources.list
 sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 # sbt (of scala)
-wget http://apt.typesafe.com/repo-deb-build-0002.deb
-sudo dpkg -i repo-deb-build-0002.deb
+echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 # Julia
 sudo echo "" >> /etc/apt/sources.list
 sudo echo "# Julia" >> /etc/apt/sources.list
@@ -23,8 +23,11 @@ sudo echo "# neovim" >> /etc/apt/sources.list
 sudo echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 sudo echo "deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 cat /etc/apt/sources.list # vim /etc/apt/sources.list
-sudo apt-get update -y
+# install the latest scala 2.11
+wget http://www.scala-lang.org/files/archive/scala-2.11.8.deb
+sudo gdebi --n  scala-2.11.6.deb
 
+sudo apt-get update -y
 sudo apt-get --allow-unauthenticated -y install \
   xfce4 goldendict alsamixergui vym golang calibre openvpn fluxbox mdpress \
   wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 zathura sl \
@@ -35,7 +38,7 @@ sudo apt-get --allow-unauthenticated -y install \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  emacs-snapshot-el gimp volumeicon-alsa scala roxterm sbt
+  emacs-snapshot-el gimp volumeicon-alsa roxterm sbt
 sudo apt-get upgrade -y
 
 sudo pip3 install ipython
