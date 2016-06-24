@@ -30,7 +30,7 @@ sudo gdebi --n  scala-2.11.8.deb
 sudo apt-get update -y
 sudo apt-get --allow-unauthenticated -y install \
   xfce4 goldendict alsamixergui vym golang calibre openvpn fluxbox mdpress \
-  wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 zathura sl \
+  wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 mupdf gimp \
   ufw xautolock hamster-indicator tmux tor synaptic zsh julia fish gnuplot \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu gmchess \
@@ -38,7 +38,7 @@ sudo apt-get --allow-unauthenticated -y install \
   meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  emacs-snapshot-el gimp volumeicon-alsa roxterm sbt unetbootin
+  emacs-snapshot-el spark volumeicon-alsa roxterm sbt unetbootin
 sudo apt-get upgrade -y
 
 sudo pip3 install ipython
