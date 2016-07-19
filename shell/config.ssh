@@ -1,10 +1,18 @@
 # ~/.ssh/config
-# ssh -X svr
-# sftp://svr
+# ssh -X server
+# sftp://server
+
 HOST svr
-User m..
-HostName 202.120.1.121
-Port 502
-TCPKeepAlive yes
-ServerAliveInterval 90
-ServerAliveCountMax 90000
+    User mw..
+    HostName 202.120.1.121
+    Port 502
+    TCPKeepAlive yes
+    ServerAliveInterval 90
+    ServerAliveCountMax 90000
+
+HOST hpc
+    User mw..
+    HostName hpc.nyu.edu
+    TCPKeepAlive yes
+    ServerAliveInterval 90
+    ServerAliveCountMax 90000

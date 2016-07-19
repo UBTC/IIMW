@@ -13,6 +13,6 @@ Win manager
 
 Text editor
 - [vine](https://github.com/ubtc/vine) for setting up [neovim editor](https://neovim.io/)
-- [pulse](https://github.com/ubtc/pulse) for setting up [emacs editor](http://www.gnu.org/software/emacs/)
+- [plus](https://github.com/ubtc/plus) for setting up [emacs editor](http://www.gnu.org/software/emacs/)
 
 M.W.
