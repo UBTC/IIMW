@@ -1,0 +1,25 @@
+# ~/.bashrc
+# this is for NYU HPC cluster
+
+# source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+export GOPATH=$HOME/goWork
+export GOBIN=$GOPATH/bin
+export JULIAFUNCDIR=$HOME/julia/juliaFunc
+# export JULIA_PKGDIR=/usr/local/julia/julia-packages
+export PATH="/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mw/goWork/bin:/home/mw/bin/"
+
+alias vi='vim'
+alias vd='vimdiff'
+alias em='emacs -nw'
+alias tmux='tmux -2'
+alias mlg='module load go/1.5.3'
+alias mlp='module load python3/intel/3.5.1'
+alias mfind='module avail'
+alias mshow='module show'
+alias mlist='module list'
+alias mload='module load'
+alias munload='module unload'
