@@ -16,3 +16,35 @@ HOST hpc
     TCPKeepAlive yes
     ServerAliveInterval 90
     ServerAliveCountMax 90000
+
+Host hpctunnel
+   HostName hpc.nyu.edu
+   ForwardX11 yes
+   LocalForward 8023 mercer.es.its.nyu.edu:22
+   # you can add other hosts to the tunnel too - for example, to specifically use login node 1 on mercer:
+   LocalForward 8024 mercer1.es.its.nyu.edu:22
+   # for the Hadoop cluster:
+   LocalForward 8025 dumbo.es.its.nyu.edu:22
+   User NetID
+
+# next we create an alias for incoming packets on port 8023. The
+# alias corresponds to where the tunnel forwards these packets
+Host mercer
+  HostName localhost
+  Port 8023
+  ForwardX11 yes
+  User NetID
+
+# repeat the last step for each LocalForward entry under "Host hpctunnel", eg:
+Host mercer1
+  HostName localhost
+  Port 8024
+  ForwardX11 yes
+  User NetID
+
+Host dumbo
+  HostName localhost
+  HostKeyAlias dumbo
+  Port 8025
+  ForwardX11 yes
+  User NetID
