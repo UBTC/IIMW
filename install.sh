@@ -35,7 +35,8 @@ sudo apt-get --allow-unauthenticated -y install \
   emacs-snapshot-el volumeicon-alsa roxterm sbt unetbootin tcllib meld rar \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  unrar aria2 axel cryptsetup libpam-mount octave 'octave-*'
+  unrar aria2 axel cryptsetup libpam-mount fortune-mod octave 'octave-*'
+
   # mdpress skype vidalia
 sudo apt-get upgrade -y
 
