@@ -2,7 +2,7 @@
 #  -*- coding:utf-8 -*-
 
 echo "Installing"
-sudo apt-get install lsb-core -y
+#sudo apt-get install lsb-core -y
 # emacs
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 # chrome
@@ -13,35 +13,35 @@ sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/s
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 # Julia
-sudo echo "" >> /etc/apt/sources.list
-sudo echo "# Julia" >> /etc/apt/sources.list
-sudo echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
-sudo echo "deb-src http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
-sudo echo "" >> /etc/apt/sources.list
+#sudo echo "" >> /etc/apt/sources.list
+#sudo echo "# Julia" >> /etc/apt/sources.list
+#sudo echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
+#sudo echo "deb-src http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
+#sudo echo "" >> /etc/apt/sources.list
 # neovim
-sudo echo "# neovim" >> /etc/apt/sources.list
-sudo echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
-sudo echo "deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
-cat /etc/apt/sources.list # vim /etc/apt/sources.list
-# install the latest scala 2.11
-wget http://www.scala-lang.org/files/archive/scala-2.11.8.deb
-sudo gdebi --n  scala-2.11.8.deb
+#sudo echo "# neovim" >> /etc/apt/sources.list
+#sudo echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
+#sudo echo "deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
+#cat /etc/apt/sources.list # vim /etc/apt/sources.list
 
 sudo apt-get update -y
 sudo apt-get --allow-unauthenticated -y install \
-  xfce4 goldendict alsamixergui vym golang calibre openvpn fluxbox mdpress \
+  xfce4 goldendict alsamixergui vym golang calibre openvpn fluxbox dmsetup \
   wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 mupdf gimp \
   ufw xautolock hamster-indicator tmux tor synaptic zsh julia fish gnuplot \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu gmchess \
-  skype unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng \
-  meld rar unrar aria2 axel octave vidalia dmsetup cryptsetup libpam-mount \
+  unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng spark \
+  emacs-snapshot-el volumeicon-alsa roxterm sbt unetbootin tcllib meld rar \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  emacs-snapshot-el spark volumeicon-alsa roxterm sbt unetbootin tcllib sl \
-  'octave-*'
-  
+  unrar aria2 axel cryptsetup libpam-mount octave 'octave-*'
+  # mdpress skype vidalia
 sudo apt-get upgrade -y
+
+# install the latest scala 2.11
+wget http://www.scala-lang.org/files/archive/scala-2.11.8.deb
+sudo gdebi --n  scala-2.11.8.deb
 
 sudo pip3 install ipython
 sudo pip3 install notebook
