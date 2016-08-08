@@ -9,6 +9,8 @@ sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo echo "" >> /etc/apt/sources.list
 sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+# skype (in bash only!)
+sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 # sbt (of scala)
 #echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 #sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
@@ -35,10 +37,13 @@ sudo apt-get --allow-unauthenticated -y install \
   emacs-snapshot-el volumeicon-alsa roxterm sbt unetbootin tcllib meld rar \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  unrar aria2 axel cryptsetup libpam-mount fortune-mod scala octave 'octave-*'
+  unrar aria2 axel cryptsetup libpam-mount fortune-mod octave  'octave-*'  \
+  default-jre default-jdk scala skype #mdpress vidalia
 
-  # mdpress skype vidalia
 sudo apt-get upgrade -y
+
+# choose a Java to work with scala:
+sudo update-alternatives --config java
 
 # install the latest scala 2.11
 #wget http://www.scala-lang.org/files/archive/scala-2.11.8.deb
@@ -70,6 +75,10 @@ sudo apt-get autoremove --purge -y
 echo "Setting"
 sudo ufw enable
 sudo chsh -s /usr/bin/fish mw
+# ---
+sudo rm /var/crash/*
+sudo echo "enabled=1" >> /etc/default/apport
+# --- 
 sudo groupadd wireshark
 sudo chgrp wireshark /usr/bin/dumpcap
 sudo chmod 4755 /usr/bin/dumpcap
