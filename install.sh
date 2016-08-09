@@ -84,6 +84,11 @@ sudo chgrp wireshark /usr/bin/dumpcap
 sudo chmod 4755 /usr/bin/dumpcap
 sudo gpasswd -a mw wireshark
 # ---
+echo "remove Lock = Caps_Lock" > ~/.Xmodmap
+echo "keysym Caps_Lock = Escape" >> ~/.Xmodmap
+echo "keysym Escape = Caps_Lock" >> ~/.Xmodmap
+echo "add Lock = Caps_Lock" >> ~/.Xmodmap
+# ---
 sudo mkdir /mnt/tmpDisk
 mount -t tmpfs -o size=1024m tmpfs /mnt/tmpDisk
 sudo echo "tmpfs /mnt/tmpDisk tmpfs nodev,nosuid,noexec,nodiratime,size=1024M 0 0" >> /etc/fstab
