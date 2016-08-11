@@ -5,6 +5,8 @@ echo "Installing"
 #sudo apt-get install lsb-core -y
 # emacs
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
+# neovim
+sudo add-apt-repository ppa:neovim-ppa/unstable -y
 # chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo echo "" >> /etc/apt/sources.list
@@ -20,10 +22,6 @@ sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) pa
 #sudo echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 #sudo echo "deb-src http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 #sudo echo "" >> /etc/apt/sources.list
-# neovim
-#sudo echo "# neovim" >> /etc/apt/sources.list
-#sudo echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
-#sudo echo "deb-src http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
 #cat /etc/apt/sources.list # vim /etc/apt/sources.list
 
 sudo apt-get update -y
@@ -38,7 +36,7 @@ sudo apt-get --allow-unauthenticated -y install \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
   unrar aria2 axel cryptsetup libpam-mount fortune-mod octave  'octave-*'  \
-  default-jre default-jdk scala skype #mdpress vidalia
+  default-jre default-jdk scala skype neovim #mdpress vidalia
 
 sudo apt-get upgrade -y
 
