@@ -9,7 +9,7 @@ Programming Language
 - [impala](https://github.com/ubtc/impala) for setting up [Scala](http://scala-lang.org/)
 
 Win manager
-- [bFox](https://github.com/ubtc/bFox) for setting up [fluxbox window manager](http://fluxbox.org/)
+- [fox](https://github.com/ubtc/fox) for setting up [fluxbox window manager](http://fluxbox.org/)
 
 Text editor
 - [vine](https://github.com/ubtc/vine) for setting up [neovim editor](https://neovim.io/)
