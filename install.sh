@@ -26,17 +26,18 @@ sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) pa
 
 sudo apt-get update -y
 sudo apt-get --allow-unauthenticated -y install \
-  xfce4 goldendict alsamixergui vym golang calibre openvpn fluxbox dmsetup \
+  scala goldendict alsamixergui vym golang calibre openvpn fluxbox dmsetup \
   wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 mupdf gimp \
   ufw xautolock hamster-indicator tmux tor synaptic zsh julia fish gnuplot \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu gmchess \
-  unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng spark \
+  unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng slock \
   emacs-snapshot-el volumeicon-alsa roxterm sbt unetbootin tcllib meld rar \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  unrar aria2 axel cryptsetup libpam-mount fortune-mod octave  'octave-*'  \
-  default-jre default-jdk scala skype neovim #mdpress vidalia
+  unrar aria2 axel cryptsetup suckless-tools fortune-mod octave 'octave-*' \
+  default-jre default-jdk skype neovim gnome-tweak-tool stterm libpam-mount
+#mdpress vidalia xfce4
 
 sudo apt-get upgrade -y
 
@@ -64,6 +65,7 @@ sudo pip3 install scipy
 sudo pip3 install matplotlib
 sudo pip3 install networkx
 sudo pip3 install pandas
+sudo pip3 install moviepy
 sudo pip3 install future
 sudo pip3 install statsmodels
 sudo pip3 install mdp
@@ -76,7 +78,7 @@ sudo chsh -s /usr/bin/fish mw
 # ---
 sudo rm /var/crash/*
 sudo echo "enabled=1" >> /etc/default/apport
-# --- 
+# ---
 sudo groupadd wireshark
 sudo chgrp wireshark /usr/bin/dumpcap
 sudo chmod 4755 /usr/bin/dumpcap
@@ -84,8 +86,8 @@ sudo gpasswd -a mw wireshark
 # ---
 echo "remove Lock = Caps_Lock" > ~/.Xmodmap
 echo "keysym Caps_Lock = Escape" >> ~/.Xmodmap
-echo "keysym Escape = Caps_Lock" >> ~/.Xmodmap
-echo "add Lock = Caps_Lock" >> ~/.Xmodmap
+#echo "keysym Escape = Caps_Lock" >> ~/.Xmodmap
+#echo "add Lock = Caps_Lock" >> ~/.Xmodmap
 # ---
 sudo mkdir /mnt/tmpDisk
 mount -t tmpfs -o size=1024m tmpfs /mnt/tmpDisk
@@ -96,9 +98,9 @@ git config --global push.default simple
 git config --global user.name mogeiwang
 git config --global user.email mogeiwang@gmail.com
 
-echo "Desktop"
-mv ~/.fluxbox ~/.fluxbox.backup
-git clone "https://github.com/UBTC/bFox" ~/.fluxbox
+#echo "Desktop"
+#mv ~/.fluxbox ~/.fluxbox.backup
+#git clone "https://github.com/UBTC/bFox" ~/.fluxbox
 
 echo "Languages"
 mv ~/scala ~/.scala.backup
