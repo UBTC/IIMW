@@ -8,9 +8,9 @@ sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 # neovim
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 # chrome
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-sudo echo "" >> /etc/apt/sources.list
-sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+#wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+#sudo echo "" >> /etc/apt/sources.list
+#sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
 # skype (in bash only!)
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 # sbt (of scala)
@@ -26,22 +26,26 @@ sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) pa
 
 sudo apt-get update -y
 sudo apt-get --allow-unauthenticated -y install \
-  scala goldendict alsamixergui vym golang calibre openvpn fluxbox dmsetup \
-  wireshark catfish jabref xbacklight xarchiver alsa-utils pep8 mupdf gimp \
-  ufw xautolock hamster-indicator tmux tor synaptic zsh julia fish gnuplot \
+  scala goldendict neovim golang calibre openvpn jwm rar wireshark catfish \
+  jabref pep8 vym ufw hamster-indicator tmux tor synaptic zsh fish gnuplot \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu gmchess \
-  unzip libav-tools john nmap kismet hydra ophcrack hunt aircrack-ng slock \
-  emacs-snapshot-el volumeicon-alsa roxterm sbt unetbootin tcllib meld rar \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
-  neovim evince pavucontrol google-chrome hdf5-tools feh python3-pip gnupg \
-  unrar aria2 axel cryptsetup suckless-tools fortune-mod octave 'octave-*' \
-  default-jre default-jdk skype neovim gnome-tweak-tool stterm libpam-mount
-#mdpress vidalia xfce4
+  libav-tools default-jre default-jdk neovim gnome-tweak-tool libpam-mount \
+  fortune-mod meld hdf5-tools libav-tools roxterm gnupg octave unrar aria2 \
+  emacs-snapshot-el gddrescue unzip mupdf skype python3-pip
+# mdpress vidalia xfce4 sbt 'octave-*' google-chrome evince feh
+# john nmap kismet hydra ophcrack hunt aircrack-ng axel tcllib
+# alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock julia
+# pavucontrol volumeicon-alsa cryptsetup
 
 sudo apt-get upgrade -y
 
-# choose a Java to work with scala:
+# hosts
+sudo mv /etc/hosts /etc/hosts.backup0
+sudo wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts /etc/hosts
+
+# choose a Java to work with scala
 sudo update-alternatives --config java
 
 # install the latest scala 2.11
@@ -113,16 +117,22 @@ git clone "https://github.com/ubtc/wipy" ~/.config/ipython
 git clone "https://github.com/ubtc/goJulia" ~/.goJulia
 sh ~/.goJulia/install_go_pkg.sh
 go env
-julia ~/.goJulia/install_jl_pkg.jl
-mkdir -p ~/julia/juliaFunc
-mv ~/.juliarc.jl ~/.julia.backup.jl
-cp ~/.goJulia/_juliarc.jl ~/.juliarc.jl
+#julia ~/.goJulia/install_jl_pkg.jl
+#mkdir -p ~/julia/juliaFunc
+#mv ~/.juliarc.jl ~/.julia.backup.jl
+#cp ~/.goJulia/_juliarc.jl ~/.juliarc.jl
 
 echo "Editors"
+# emacs
 mv ~/.emacs.d ~/.emacs.d.backup
 git clone "https://github.com/ubtc/plus.git" ~/.emacs.d
 emacs -nw --batch -l ~/.emacs.d/init.el -f package-refresh-contents
-# ---
+# vim
+mkdir -p ~/.vim
+mkdir -p ~/.vim/backup
+mkdir -p ~/.vim/tmp
+cp ~/.config/nvim/vimrc ~/.vim
+# neovim
 mv ~/.config/nvim ~/.config/nvim.backup
 git clone "https://github.com/ubtc/vine" ~/.config/nvim
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
