@@ -131,7 +131,7 @@ emacs -nw --batch -l ~/.emacs.d/init.el -f package-refresh-contents
 mkdir -p ~/.vim
 mkdir -p ~/.vim/backup
 mkdir -p ~/.vim/tmp
-cp ~/.config/nvim/vimrc ~/.vim
+cp ~/.config/nvim/init.vim ~/.vim/vimrc
 # neovim
 mv ~/.config/nvim ~/.config/nvim.backup
 git clone "https://github.com/ubtc/vine" ~/.config/nvim
