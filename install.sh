@@ -32,10 +32,10 @@ sudo apt-get --allow-unauthenticated -y install \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu gmchess \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   libav-tools default-jre default-jdk neovim gnome-tweak-tool libpam-mount \
-  fortune-mod meld hdf5-tools libav-tools roxterm gnupg octave unrar aria2 \
+  fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
   emacs-snapshot-el gddrescue unzip mupdf skype python3-pip
 # mdpress vidalia xfce4 sbt 'octave-*' google-chrome evince feh
-# john nmap kismet hydra ophcrack hunt aircrack-ng axel tcllib
+# john nmap kismet hydra ophcrack hunt aircrack-ng roxterm tcllib
 # alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock julia
 # pavucontrol volumeicon-alsa cryptsetup
 
