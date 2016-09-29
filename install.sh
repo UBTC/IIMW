@@ -107,9 +107,9 @@ git config --global user.email mogeiwang@gmail.com
 #git clone "https://github.com/UBTC/bFox" ~/.fluxbox
 
 echo "Languages"
-mv ~/scala ~/.scala.backup
-mkdir ~/scala/package -p
-git clone "https://github.com/ubtc/impala" ~/scala/import
+#mv ~/scala ~/.scala.backup
+#mkdir ~/scala/package -p
+#git clone "https://github.com/ubtc/impala" ~/scala/import
 # ---
 mv ~/.config/ipython ~/.config/ipython.backup
 git clone "https://github.com/ubtc/wipy" ~/.config/ipython
@@ -145,8 +145,8 @@ echo "Shells"
 mv ~/.tmux.conf ~/.tmux.conf.backup
 cp ./term/_tmux.conf ~/.tmux.conf
 # ---
-mv ~/.config/roxterm.sourceforge.net ~/.config/roxterm.sourceforge.net.backup
-cp ./term/roxterm.sourceforge.net ~/.config/roxterm.sourceforge.net
+#mv ~/.config/roxterm.sourceforge.net ~/.config/roxterm.sourceforge.net.backup
+#cp ./term/roxterm.sourceforge.net ~/.config/roxterm.sourceforge.net
 # ---
 mv ~/.ssh ~/.ssh.backup
 mkdir -p ~/.ssh
