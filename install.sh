@@ -1,6 +1,12 @@
 #  !/usr/bin/env bash
 #  -*- coding:utf-8 -*-
 
+echo "Fucking"
+sudo apt-get -y install wget
+# hosts
+sudo mv /etc/hosts /etc/hosts.backup0
+sudo wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts /etc/hosts
+
 echo "Installing"
 #sudo apt-get install lsb-core -y
 # emacs
@@ -8,9 +14,8 @@ sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 # neovim
 sudo add-apt-repository ppa:neovim-ppa/unstable -y
 # chrome
-#wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-#sudo echo "" >> /etc/apt/sources.list
-#sudo echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 # skype (in bash only!)
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 # sbt (of scala)
@@ -33,17 +38,12 @@ sudo apt-get --allow-unauthenticated -y install \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   libav-tools default-jre default-jdk neovim gnome-tweak-tool libpam-mount \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
-  emacs-snapshot-el gddrescue unzip mupdf skype python3-pip
-# mdpress vidalia xfce4 sbt 'octave-*' google-chrome evince feh
-# john nmap kismet hydra ophcrack hunt aircrack-ng roxterm tcllib
+  emacs-snapshot-el gddrescue unzip mupdf skype python3-pip google-chrome-beta
+# mdpress vidalia xfce4 sbt 'octave-*' evince feh pavucontrol volumeicon-alsa
+# john nmap kismet hydra ophcrack hunt aircrack-ng roxterm tcllib cryptsetup
 # alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock julia
-# pavucontrol volumeicon-alsa cryptsetup
 
 sudo apt-get upgrade -y
-
-# hosts
-sudo mv /etc/hosts /etc/hosts.backup0
-sudo wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts /etc/hosts
 
 # choose a Java to work with scala
 sudo update-alternatives --config java
