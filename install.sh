@@ -38,7 +38,8 @@ sudo apt-get --allow-unauthenticated -y install \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
   libav-tools default-jre default-jdk neovim gnome-tweak-tool libpam-mount \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
-  emacs-snapshot-el gddrescue unzip mupdf skype python3-pip google-chrome-beta
+  gddrescue unzip skype python3-pip fcitx fcitx-config-gtk fcitx-sunpinyin \
+  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-unstable
 # mdpress vidalia xfce4 sbt 'octave-*' evince feh pavucontrol volumeicon-alsa
 # john nmap kismet hydra ophcrack hunt aircrack-ng roxterm tcllib cryptsetup
 # alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock julia
