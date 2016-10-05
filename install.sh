@@ -39,7 +39,7 @@ sudo apt-get --allow-unauthenticated -y install \
   libav-tools default-jre default-jdk neovim gnome-tweak-tool libpam-mount \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
   gddrescue unzip skype python3-pip fcitx fcitx-config-gtk fcitx-sunpinyin \
-  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-unstable
+  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-unstable homebank
 # mdpress vidalia xfce4 sbt 'octave-*' evince feh pavucontrol volumeicon-alsa
 # john nmap kismet hydra ophcrack hunt aircrack-ng roxterm tcllib cryptsetup
 # alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock julia
@@ -157,5 +157,9 @@ cp ./shell/config.fish ~/.config/fish/
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 mv ~/.zshrc .zshrc.omzs
 cp ./shell/_zshrc ~/.zshrc
+
+# Vmware
+wget https://download3.vmware.com/software/player/file/VMware-Player-12.5.0-4352439.x86_64.bundle
+sudo sh VMware-Player-12.5.0-4352439.x86_64.bundle
 
 echo "Done"
