@@ -134,7 +134,7 @@ git clone 'https://github.com/ubtc/vine' ~/.vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 mkdir -p ~/.vim/backup
 mkdir -p ~/.vim/tmp
-vim -c PlugInstall > /dev/null
+#vim -c PlugInstall > /dev/null
 # neovim
 #mv ~/.config/nvim ~/.config/nvim.backup
 #git clone "https://github.com/ubtc/vine" ~/.config/nvim
@@ -142,9 +142,9 @@ vim -c PlugInstall > /dev/null
 #mkdir -p ~/.config/nvim/backup
 #mkdir -p ~/.config/nvim/tmp
 ##nvim --headless -c PlugInstall
-echo -e "`emacs` and `vim` have been installed and set up;"
-echo -e "    Run `PlugUpdate` to update `vim` plugins (`PlugInstall` to install)."
-echo -e "    Press `U_x` key in elpa packages list view to update emacs packages."
+echo -e "`emacs` and `vim` have been installed;"
+echo -e "    Run `PlugInstall` to install `vim` plugins (`PlugUpdate` to update)."
+echo -e "    Press `U_x` key in elpa packages list view to update emacs packages (autoinstall in the 1st run)."
 
 echo "Shells"
 mv ~/.tmux.conf ~/.tmux.conf.backup
