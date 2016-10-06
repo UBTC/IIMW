@@ -12,7 +12,7 @@ echo "Installing"
 # emacs
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 # neovim
-sudo add-apt-repository ppa:neovim-ppa/unstable -y
+# sudo add-apt-repository ppa:neovim-ppa/unstable -y
 # chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
@@ -63,7 +63,7 @@ sudo pip3 install python-nmap
 sudo pip3 install mpmath
 sudo pip3 install sympy
 sudo pip3 install jupyter
-sudo pip3 install neovim
+#sudo pip3 install neovim
 sudo pip3 install pillow
 sudo pip3 install numpy
 sudo pip3 install scipy
@@ -129,18 +129,22 @@ mv ~/.emacs.d ~/.emacs.d.backup
 git clone "https://github.com/ubtc/plus.git" ~/.emacs.d
 emacs -nw --batch -l ~/.emacs.d/init.el -f package-refresh-contents
 # vim
-mkdir -p ~/.vim
+mv ~/.vim ~/.vim.backup
+git clone 'https://github.com/ubtc/vine' ~/.vim
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 mkdir -p ~/.vim/backup
 mkdir -p ~/.vim/tmp
-cp ~/.config/nvim/init.vim ~/.vim/vimrc
+vim -c PlugInstall > /dev/null
 # neovim
-mv ~/.config/nvim ~/.config/nvim.backup
-git clone "https://github.com/ubtc/vine" ~/.config/nvim
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-mkdir -p ~/.config/nvim/backup
-mkdir -p ~/.config/nvim/tmp
-# nvim --headless -c PlugInstall
-echo -e "Run `PlugInstall` in neovim to use plugins;\n\n vim has been installed, but has not been set up."
+#mv ~/.config/nvim ~/.config/nvim.backup
+#git clone "https://github.com/ubtc/vine" ~/.config/nvim
+#curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+#mkdir -p ~/.config/nvim/backup
+#mkdir -p ~/.config/nvim/tmp
+##nvim --headless -c PlugInstall
+echo -e "`emacs` and `vim` have been installed and set up;"
+echo -e "    Run `PlugUpdate` to update `vim` plugins (`PlugInstall` to install)."
+echo -e "    Press `U_x` key in elpa packages list view to update emacs packages."
 
 echo "Shells"
 mv ~/.tmux.conf ~/.tmux.conf.backup
