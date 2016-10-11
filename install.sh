@@ -113,15 +113,14 @@ echo "Languages"
 #git clone "https://github.com/ubtc/impala" ~/scala/import
 # ---
 mv ~/.config/ipython ~/.config/ipython.backup
-git clone "https://github.com/ubtc/wipy" ~/.config/ipython
+git clone "https://github.com/ubtc/gopy" ~/.config/ipython
 # ---
-git clone "https://github.com/ubtc/goJulia" ~/.goJulia
-sh ~/.goJulia/install_go_pkg.sh
+sh ~/.config/ipython/install_go_pkg.sh
 go env
-#julia ~/.goJulia/install_jl_pkg.jl
+#julia ~/.config/ipython/install_jl_pkg.jl
 #mkdir -p ~/julia/juliaFunc
 #mv ~/.juliarc.jl ~/.julia.backup.jl
-#cp ~/.goJulia/_juliarc.jl ~/.juliarc.jl
+#cp ~/.ipython/ipython/_juliarc.jl ~/.juliarc.jl
 
 echo "Editors"
 # emacs
