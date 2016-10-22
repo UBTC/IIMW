@@ -16,6 +16,8 @@ sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 # chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+# GNOME Shell integration for Chromium browser
+sudo add-apt-repository -y ppa:ne0sight/chrome-gnome-shell
 # skype (in bash only!)
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 # sbt (of scala)
@@ -39,7 +41,8 @@ sudo apt-get --allow-unauthenticated -y install \
   libav-tools default-jre default-jdk neovim gnome-tweak-tool libpam-mount \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
   gddrescue unzip skype python3-pip fcitx fcitx-config-gtk fcitx-sunpinyin \
-  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-unstable homebank
+  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank \
+  chrome-gnome-shell geany
 # mdpress vidalia xfce4 sbt 'octave-*' evince feh pavucontrol volumeicon-alsa
 # john nmap kismet hydra ophcrack hunt aircrack-ng roxterm tcllib cryptsetup
 # alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock julia
