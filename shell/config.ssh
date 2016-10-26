@@ -6,6 +6,16 @@ HOST svr
     User mw..
     HostName 202.120.1.121
     Port 502
+    ForwardX11 yes
+    TCPKeepAlive yes
+    ServerAliveInterval 90
+    ServerAliveCountMax 90000
+
+HOST svr2
+    User mo..
+    HostName 202.121.182.6
+    Port 5230
+    ForwardX11 yes
     TCPKeepAlive yes
     ServerAliveInterval 90
     ServerAliveCountMax 90000
