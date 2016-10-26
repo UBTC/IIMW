@@ -33,19 +33,19 @@ sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) pa
 
 sudo apt-get update -y
 sudo apt-get --allow-unauthenticated -y install \
-  scala goldendict neovim golang calibre openvpn jwm rar wireshark catfish \
+  scala goldendict tcllib golang calibre openvpn jwm rar wireshark catfish \
   jabref pep8 vym ufw hamster-indicator tmux tor synaptic zsh fish gnuplot \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu gmchess \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
-  libav-tools default-jre default-jdk neovim gnome-tweak-tool libpam-mount \
+  libav-tools default-jre default-jdk kismet gnome-tweak-tool libpam-mount \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
   gddrescue unzip skype python3-pip fcitx fcitx-config-gtk fcitx-sunpinyin \
   fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank \
   chrome-gnome-shell geany
-# mdpress vidalia xfce4 sbt 'octave-*' evince feh pavucontrol volumeicon-alsa
-# john nmap kismet hydra ophcrack hunt aircrack-ng roxterm tcllib cryptsetup
-# alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock julia
+# mdpress vidalia xfce4 sbt 'octave-*' evince pavucontrol volumeicon-alsa
+# john nmap hydra ophcrack hunt aircrack-ng roxterm cryptsetup julia feh
+# alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock
 
 sudo apt-get upgrade -y
 
@@ -66,7 +66,6 @@ sudo pip3 install python-nmap
 sudo pip3 install mpmath
 sudo pip3 install sympy
 sudo pip3 install jupyter
-#sudo pip3 install neovim
 sudo pip3 install pillow
 sudo pip3 install numpy
 sudo pip3 install scipy
