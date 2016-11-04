@@ -2,17 +2,14 @@
 #  -*- coding:utf-8 -*-
 
 echo "Fucking"
-sudo apt-get -y install wget
+sudo apt-get -y install wget  # lsb-core?
 # hosts
 sudo mv /etc/hosts /etc/hosts.backup0
 sudo wget https://raw.githubusercontent.com/racaljk/hosts/master/hosts /etc/hosts
 
 echo "Installing"
-#sudo apt-get install lsb-core -y
 # emacs
 sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
-# neovim
-# sudo add-apt-repository ppa:neovim-ppa/unstable -y
 # chrome
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
@@ -42,7 +39,7 @@ sudo apt-get --allow-unauthenticated -y install \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
   gddrescue unzip skype python3-pip fcitx fcitx-config-gtk fcitx-sunpinyin \
   fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank \
-  chrome-gnome-shell geany
+  chrome-gnome-shell geany xmodmap
 # mdpress vidalia xfce4 sbt 'octave-*' evince pavucontrol volumeicon-alsa
 # john nmap hydra ophcrack hunt aircrack-ng roxterm cryptsetup julia feh
 # alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock
@@ -91,10 +88,8 @@ sudo chgrp wireshark /usr/bin/dumpcap
 sudo chmod 4755 /usr/bin/dumpcap
 sudo gpasswd -a mw wireshark
 # ---
-echo "remove Lock = Caps_Lock" > ~/.Xmodmap
-echo "keysym Caps_Lock = Escape" >> ~/.Xmodmap
-#echo "keysym Escape = Caps_Lock" >> ~/.Xmodmap
-#echo "add Lock = Caps_Lock" >> ~/.Xmodmap
+wget https://raw.githubusercontent.com/UBTC/true/master/Xmodmap.True
+mv Xmodmap.True ~/.Xmodmap.True
 # ---
 sudo mkdir /mnt/tmpDisk
 mount -t tmpfs -o size=1024m tmpfs /mnt/tmpDisk
@@ -105,15 +100,7 @@ git config --global push.default simple
 git config --global user.name mogeiwang
 git config --global user.email mogeiwang@gmail.com
 
-#echo "Desktop"
-#mv ~/.fluxbox ~/.fluxbox.backup
-#git clone "https://github.com/UBTC/bFox" ~/.fluxbox
-
 echo "Languages"
-#mv ~/scala ~/.scala.backup
-#mkdir ~/scala/package -p
-#git clone "https://github.com/ubtc/impala" ~/scala/import
-# ---
 mv ~/.config/ipython ~/.config/ipython.backup
 git clone "https://github.com/ubtc/gopy" ~/.config/ipython
 # ---
@@ -135,14 +122,6 @@ git clone 'https://github.com/ubtc/vine' ~/.vim
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 mkdir -p ~/.vim/backup
 mkdir -p ~/.vim/tmp
-#vim -c PlugInstall > /dev/null
-# neovim
-#mv ~/.config/nvim ~/.config/nvim.backup
-#git clone "https://github.com/ubtc/vine" ~/.config/nvim
-#curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-#mkdir -p ~/.config/nvim/backup
-#mkdir -p ~/.config/nvim/tmp
-##nvim --headless -c PlugInstall
 echo -e "`emacs` and `vim` have been installed;"
 echo -e "    Run `PlugInstall` to install `vim` plugins (`PlugUpdate` to update)."
 echo -e "    Press `U_x` key in elpa packages list view to update emacs packages (autoinstall in the 1st run)."
@@ -150,9 +129,6 @@ echo -e "    Press `U_x` key in elpa packages list view to update emacs packages
 echo "Shells"
 mv ~/.tmux.conf ~/.tmux.conf.backup
 cp ./term/_tmux.conf ~/.tmux.conf
-# ---
-#mv ~/.config/roxterm.sourceforge.net ~/.config/roxterm.sourceforge.net.backup
-#cp ./term/roxterm.sourceforge.net ~/.config/roxterm.sourceforge.net
 # ---
 mv ~/.ssh ~/.ssh.backup
 mkdir -p ~/.ssh
