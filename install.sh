@@ -88,8 +88,8 @@ sudo chgrp wireshark /usr/bin/dumpcap
 sudo chmod 4755 /usr/bin/dumpcap
 sudo gpasswd -a mw wireshark
 # ---
-wget https://raw.githubusercontent.com/UBTC/true/master/Xmodmap.True
-mv Xmodmap.True ~/.Xmodmap.True
+cp ~/.Xmodmap ~/.Xmodmap.backup
+cp ./term/_Xmodmap ~/.Xmodmap
 # ---
 sudo mkdir /mnt/tmpDisk
 mount -t tmpfs -o size=1024m tmpfs /mnt/tmpDisk

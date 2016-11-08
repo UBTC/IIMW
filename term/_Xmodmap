@@ -1,0 +1,32 @@
+! xmodmap for my layout
+! created by Mogei Wang
+! Nov 4 2016   in China
+
+keycode  10 = 1 exclam 1 exclam
+keycode  11 = 3 numbersign 3 numbersign
+keycode  12 = 5 percent 5 percent
+keycode  13 = 7 ampersand 7 ampersand
+keycode  14 = 9 parenleft 9 parenleft
+keycode  15 = 0 parenright 0 parenright
+keycode  16 = 2 at 2 at
+keycode  17 = 4 dollar 4 dollar
+keycode  18 = 6 asciicircum 6 asciicircum
+keycode  19 = 8 asterisk 8 asterisk
+
+keycode  23 = backslash bar backslash bar
+!keycode  47 = colon semicolon colon semicolon
+keycode  51 = Tab ISO_Left_Tab Tab ISO_Left_Tab
+keycode  66 = Escape BackSpace Escape BackSpace
+clear lock
+!keycode   9 = Caps_Lock NoSymbol Caps_Lock
+
+clear control
+clear mod4
+keycode  37 = Super_L NoSymbol Super_L
+keycode 105 = Super_R NoSymbol Super_R
+keycode 133 = Control_L NoSymbol Control_L
+keycode 134 = Control_R NoSymbol Control_R
+add control = Control_L
+add control = Control_R
+add mod4 = Super_L
+add mod4 = Super_R
