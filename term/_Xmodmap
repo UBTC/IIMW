@@ -3,7 +3,7 @@
 ! Nov 4-8 2016 in China
 
 ! 1 3 5 7 9 0 2 4 6 8
-! U O E I Q Y R T W P
+! U O E I Y Q W T R P
 ! A S D F ; J H G L K
 ! Z X C V / B N M , .
 
@@ -22,11 +22,11 @@ keycode  24 = u U u U
 keycode  25 = o O o O
 keycode  26 = e E e E
 keycode  27 = i I i I
-keycode  28 = q Q q Q
-keycode  29 = y Y y Y
-keycode  30 = r R r R
+keycode  28 = y Y y Y
+keycode  29 = q Q q Q
+keycode  30 = w W w W
 keycode  31 = t T t T
-keycode  32 = w W w W
+keycode  32 = r R r R
 keycode  33 = p P p P
 
 keycode  38 = a A a A
