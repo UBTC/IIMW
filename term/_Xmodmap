@@ -3,8 +3,8 @@
 ! Nov 4-8 2016 in China
 
 ! 1 3 5 7 9 0 2 4 6 8
-! W U E R Q Y I T O P
-! G F A S ; J H D L K
+! U O E I Q Y R T W P
+! A S D F ; J H G L K
 ! Z X C V / B N M , .
 
 keycode  10 = 1 exclam 1 exclam
@@ -18,25 +18,25 @@ keycode  17 = 4 dollar 4 dollar
 keycode  18 = 6 asciicircum 6 asciicircum
 keycode  19 = 8 asterisk 8 asterisk
 
-keycode  24 = w W w W
-keycode  25 = u U u U
+keycode  24 = u U u U
+keycode  25 = o O o O
 keycode  26 = e E e E
-keycode  27 = r R r R
+keycode  27 = i I i I
 keycode  28 = q Q q Q
 keycode  29 = y Y y Y
-keycode  30 = i I i I
+keycode  30 = r R r R
 keycode  31 = t T t T
-keycode  32 = o O o O
+keycode  32 = w W w W
 keycode  33 = p P p P
 
-keycode  38 = g G g G
-keycode  39 = f F f F
-keycode  40 = a A a A
-keycode  41 = s S s S
+keycode  38 = a A a A
+keycode  39 = s S s S
+keycode  40 = d D d D
+keycode  41 = f F f F
 keycode  42 = semicolon colon semicolon colon
 keycode  43 = j J j J
 keycode  44 = h H h H
-keycode  45 = d D d D
+keycode  45 = g G g G
 keycode  46 = l L l L
 keycode  47 = k K k K
 
