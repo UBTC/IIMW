@@ -1,6 +1,6 @@
 ! xmodmap for my layout
 ! created by Mogei Wang
-! Nov 4-8 2016 in China
+! Nov. 4-12 2016, China
 
 ! 1 3 5 7 9 0 2 4 6 8
 ! U O E I Y Q W T R P
@@ -68,6 +68,18 @@ add control = Control_R
 add mod4 = Super_L
 add mod4 = Super_R
 
+keycode  79 = parenleft KP_7 parenleft KP_7
+keycode  80 = parenright KP_8 parenright KP_8
+keycode  81 = percent KP_9 percent KP_9
+keycode  83 = bracketleft KP_4 bracketleft KP_4
+keycode  84 = bracketright KP_5 bracketright KP_5
+keycode  85 = exclam KP_6 exclam KP_6
+keycode  87 = less KP_1 less KP_1
+keycode  88 = greater KP_2 greater KP_2
+keycode  89 = equal KP_3 equal KP_3
+keycode  90 = apostrophe KP_0 apostrophe KP_0
+keycode  91 = colon KP_Decimal colon KP_Decimal
+
 !!!!!!!!!!!!!!
 !keycode   8 =
 !keycode  20 = minus underscore minus underscore
@@ -99,19 +111,10 @@ add mod4 = Super_R
 !keycode  76 = F10 F10 F10 F10 F10 F10 XF86Switch_VT_10
 !keycode  77 = Num_Lock NoSymbol Num_Lock
 !keycode  78 = Scroll_Lock NoSymbol Scroll_Lock
-!keycode  79 = KP_Home KP_7 KP_Home KP_7
-!keycode  80 = KP_Up KP_8 KP_Up KP_8
-!keycode  81 = KP_Prior KP_9 KP_Prior KP_9
+
 !keycode  82 = KP_Subtract KP_Subtract KP_Subtract KP_Subtract KP_Subtract KP_Subtract XF86Prev_VMode
-!keycode  83 = KP_Left KP_4 KP_Left KP_4
-!keycode  84 = KP_Begin KP_5 KP_Begin KP_5
-!keycode  85 = KP_Right KP_6 KP_Right KP_6
 !keycode  86 = KP_Add KP_Add KP_Add KP_Add KP_Add KP_Add XF86Next_VMode
-!keycode  87 = KP_End KP_1 KP_End KP_1
-!keycode  88 = KP_Down KP_2 KP_Down KP_2
-!keycode  89 = KP_Next KP_3 KP_Next KP_3
-!keycode  90 = KP_Insert KP_0 KP_Insert KP_0
-!keycode  91 = KP_Delete KP_Decimal KP_Delete KP_Decimal
+
 !keycode  92 = ISO_Level3_Shift NoSymbol ISO_Level3_Shift
 !keycode  93 =
 !keycode  94 = less greater less greater bar brokenbar bar
@@ -125,6 +128,7 @@ add mod4 = Super_R
 !keycode 102 = Muhenkan NoSymbol Muhenkan
 !keycode 103 =
 !keycode 104 = KP_Enter NoSymbol KP_Enter
+
 !keycode 106 = KP_Divide KP_Divide KP_Divide KP_Divide KP_Divide KP_Divide XF86Ungrab
 !keycode 107 = Print Sys_Req Print Sys_Req
 !keycode 108 = Alt_R Meta_R Alt_R Meta_R
@@ -152,6 +156,7 @@ add mod4 = Super_R
 !keycode 130 = Hangul NoSymbol Hangul
 !keycode 131 = Hangul_Hanja NoSymbol Hangul_Hanja
 !keycode 132 =
+
 !keycode 135 = Menu NoSymbol Menu
 !keycode 136 = Cancel NoSymbol Cancel
 !keycode 137 = Redo NoSymbol Redo
