@@ -77,7 +77,7 @@ keycode  85 = exclam KP_6 exclam KP_6
 keycode  87 = less KP_1 less KP_1
 keycode  88 = greater KP_2 greater KP_2
 keycode  89 = equal KP_3 equal KP_3
-keycode  90 = apostrophe KP_0 apostrophe KP_0
+keycode  90 = quotedbl KP_0 quotedbl KP_0
 keycode  91 = colon KP_Decimal colon KP_Decimal
 
 !!!!!!!!!!!!!!
