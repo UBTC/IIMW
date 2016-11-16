@@ -53,6 +53,7 @@ keycode  61 = period greater period greater
 
 keycode  23 = backslash bar backslash bar
 keycode  51 = Tab ISO_Left_Tab Tab ISO_Left_Tab
+keycode  65 = space Tab space Tab
 keycode  66 = Escape BackSpace Escape BackSpace
 clear lock
 !keycode   9 = Caps_Lock NoSymbol Caps_Lock
@@ -97,7 +98,6 @@ keycode  91 = colon KP_Decimal colon KP_Decimal
 !keycode  62 = Shift_R NoSymbol Shift_R
 !keycode  63 = KP_Multiply KP_Multiply KP_Multiply KP_Multiply KP_Multiply KP_Multiply XF86ClearGrab
 !keycode  64 = Alt_L Meta_L Alt_L Meta_L
-!keycode  65 = space NoSymbol space
 
 !keycode  67 = F1 F1 F1 F1 F1 F1 XF86Switch_VT_1
 !keycode  68 = F2 F2 F2 F2 F2 F2 XF86Switch_VT_2
