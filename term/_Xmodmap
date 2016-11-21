@@ -2,21 +2,21 @@
 ! created by Mogei Wang
 ! Nov. 4-12 2016, China
 
-! 1 3 5 7 9 0 2 4 6 8
+! 9 8 7 6 5 4 3 2 1 0
 ! W T E R Y Q U I O P
 ! A S D F ; J H G L K
 ! Z X C V / B N M , .
 
-keycode  10 = 1 exclam 1 exclam
-keycode  11 = 3 numbersign 3 numbersign
-keycode  12 = 5 percent 5 percent
-keycode  13 = 7 ampersand 7 ampersand
-keycode  14 = 9 parenleft 9 parenleft
-keycode  15 = 0 parenright 0 parenright
-keycode  16 = 2 at 2 at
-keycode  17 = 4 dollar 4 dollar
-keycode  18 = 6 asciicircum 6 asciicircum
-keycode  19 = 8 asterisk 8 asterisk
+keycode  10 = 9 parenleft 9 parenleft
+keycode  11 = 8 asterisk 8 asterisk
+keycode  12 = 7 ampersand 7 ampersand
+keycode  13 = 6 asciicircum 6 asciicircum
+keycode  14 = 5 percent 5 percent
+keycode  15 = 4 dollar 4 dollar
+keycode  16 = 3 numbersign 3 numbersign
+keycode  17 = 2 at 2 at
+keycode  18 = 1 exclam 1 exclam
+keycode  19 = 0 parenright 0 parenright
 
 keycode  24 = w W w W
 keycode  25 = t T t T
