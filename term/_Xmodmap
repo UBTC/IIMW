@@ -19,13 +19,13 @@ keycode  18 = 6 asciicircum 6 asciicircum
 keycode  19 = 8 asterisk 8 asterisk
 
 keycode  24 = w W w W
-keycode  25 = i I i I
+keycode  25 = t T t T
 keycode  26 = e E e E
 keycode  27 = r R r R
 keycode  28 = y Y y Y
 keycode  29 = q Q q Q
 keycode  30 = u U u U
-keycode  31 = t T t T
+keycode  31 = i I i I
 keycode  32 = o O o O
 keycode  33 = p P p P
 
