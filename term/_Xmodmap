@@ -4,7 +4,7 @@
 
 ! 9 8 7 6 5 4 3 2 1 0
 ! W T E R Y Q U I O P
-! A S D F ; J H G L K
+! A S D F ; J H L K G
 ! Z X C V / B N M , .
 
 !keycode  49 = 0 parenright 0 parenright
@@ -37,9 +37,9 @@ keycode  41 = f F f F
 keycode  42 = semicolon colon semicolon colon
 keycode  43 = j J j J
 keycode  44 = h H h H
-keycode  45 = g G g G
-keycode  46 = l L l L
-keycode  47 = k K k K
+keycode  45 = l L l L
+keycode  46 = k K k K
+keycode  47 = g G g G
 
 keycode  52 = z Z z Z
 keycode  53 = x X x X
