@@ -89,7 +89,7 @@ sudo chmod 4755 /usr/bin/dumpcap
 sudo gpasswd -a mw wireshark
 # ---
 cp ~/.Xmodmap ~/.Xmodmap.backup
-cp ./term/_Xmodmap ~/.Xmodmap
+cp ./terminal/_Xmodmap ~/.Xmodmap
 # ---
 sudo mkdir /mnt/tmpDisk
 mount -t tmpfs -o size=1024m tmpfs /mnt/tmpDisk
@@ -128,7 +128,7 @@ echo -e "    Press `U_x` key in elpa packages list view to update emacs packages
 
 echo "Shells"
 mv ~/.tmux.conf ~/.tmux.conf.backup
-cp ./term/_tmux.conf ~/.tmux.conf
+cp ./terminal/_tmux.conf ~/.tmux.conf
 # ---
 mv ~/.ssh ~/.ssh.backup
 mkdir -p ~/.ssh
