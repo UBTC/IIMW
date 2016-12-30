@@ -90,6 +90,8 @@ sudo gpasswd -a mw wireshark
 # ---
 cp ~/.Xmodmap ~/.Xmodmap.backup
 cp ./terminal/_Xmodmap ~/.Xmodmap
+echo '' >> ~/.xinitrc
+echo 'xmodmap ~/.Xmodmap' >> ~/.xinitrc
 # ---
 sudo mkdir /mnt/tmpDisk
 mount -t tmpfs -o size=1024m tmpfs /mnt/tmpDisk
@@ -142,4 +144,5 @@ cp ./shell/_zshrc ~/.zshrc
 # Vmware
 wget https://download3.vmware.com/software/player/file/VMware-Player-12.5.0-4352439.x86_64.bundle
 sudo sh VMware-Player-12.5.0-4352439.x86_64.bundle
+
 echo "Done"
