@@ -14,7 +14,7 @@ sudo add-apt-repository ppa:ubuntu-elisp/ppa  -y
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 # GNOME Shell integration for Chromium browser
-sudo add-apt-repository -y ppa:ne0sight/chrome-gnome-shell
+#sudo add-apt-repository -y ppa:ne0sight/chrome-gnome-shell
 # skype (in bash only!)
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 # sbt (of scala)
@@ -35,11 +35,11 @@ sudo apt-get --allow-unauthenticated -y install \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu gmchess \
   gdebi auctex clamav aspell exuberant-ctags amule vim emacs-snapshot curl \
-  libav-tools default-jre default-jdk kismet gnome-tweak-tool libpam-mount \
+  libav-tools default-jre default-jdk kismet geany xmodmap libpam-mount sl \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
   gddrescue unzip skype python3-pip fcitx fcitx-config-gtk fcitx-sunpinyin \
-  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank \
-  chrome-gnome-shell geany xmodmap
+  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank 
+# chrome-gnome-shell  gnome-tweak-tool
 # mdpress vidalia xfce4 sbt 'octave-*' evince pavucontrol volumeicon-alsa
 # john nmap hydra ophcrack hunt aircrack-ng roxterm cryptsetup julia feh
 # alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock
@@ -142,5 +142,4 @@ cp ./shell/_zshrc ~/.zshrc
 # Vmware
 wget https://download3.vmware.com/software/player/file/VMware-Player-12.5.0-4352439.x86_64.bundle
 sudo sh VMware-Player-12.5.0-4352439.x86_64.bundle
-
 echo "Done"
