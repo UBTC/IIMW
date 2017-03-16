@@ -2,9 +2,8 @@
 
 # Generic
 set fish_greeting (fortune)
-set EDITOR nvim
-set VISUAL nvim
-set -x NVIM_LISTEN_ADDRESS /tmp/neovim/neovim
+set EDITOR vim
+set VISUAL vim
 # ---
 set -x LANG en_US.UTF-8
 set -x LANGUAGE $LANG
@@ -20,6 +19,7 @@ set -x PATH $PATH $GOBIN
 set -U fish_user_paths $fish_user_paths $GOBIN
 set -x JULIAFUNCDIR ~/julia/juliaFunc
 # set -x JULIA_PKGDIR /usr/local/julia/julia-packages
+set -x NVIM_LISTEN_ADDRESS /tmp/neovim/neovim
 
 # Aliases
 alias ,='cd ..'
@@ -28,15 +28,12 @@ alias ,,,='cd ../../..'
 alias ,,,,='cd ../../../..'
 alias ,,,,,='cd ../../../../..'
 alias -='cd -'
-alias ed='vim'
-alias em='emacs -nw'
+alias ed='emacs -nw'
 alias ex='emacs'
-alias vi='gvim'
-alias ne='nvim'
-alias nd='nvim -d'
 alias jl='julia'
 alias pp='python3'
 alias py='ipython3'
+alias pyss='python -m SimpleHTTPServer'
 alias pt='jupyter'
 alias pn='jupyter notebook'
 alias pc='jupyter nbconvert --to'
@@ -44,7 +41,10 @@ alias mm='tmux -2 attach'
 alias sc='scala -feature'
 alias scc='scalac'
 alias tmux='tmux -2'
-alias nv="stterm -c Neovim -T Neovim -f 'Liberation Mono:pixelsize=15:antialias=true:autohint=true' -e fish -c 'nvim'"
+alias sskg='ssh-keygen'
+# use sskg to generate id_rsa&id_ras.pub,
+# and copy .pub to ~/.ssh/authorized_keys on server.
+#alias nv="stterm -c Neovim -T Neovim -f 'Liberation Mono:pixelsize=15:antialias=true:autohint=true' -e fish -c 'nvim'"
 alias mc="pandoc -f markdown+lhs slides.md -o slides.html -t dzslides -i -s -S --toc"
 alias gb="go build -compiler gccgo -gccgoflags='-O3' "
 alias uu="sudo apt-get update -y; sudo apt-get upgrade -y; sudo apt-get autoremove --purge -y"

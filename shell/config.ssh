@@ -3,16 +3,20 @@
 # sftp://server
 
 HOST svr
-    User mw..
+    User mw...
     HostName 202.120.1.121
     Port 502
     ForwardX11 yes
     TCPKeepAlive yes
     ServerAliveInterval 90
     ServerAliveCountMax 90000
+    ControlPersist 24h
+    ControlMaster auto
+    ControlPath /tmp/ssh_mux_%h_%p_%r
+    Ciphers arcfour
 
 HOST svr2
-    User mo..
+    User mog...
     HostName 202.121.182.6
     Port 5230
     ForwardX11 yes
@@ -21,13 +25,14 @@ HOST svr2
     ServerAliveCountMax 90000
 
 HOST hpc
-    User mw..
+    User mw...
     HostName hpc.nyu.edu
     TCPKeepAlive yes
     ServerAliveInterval 90
     ServerAliveCountMax 90000
 
 Host hpctunnel
+   User mw...
    HostName hpc.nyu.edu
    ForwardX11 yes
    LocalForward 8023 mercer.es.its.nyu.edu:22
@@ -35,26 +40,25 @@ Host hpctunnel
    LocalForward 8024 mercer1.es.its.nyu.edu:22
    # for the Hadoop cluster:
    LocalForward 8025 dumbo.es.its.nyu.edu:22
-   User NetID
 
 # next we create an alias for incoming packets on port 8023. The
 # alias corresponds to where the tunnel forwards these packets
 Host mercer
+  User mw...
   HostName localhost
   Port 8023
   ForwardX11 yes
-  User NetID
 
 # repeat the last step for each LocalForward entry under "Host hpctunnel", eg:
 Host mercer1
+  User mw...
   HostName localhost
   Port 8024
   ForwardX11 yes
-  User NetID
 
 Host dumbo
+  User mw...
   HostName localhost
   HostKeyAlias dumbo
   Port 8025
   ForwardX11 yes
-  User NetID
