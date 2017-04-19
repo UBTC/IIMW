@@ -76,6 +76,7 @@ sudo pip3 install mdp
 sudo pip3 install pyneuroml
 sudo pip3 install ipdb # IPython debugger
 sudo pip3 install virtualenv # for tensorflow
+sudo pip3 install keras
 
 sudo apt-get autoremove --purge -y
 
@@ -102,7 +103,7 @@ sudo echo "tmpfs /mnt/tmpDisk tmpfs nodev,nosuid,noexec,nodiratime,size=1024M 0 
 # ---
 echo -e "\n\nseting up github user!!! <<< --- Please check again!!!\n\n"
 git config --global push.default simple
-git config --global user.name maojiwang
+git config --global user.name wmji
 git config --global user.email maoji.wang@cims.nyu.edu
 
 echo "Languages"
