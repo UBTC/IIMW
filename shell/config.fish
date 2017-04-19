@@ -19,6 +19,7 @@ set -x PATH $PATH $GOBIN
 set -U fish_user_paths $fish_user_paths $GOBIN
 set -x JULIAFUNCDIR ~/julia/juliaFunc
 # set -x JULIA_PKGDIR /usr/local/julia/julia-packages
+set -gx PATH ~/tensorflow/bin $PATH
 set -x NVIM_LISTEN_ADDRESS /tmp/neovim/neovim
 
 # Aliases
@@ -30,17 +31,16 @@ alias ,,,,,='cd ../../../../..'
 alias -='cd -'
 alias ed='emacs -nw'
 alias vi='vim'
-alias jl='julia'
+#alias jl='julia'
 alias pp='python3'
 alias py='ipython3'
 alias pyss='python -m SimpleHTTPServer'
-alias pt='jupyter'
-alias pn='jupyter notebook'
-alias pc='jupyter nbconvert --to'
+alias jpt='jupyter'
+alias jpn='jupyter notebook'
+alias jpc='jupyter nbconvert --to'
 alias mm='tmux -2 attach'
 alias sc='scala -feature'
 alias scc='scalac'
-alias tmux='tmux -2'
 alias sskg='ssh-keygen'
 # use sskg to generate id_rsa&id_ras.pub,
 # and copy .pub to ~/.ssh/authorized_keys on server.

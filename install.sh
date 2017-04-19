@@ -75,6 +75,7 @@ sudo pip3 install statsmodels
 sudo pip3 install mdp
 sudo pip3 install pyneuroml
 sudo pip3 install ipdb # IPython debugger
+sudo pip3 install virtualenv # for tensorflow
 
 sudo apt-get autoremove --purge -y
 
@@ -101,8 +102,8 @@ sudo echo "tmpfs /mnt/tmpDisk tmpfs nodev,nosuid,noexec,nodiratime,size=1024M 0 
 # ---
 echo -e "\n\nseting up github user!!! <<< --- Please check again!!!\n\n"
 git config --global push.default simple
-git config --global user.name mogeiwang
-git config --global user.email mogeiwang@gmail.com
+git config --global user.name maojiwang
+git config --global user.email maoji.wang@cims.nyu.edu
 
 echo "Languages"
 mv ~/.config/ipython ~/.config/ipython.backup
@@ -143,8 +144,11 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 mv ~/.zshrc .zshrc.omzs
 cp ./shell/_zshrc ~/.zshrc
 
-# Vmware
+# virtuals
 wget https://download3.vmware.com/software/player/file/VMware-Player-12.5.0-4352439.x86_64.bundle
 sudo sh VMware-Player-12.5.0-4352439.x86_64.bundle
+# --- install tensorflow in fish sh.
+virtualenv  --system-site-packages  ~/tensorflow
+fish -c "~/tensorflow/bin/pip3 install --upgrade tensorflow"
 
 echo "Done"
