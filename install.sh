@@ -38,8 +38,8 @@ sudo apt-get --allow-unauthenticated -y install \
   libav-tools default-jre default-jdk kismet geany xmodmap libpam-mount sl \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
   gddrescue unzip skype python3-pip fcitx fcitx-config-gtk fcitx-sunpinyin \
-  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank
-# chrome-gnome-shell  gnome-tweak-tool
+  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank \
+  rustc cargo # chrome-gnome-shell  gnome-tweak-tool
 # mdpress vidalia xfce4 sbt 'octave-*' evince pavucontrol volumeicon-alsa
 # john nmap hydra ophcrack hunt aircrack-ng roxterm cryptsetup julia feh
 # alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock
