@@ -17,20 +17,10 @@ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable
 #sudo add-apt-repository -y ppa:ne0sight/chrome-gnome-shell
 # skype (in bash only!)
 sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-# sbt (of scala)
-#echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-# Julia
-#sudo echo "" >> /etc/apt/sources.list
-#sudo echo "# Julia" >> /etc/apt/sources.list
-#sudo echo "deb http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
-#sudo echo "deb-src http://ppa.launchpad.net/staticfloat/juliareleases/ubuntu " $(lsb_release -cs) " main" >> /etc/apt/sources.list
-#sudo echo "" >> /etc/apt/sources.list
-#cat /etc/apt/sources.list # vim /etc/apt/sources.list
 
 sudo apt-get update -y
 sudo apt-get --allow-unauthenticated -y install \
-  scala goldendict tcllib golang calibre openvpn jwm rar wireshark catfish \
+  mupdf goldendict tcllib golang calibre openvpn jwm rar wireshark catfish \
   jabref pep8 vym ufw hamster-indicator tmux tor synaptic zsh fish gnuplot \
   openssl openssh-client pandoc playonlinux xchm texlive-full wget gdb git \
   transmission-gtk zip pyflakes gtkorphan gtk-recordmydesktop gksu gmchess \
@@ -38,20 +28,9 @@ sudo apt-get --allow-unauthenticated -y install \
   libav-tools default-jre default-jdk kismet geany xmodmap libpam-mount sl \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
   gddrescue unzip skype python3-pip fcitx fcitx-config-gtk fcitx-sunpinyin \
-  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank \
-  rustc cargo # chrome-gnome-shell  gnome-tweak-tool
-# mdpress vidalia xfce4 sbt 'octave-*' evince pavucontrol volumeicon-alsa
-# john nmap hydra ophcrack hunt aircrack-ng roxterm cryptsetup julia feh
-# alsamixergui xbacklight xarchiver alsa-utils gimp dmsetup xautolock
-
+  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank
+  # chrome-gnome-shell gnome-tweak-tool
 sudo apt-get upgrade -y
-
-# choose a Java to work with scala
-sudo update-alternatives --config java
-
-# install the latest scala 2.11
-#wget http://www.scala-lang.org/files/archive/scala-2.11.8.deb
-#sudo gdebi --n  scala-2.11.8.deb
 
 sudo pip3 install ipython
 sudo pip3 install notebook
@@ -93,7 +72,7 @@ sudo chmod 4755 /usr/bin/dumpcap
 sudo gpasswd -a mw wireshark
 # ---
 cp ~/.Xmodmap ~/.Xmodmap.backup
-cp ./terminal/_Xmodmap ~/.Xmodmap
+cp ./terminal/_Xmodmap.watery ~/.Xmodmap
 echo '' >> ~/.xinitrc
 echo 'xmodmap ~/.Xmodmap' >> ~/.xinitrc
 # ---
@@ -112,10 +91,6 @@ git clone "https://github.com/ubtc/gopy" ~/.config/ipython
 # ---
 sh ~/.config/ipython/install_go_pkg.sh
 go env
-#julia ~/.config/ipython/install_jl_pkg.jl
-#mkdir -p ~/julia/juliaFunc
-#mv ~/.juliarc.jl ~/.julia.backup.jl
-#cp ~/.ipython/ipython/_juliarc.jl ~/.juliarc.jl
 
 echo "Editors"
 # emacs
