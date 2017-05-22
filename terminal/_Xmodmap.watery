@@ -7,17 +7,17 @@
 ! A S D F ; J H L K G
 ! Z X C V , . B N M /
 
-!keycode  49 = 0 parenright 0 parenright
-!keycode  10 = 9 parenleft 9 parenleft
-!keycode  11 = 8 asterisk 8 asterisk
-!keycode  12 = 7 ampersand 7 ampersand
-!keycode  13 = 6 asciicircum 6 asciicircum
+!keycode  10 = 1 exclam 1 exclam
+!keycode  11 = 2 at 2 at
+!keycode  12 = 3 numbersign 3 numbersign
+!keycode  13 = 4 dollar 4 dollar
 !keycode  14 = 5 percent 5 percent
-!keycode  15 = 4 dollar 4 dollar
-!keycode  16 = 3 numbersign 3 numbersign
-!keycode  17 = 2 at 2 at
-!keycode  18 = 1 exclam 1 exclam
-!keycode  19 = grave asciitilde grave asciitilde
+!keycode  15 = 6 asciicircum 6 asciicircum
+!keycode  16 = 7 ampersand 7 ampersand
+!keycode  17 = 8 asterisk 8 asterisk
+!keycode  18 = 9 parenleft 9 parenleft
+!keycode  19 = 0 parenright 0 parenright
+!keycode  49 = grave asciitilde grave asciitilde
 
 keycode  24 = w W w W
 keycode  25 = t T t T
@@ -59,16 +59,16 @@ keycode  66 = Escape BackSpace Escape BackSpace
 clear lock
 !keycode   9 = Caps_Lock NoSymbol Caps_Lock
 
-clear control
-clear mod4
-keycode  37 = Super_L NoSymbol Super_L
-keycode 105 = Super_R NoSymbol Super_R
-keycode 133 = Control_L NoSymbol Control_L
-keycode 134 = Control_R NoSymbol Control_R
-add control = Control_L
-add control = Control_R
-add mod4 = Super_L
-add mod4 = Super_R
+!clear control
+!clear mod4
+!keycode  37 = Super_L NoSymbol Super_L
+!keycode 105 = Super_R NoSymbol Super_R
+!keycode 133 = Control_L NoSymbol Control_L
+!keycode 134 = Control_R NoSymbol Control_R
+!add control = Control_L
+!add control = Control_R
+!add mod4 = Super_L
+!add mod4 = Super_R
 
 keycode  79 = parenleft KP_7 parenleft KP_7
 keycode  80 = parenright KP_8 parenright KP_8
