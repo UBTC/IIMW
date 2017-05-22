@@ -59,27 +59,27 @@ keycode  66 = Escape BackSpace Escape BackSpace
 clear lock
 !keycode   9 = Caps_Lock NoSymbol Caps_Lock
 
-!clear control
-!clear mod4
-!keycode  37 = Super_L NoSymbol Super_L
-!keycode 105 = Super_R NoSymbol Super_R
-!keycode 133 = Control_L NoSymbol Control_L
-!keycode 134 = Control_R NoSymbol Control_R
-!add control = Control_L
-!add control = Control_R
-!add mod4 = Super_L
-!add mod4 = Super_R
+clear control
+clear mod4
+keycode  37 = Control_L NoSymbol Control_L
+keycode 105 = Super_L NoSymbol Super_L
+keycode 133 = Super_R NoSymbol Super_R
+keycode 134 = Control_R NoSymbol Control_R
+add control = Control_L
+add control = Control_R
+add mod4 = Super_L
+add mod4 = Super_R
 
 keycode  79 = parenleft KP_7 parenleft KP_7
 keycode  80 = parenright KP_8 parenright KP_8
-keycode  81 = percent KP_9 percent KP_9
-keycode  83 = bracketleft KP_4 bracketleft KP_4
-keycode  84 = bracketright KP_5 bracketright KP_5
+keycode  81 = quotedbl KP_9 quotedbl KP_9
+keycode  83 = less KP_4 less KP_4
+keycode  84 = greater KP_5 greater KP_5
 keycode  85 = exclam KP_6 exclam KP_6
-keycode  87 = less KP_1 less KP_1
-keycode  88 = greater KP_2 greater KP_2
+keycode  87 = bracketleft KP_1 bracketleft KP_1
+keycode  88 = bracketright KP_2 bracketright KP_2
 keycode  89 = equal KP_3 equal KP_3
-keycode  90 = quotedbl KP_0 quotedbl KP_0
+keycode  90 = numbersign KP_0 numbersign KP_0
 keycode  91 = colon KP_Decimal colon KP_Decimal
 
 !!!!!!!!!!!!!!
