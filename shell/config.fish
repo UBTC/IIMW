@@ -49,6 +49,21 @@ alias mc="pandoc -f markdown+lhs slides.md -o slides.html -t dzslides -i -s -S -
 alias gb="go build -compiler gccgo -gccgoflags='-O3' "
 alias uu="sudo apt-get update -y; sudo apt-get upgrade -y; sudo apt-get autoremove --purge -y"
 
+# functions
+function kc
+  echo "::kotlinc $argv.kt -include-runtime -d $argv.jar"
+  kotlinc $argv.kt -include-runtime -d $argv.jar
+end
+
+function kr
+  echo "::java -jar $argv.jar"
+  java -jar $argv.jar
+end
+
+function lsp
+  ls -ah --color=always $argv | less -R
+end
+
 # Misc
 # initialise_ssh_agent
 stty echo
