@@ -56,8 +56,8 @@ function kc
 end
 
 function kr
-  echo "::java -jar $argv.jar"
-  java -jar $argv.jar
+  echo "::java -jar $argv[1].jar $argv[2..-1]"
+  java -jar $argv[1].jar $argv[2..-1]
 end
 
 function lsp
