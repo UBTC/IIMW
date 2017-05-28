@@ -14,11 +14,13 @@ set -x LC_MESSAGES $LANG
 set -x FISH_PATH $HOME/.config/fish
 set -x GOPATH $HOME/goWork
 set -x GOBIN $GOPATH/bin
+set -x PATH /usr/lib/go-1.8/bin $PATH
 set -x PATH /usr/local/sbin $PATH
 set -x PATH $PATH $GOBIN
 set -U fish_user_paths $fish_user_paths $GOBIN
 set -gx PATH $HOME/anaconda/bin $PATH
 set -gx PATH $HOME/tensorflow/bin $PATH
+set -gx PATH /opt/android-studio/bin $PATH
 set -x NVIM_LISTEN_ADDRESS /tmp/neovim/neovim
 
 # Aliases
@@ -37,7 +39,7 @@ alias pyss='python -m SimpleHTTPServer'
 alias jpt='jupyter'
 alias jpn='jupyter notebook'
 alias jps='jupyter notebook --no-browser --port=8889' # server
-alias jpc='ssh -N -f -L localhost:8888:localhost:8889 username@remote_host_name' # fill real info here!!!
+alias jpc='ssh -N -f -L localhost:8888:localhost:8889 mw..@svr' # fill real info here!!!
 alias jpcvt='jupyter nbconvert --to'
 alias mm='tmux -2 attach'
 alias sskg='ssh-keygen'

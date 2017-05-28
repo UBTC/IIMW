@@ -56,6 +56,7 @@ sudo pip3 install pyneuroml
 sudo pip3 install ipdb # IPython debugger
 sudo pip3 install virtualenv # for tensorflow
 sudo pip3 install keras
+sudo pip3 install flask # micro web framework
 
 sudo apt-get autoremove --purge -y
 
