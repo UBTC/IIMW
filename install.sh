@@ -57,7 +57,7 @@ sudo pip3 install ipdb # IPython debugger
 sudo pip3 install virtualenv # for tensorflow
 sudo pip3 install keras
 sudo pip3 install flask # micro web framework
-sudo pip3 install mypy # Python static typing!
+#sudo pip3 install mypy # Python static typing!
 sudo pip3 install tushare # stock data
 
 sudo apt-get autoremove --purge -y

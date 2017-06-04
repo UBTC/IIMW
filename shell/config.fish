@@ -12,7 +12,7 @@ set -x LC_CTYPE $LANG
 set -x LC_MESSAGES $LANG
 # ---
 set -x FISH_PATH $HOME/.config/fish
-set -x GOPATH $HOME/goWork
+set -x GOPATH $HOME/golang
 set -x GOBIN $GOPATH/bin
 set -x PATH /usr/lib/go-1.8/bin $PATH
 set -x PATH /usr/local/sbin $PATH

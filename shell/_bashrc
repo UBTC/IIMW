@@ -6,11 +6,11 @@ if [ -f /etc/bashrc ]; then
         . /etc/bashrc
 fi
 
-export GOPATH=$HOME/goWork
+export GOPATH=$HOME/golang
 export GOBIN=$GOPATH/bin
 export JULIAFUNCDIR=$HOME/julia/juliaFunc
 # export JULIA_PKGDIR=/usr/local/julia/julia-packages
-export PATH="/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mw/goWork/bin:/home/mw/bin/"
+export PATH="/usr/local/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/mw/golang/bin:/home/mw/bin/"
 
 alias vi='vim'
 alias vd='vimdiff'
