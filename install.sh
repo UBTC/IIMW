@@ -54,11 +54,16 @@ sudo pip3 install statsmodels
 sudo pip3 install mdp
 sudo pip3 install pyneuroml
 sudo pip3 install ipdb # IPython debugger
-sudo pip3 install virtualenv # for tensorflow
 sudo pip3 install keras
 sudo pip3 install flask # micro web framework
 sudo pip3 install simpy
 sudo pip3 install tushare # stock data
+# --- install tensorflow in fish sh.
+sudo pip3 install tensorflow
+# if use virtualenv
+#sudo pip3 install virtualenv # for tensorflow
+#virtualenv  --system-site-packages  ~/tensorflow
+#fish -c "~/tensorflow/bin/pip3 install --upgrade tensorflow"
 
 sudo apt-get autoremove --purge -y
 
@@ -126,8 +131,5 @@ cp ./shell/_zshrc ~/.zshrc
 # virtuals
 wget https://download3.vmware.com/software/player/file/VMware-Player-12.5.0-4352439.x86_64.bundle
 sudo sh VMware-Player-12.5.0-4352439.x86_64.bundle
-# --- install tensorflow in fish sh.
-virtualenv  --system-site-packages  ~/tensorflow
-fish -c "~/tensorflow/bin/pip3 install --upgrade tensorflow"
 
 echo "Done"
