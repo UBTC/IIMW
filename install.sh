@@ -55,7 +55,8 @@ sudo pip3 install mdp
 sudo pip3 install pyneuroml
 sudo pip3 install ipdb # IPython debugger
 sudo pip3 install keras
-sudo pip3 install flask # micro web framework
+sudo pip3 install flask # micro web framework (or django??)
+sudo pip3 install pygame
 sudo pip3 install simpy
 sudo pip3 install tushare # stock data
 # --- install tensorflow in fish sh.
