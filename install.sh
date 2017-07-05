@@ -48,6 +48,8 @@ sudo pip3 install scipy
 sudo pip3 install matplotlib
 sudo pip3 install networkx
 sudo pip3 install pandas
+sudo pip3 install scikit-learn
+sudo pip3 install seaborn
 sudo pip3 install moviepy
 sudo pip3 install future
 sudo pip3 install statsmodels
