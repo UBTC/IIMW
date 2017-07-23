@@ -32,14 +32,14 @@ alias ,,,,,='cd ../../../../..'
 alias -='cd -'
 alias ed='emacs -nw'
 alias em='emacs'
-alias vi='gvim'
 alias pp='python3'
 alias py='ipython3'
+alias pipu='sudo pip install --upgrade'
 alias pyss='python -m SimpleHTTPServer'
 alias jpt='jupyter'
 alias jpn='jupyter notebook'
-alias jps='jupyter notebook --no-browser --port=8889' # server
-alias jpc='ssh -N -f -L localhost:8888:localhost:8889 mw..@svr' # fill real info here!!!
+alias jps='jupyter notebook --no-browser --port=8899' # server
+alias jpc='ssh -N -f -L localhost:8888:localhost:8899 mw..@svr' # fill real info here!!!
 alias jpcvt='jupyter nbconvert --to'
 alias mm='tmux -2 attach'
 alias sskg='ssh-keygen'
