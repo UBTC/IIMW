@@ -44,13 +44,13 @@ keycode  47 = g G g G
 keycode  52 = z Z z Z
 keycode  53 = x X x X
 keycode  54 = c C c C
-keycode  55 = v V v V
-keycode  56 = comma less comma less
+keycode  55 = comma less comma less
+keycode  56 = slash question slash question
 keycode  57 = period greater period greater
 keycode  58 = b B b B
 keycode  59 = n N n N
 keycode  60 = m M m M
-keycode  61 = slash question slash question
+keycode  61 = v V v V
 
 !!keycode  51 = backslash bar backslash bar
 !!keycode  23 = Tab ISO_Left_Tab Tab ISO_Left_Tab
