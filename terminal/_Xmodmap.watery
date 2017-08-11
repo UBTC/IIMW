@@ -4,7 +4,7 @@
 !! xmodmap -pke for base
 
 !! W T E R Y Q U I O P
-!! A S D F ; J H L K G
+!! F D S A ; J H L K G
 !! Z X C , / . M N B V
 
 !!keycode  10 = 1 exclam 1 exclam
@@ -30,10 +30,10 @@ keycode  31 = i I i I
 keycode  32 = o O o O
 keycode  33 = p P p P
 
-keycode  38 = a A a A
-keycode  39 = s S s S
-keycode  40 = d D d D
-keycode  41 = f F f F
+keycode  38 = f F f F
+keycode  39 = d D d D
+keycode  40 = s S s S
+keycode  41 = a A a A
 keycode  42 = semicolon colon semicolon colon
 keycode  43 = j J j J
 keycode  44 = h H h H
