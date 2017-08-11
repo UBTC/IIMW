@@ -5,7 +5,7 @@
 
 !! W T E R Y Q U I O P
 !! F D S A ; J H L K G
-!! Z X C , / . M N B V
+!! Z X C , / . N M B V
 
 !!keycode  10 = 1 exclam 1 exclam
 !!keycode  11 = 2 at 2 at
@@ -47,8 +47,8 @@ keycode  54 = c C c C
 keycode  55 = comma less comma less
 keycode  56 = slash question slash question
 keycode  57 = period greater period greater
-keycode  58 = m M m M
-keycode  59 = n N n N
+keycode  58 = n N n N
+keycode  59 = m M m M
 keycode  60 = b B b B
 keycode  61 = v V v V
 
