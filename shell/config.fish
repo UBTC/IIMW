@@ -31,11 +31,11 @@ alias ,,,,='cd ../../../..'
 alias ,,,,,='cd ../../../../..'
 alias -='cd -'
 alias ed='emacs -nw'
-alias em='emacs'
+alias ex='emacs'
 alias pp='python3'
 alias py='ipython3'
-alias pipu='sudo pip install --upgrade'
 alias pyss='python -m SimpleHTTPServer'
+alias pipu='sudo pip install --upgrade'
 alias jpt='jupyter'
 alias jpn='jupyter notebook'
 alias jps='jupyter notebook --no-browser --port=8899' # server
@@ -48,18 +48,18 @@ alias mc="pandoc -f markdown+lhs slides.md -o slides.html -t dzslides -i -s -S -
 alias gb="go build -compiler gccgo -gccgoflags='-O3' "
 alias uu="sudo apt-get update -y; sudo apt-get upgrade -y; sudo apt-get autoremove --purge -y"
 
-# functions
+# Function
 function kc
-  echo "::kotlinc $argv.kt -include-runtime -d $argv.jar"
-  kotlinc $argv.kt -include-runtime -d $argv.jar
-end
+  echo "::kotlinc $argv.kt -include-runtime -d $argv.jar"		
+  kotlinc $argv.kt -include-runtime -d $argv.jar		
+end		
+		
+function kr		
+  echo "::java -jar $argv[1].jar $argv[2..-1]"		
+  java -jar $argv[1].jar $argv[2..-1]		
+end		
 
-function kr
-  echo "::java -jar $argv[1].jar $argv[2..-1]"
-  java -jar $argv[1].jar $argv[2..-1]
-end
-
-function lsp
+function lc
   ls -ah --color=always $argv | less -R
 end
 
