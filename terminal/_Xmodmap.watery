@@ -1,23 +1,27 @@
 !! xmodmap for my layout
 !! created by Mogei Wang
 !! Nov. 4-12 2016, China
+!! Aug. 9-22 2017, U.A.E
 !! xmodmap -pke for base
 
+!! - = 1 2 3 ... 9 0 `
 !! W T E R Y Q U I O P
 !! F D S A ; J H L K G
 !! Z X C , / . N M B V
 
-!!keycode  10 = 1 exclam 1 exclam
-!!keycode  11 = 2 at 2 at
-!!keycode  12 = 3 numbersign 3 numbersign
-!!keycode  13 = 4 dollar 4 dollar
-!!keycode  14 = 5 percent 5 percent
-!!keycode  15 = 6 asciicircum 6 asciicircum
-!!keycode  16 = 7 ampersand 7 ampersand
-!!keycode  17 = 8 asterisk 8 asterisk
-!!keycode  18 = 9 parenleft 9 parenleft
-!!keycode  19 = 0 parenright 0 parenright
-!!keycode  49 = grave asciitilde grave asciitilde
+keycode  49 = minus underscore minus underscore
+keycode  10 = equal plus equal plus
+keycode  11 = 1 exclam 1 exclam
+keycode  12 = 2 at 2 at
+keycode  13 = 3 numbersign 3 numbersign
+keycode  14 = 4 dollar 4 dollar
+keycode  15 = 5 percent 5 percent
+keycode  16 = 6 asciicircum 6 asciicircum
+keycode  17 = 7 ampersand 7 ampersand
+keycode  18 = 8 asterisk 8 asterisk
+keycode  19 = 9 parenleft 9 parenleft
+keycode  20 = 0 parenright 0 parenright
+keycode  21 = grave asciitilde grave asciitilde
 
 keycode  24 = w W w W
 keycode  25 = t T t T
@@ -73,6 +77,7 @@ clear lock
 !keycode  79 = parenleft KP_7 parenleft KP_7
 !keycode  80 = parenright KP_8 parenright KP_8
 !keycode  81 = quotedbl KP_9 quotedbl KP_9
+
 !keycode  83 = less KP_4 less KP_4
 !keycode  84 = greater KP_5 greater KP_5
 !keycode  85 = exclam KP_6 exclam KP_6
@@ -83,9 +88,9 @@ clear lock
 !keycode  91 = colon KP_Decimal colon KP_Decimal
 
 !!!!!!!!!!!!!!
+
 !keycode   8 =
-!keycode  20 = minus underscore minus underscore
-!keycode  21 = equal plus equal plus
+
 !keycode  22 = BackSpace BackSpace BackSpace BackSpace
 
 !keycode  34 = bracketleft braceleft bracketleft braceleft
