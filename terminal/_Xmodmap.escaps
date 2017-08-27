@@ -2,17 +2,19 @@
 ! Only that,  CapsLock -> Escape
 ! M.W. 08-20-2017, NYU Abu Dhabi
 
-!!keycode  10 = 1 exclam 1 exclam
-!!keycode  11 = 2 at 2 at
-!!keycode  12 = 3 numbersign 3 numbersign
-!!keycode  13 = 4 dollar 4 dollar
-!!keycode  14 = 5 percent 5 percent
-!!keycode  15 = 6 asciicircum 6 asciicircum
-!!keycode  16 = 7 ampersand 7 ampersand
-!!keycode  17 = 8 asterisk 8 asterisk
-!!keycode  18 = 9 parenleft 9 parenleft
-!!keycode  19 = 0 parenright 0 parenright
-!!keycode  49 = grave asciitilde grave asciitilde
+keycode  49 = grave asciitilde grave asciitilde
+keycode  10 = 1 exclam 1 exclam
+keycode  11 = 2 at 2 at
+keycode  12 = 3 numbersign 3 numbersign
+keycode  13 = 4 dollar 4 dollar
+keycode  14 = 5 percent 5 percent
+keycode  15 = 6 asciicircum 6 asciicircum
+keycode  16 = 7 ampersand 7 ampersand
+keycode  17 = 8 asterisk 8 asterisk
+keycode  18 = 9 parenleft 9 parenleft
+keycode  19 = 0 parenright 0 parenright
+keycode  20 = minus underscore minus underscore
+keycode  21 = equal plus equal plus
 
 keycode  24 = q Q q Q
 keycode  25 = w W w W
@@ -79,8 +81,6 @@ clear lock
 
 !!!!!!!!!!!!!!
 !keycode   8 =
-!keycode  20 = minus underscore minus underscore
-!keycode  21 = equal plus equal plus
 !keycode  22 = BackSpace BackSpace BackSpace BackSpace
 
 !keycode  34 = bracketleft braceleft bracketleft braceleft
