@@ -7,7 +7,7 @@
 !! - = 1 2 3 ... 9 0 `
 !! W T E R Y Q U I O P
 !! F D S A ; J H L K G
-!! Z X C , / . N M B V
+!! Z X C V , . N M B /
 
 keycode  49 = minus underscore minus underscore
 keycode  10 = equal plus equal plus
@@ -48,13 +48,13 @@ keycode  47 = g G g G
 keycode  52 = z Z z Z
 keycode  53 = x X x X
 keycode  54 = c C c C
-keycode  55 = comma less comma less
-keycode  56 = slash question slash question
+keycode  55 = v V v V
+keycode  56 = comma less comma less
 keycode  57 = period greater period greater
 keycode  58 = n N n N
 keycode  59 = m M m M
 keycode  60 = b B b B
-keycode  61 = v V v V
+keycode  61 = slash question slash question
 
 !!keycode  51 = backslash bar backslash bar
 !!keycode  23 = Tab ISO_Left_Tab Tab ISO_Left_Tab
