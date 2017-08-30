@@ -67,6 +67,8 @@ sudo pip3 install tensorflow
 #sudo pip3 install virtualenv # for tensorflow
 #virtualenv  --system-site-packages  ~/tensorflow
 #fish -c "~/tensorflow/bin/pip3 install --upgrade tensorflow"
+sudo pip3 install findspark
+# findspark with lib., instead of add spark_home/python to pythonpath
 
 sudo apt-get autoremove --purge -y
 

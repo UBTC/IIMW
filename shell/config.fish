@@ -12,11 +12,14 @@ set -x LC_CTYPE $LANG
 set -x LC_MESSAGES $LANG
 # ---
 set -x FISH_PATH $HOME/.config/fish
+set -x SPARK_HOME /opt/spark
+set -x SPARK_BIN $SPARK_HOME/bin
 set -x GOPATH $HOME/golang
 set -x GOBIN $GOPATH/bin
 set -x PATH /usr/lib/go-1.8/bin $PATH
 set -x PATH /usr/local/sbin $PATH
 set -x PATH $PATH $GOBIN
+set -x PATH $PATH $SPARK_BIN
 set -U fish_user_paths $fish_user_paths $GOBIN
 set -gx PATH $HOME/anaconda/bin $PATH
 set -gx PATH $HOME/tensorflow/bin $PATH
@@ -50,14 +53,14 @@ alias uu="sudo apt-get update -y; sudo apt-get upgrade -y; sudo apt-get autoremo
 
 # Function
 function kc
-  echo "::kotlinc $argv.kt -include-runtime -d $argv.jar"		
-  kotlinc $argv.kt -include-runtime -d $argv.jar		
-end		
-		
-function kr		
-  echo "::java -jar $argv[1].jar $argv[2..-1]"		
-  java -jar $argv[1].jar $argv[2..-1]		
-end		
+  echo "::kotlinc $argv.kt -include-runtime -d $argv.jar"
+  kotlinc $argv.kt -include-runtime -d $argv.jar
+end
+
+function kr
+  echo "::java -jar $argv[1].jar $argv[2..-1]"
+  java -jar $argv[1].jar $argv[2..-1]
+end
 
 function lc
   ls -ah --color=always $argv | less -R
