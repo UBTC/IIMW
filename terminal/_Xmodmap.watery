@@ -49,12 +49,12 @@ keycode  52 = z Z z Z
 keycode  53 = x X x X
 keycode  54 = c C c C
 keycode  55 = v V v V
-keycode  56 = comma less comma less
-keycode  57 = period greater period greater
+keycode  56 = slash question slash question
+keycode  57 = b B b B
 keycode  58 = n N n N
 keycode  59 = m M m M
-keycode  60 = b B b B
-keycode  61 = slash question slash question
+keycode  60 = comma less comma less
+keycode  61 = period greater period greater
 
 !!keycode  51 = backslash bar backslash bar
 !!keycode  23 = Tab ISO_Left_Tab Tab ISO_Left_Tab
