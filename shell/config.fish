@@ -21,8 +21,8 @@ set -x PATH /usr/local/sbin $PATH
 set -x PATH $PATH $GOBIN
 set -x PATH $PATH $SPARK_BIN
 set -U fish_user_paths $fish_user_paths $GOBIN
-set -gx PATH $HOME/anaconda/bin $PATH
-set -gx PATH $HOME/tensorflow/bin $PATH
+#set -gx PATH $HOME/anaconda/bin $PATH
+#set -gx PATH $HOME/tensorflow/bin $PATH
 set -gx PATH /opt/android-studio/bin $PATH
 set -x NVIM_LISTEN_ADDRESS /tmp/neovim/neovim
 
@@ -66,8 +66,21 @@ function lc
   ls -ah --color=always $argv | less -R
 end
 
-# Misc
-stty echo
+function vi
+    if command --search vim >/dev/null do
+        vim  $argv[1..-1]
+    else
+        nvim $argv[1..-1]
+    end
+end
+
+function vd
+    if command --search vim >/dev/null do
+        vimdiff $argv[1..-1]
+    else
+        nvim -d $argv[1..-1]
+    end
+end
 
 # Local configuration
 if test -r ~/.config/fish/local.fish
