@@ -5,9 +5,9 @@
 !! xmodmap -pke for base
 
 !! - = 1 2 3 ... 9 0 `
-!! W T E R Y Q U I O P
+!! W E R T Y Q U I O P
 !! F D S A ; J H L K G
-!! Z X C V , . N M B /
+!! Z X C V / B N M , .
 
 keycode  49 = minus underscore minus underscore
 keycode  10 = equal plus equal plus
@@ -24,9 +24,9 @@ keycode  20 = 0 parenright 0 parenright
 keycode  21 = grave asciitilde grave asciitilde
 
 keycode  24 = w W w W
-keycode  25 = t T t T
-keycode  26 = e E e E
-keycode  27 = r R r R
+keycode  25 = e E e E
+keycode  26 = r R r R
+keycode  27 = t T t T
 keycode  28 = y Y y Y
 keycode  29 = q Q q Q
 keycode  30 = u U u U
