@@ -85,7 +85,9 @@ sudo chmod 4755 /usr/bin/dumpcap
 sudo gpasswd -a mw wireshark
 # ---
 cp ~/.Xmodmap ~/.Xmodmap.backup
-cp ./terminal/_Xmodmap.watery ~/.Xmodmap
+rm _Xmodmap
+wget https://raw.githubusercontent.com/UBTC/Q-layout/master/_Xmodmap
+mv _Xmodmap ~/.Xmodmap
 echo '' >> ~/.xinitrc
 echo 'xmodmap ~/.Xmodmap' >> ~/.xinitrc
 # ---
@@ -95,7 +97,7 @@ sudo echo "tmpfs /mnt/tmpDisk tmpfs nodev,nosuid,noexec,nodiratime,size=1024M 0 
 # ---
 echo -e "\n\nseting up github user!!! <<< --- Please check again!!!\n\n"
 git config --global push.default simple
-git config --global user.name wmji
+git config --global user.name mw58
 git config --global user.email maoji.wang@cims.nyu.edu
 
 echo "Languages"
