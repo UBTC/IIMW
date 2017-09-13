@@ -47,8 +47,10 @@ alias jpcvt='jupyter nbconvert --to'
 alias mm='tmux -2 attach'
 alias sskg='ssh-keygen'
 # use sskg to generate id_rsa&id_ras.pub, and copy .pub to ~/.ssh/authorized_keys on server.
-alias mc="pandoc -f markdown+lhs slides.md -o slides.html -t dzslides -i -s -S --toc"
+alias qg='xmodmap ~/.Q-layout/Q.xmodmap'
+alias qc='sudo loadkeys ~/.Q-layout/Q-iso15.kmap'
 alias gb="go build -compiler gccgo -gccgoflags='-O3' "
+alias mc="pandoc -f markdown+lhs slides.md -o slides.html -t dzslides -i -s -S --toc"
 alias uu="sudo apt-get update -y; sudo apt-get upgrade -y; sudo apt-get autoremove --purge -y"
 
 # Function

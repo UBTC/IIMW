@@ -85,9 +85,8 @@ sudo chmod 4755 /usr/bin/dumpcap
 sudo gpasswd -a mw wireshark
 # ---
 cp ~/.Xmodmap ~/.Xmodmap.backup
-rm _Xmodmap
-wget https://raw.githubusercontent.com/UBTC/Q-layout/master/_Xmodmap
-mv _Xmodmap ~/.Xmodmap
+git clone https://github.com/UBTC/Q-layout ~/.Q-layout
+cp ~/.Q-layout/Q.xmodmap ~/.Xmodmap
 echo '' >> ~/.xinitrc
 echo 'xmodmap ~/.Xmodmap' >> ~/.xinitrc
 # ---
