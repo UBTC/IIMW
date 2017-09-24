@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 ----------------------------------------------------------------
 -- https://github.com/yi-editor/yi/tree/master/example-configs
--- edited by MogeiWang
+-- edited by M.W.
 --
 
 import           Data.Monoid

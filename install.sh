@@ -15,8 +15,7 @@ wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-ke
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 # GNOME Shell integration for Chromium browser
 #sudo add-apt-repository -y ppa:ne0sight/chrome-gnome-shell
-# skype (in bash only!)
-sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+# skype (in bash only!)     sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
 
 sudo apt-get update -y
 sudo apt-get --allow-unauthenticated -y install \
@@ -96,7 +95,7 @@ sudo echo "tmpfs /mnt/tmpDisk tmpfs nodev,nosuid,noexec,nodiratime,size=1024M 0 
 # ---
 echo -e "\n\nseting up github user!!! <<< --- Please check again!!!\n\n"
 git config --global push.default simple
-git config --global user.name mw58
+git config --global user.name wmji
 git config --global user.email maoji.wang@cims.nyu.edu
 
 echo "Languages"

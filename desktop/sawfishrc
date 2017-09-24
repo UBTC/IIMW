@@ -4,7 +4,7 @@
 ;; http://sawfish.wikia.com/wiki/Themes
 ;; http://code.google.com/p/iimw
 ;; Rename this file to rc, and move it to ~/.sawfish
-;; M.W. 2012-2014 China
+;; M.W. 2012-2017 China
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'sawfish.wm)
@@ -250,11 +250,11 @@
 
 (define (prompt-complete-application str)
   (let ((path (prompt-application-path)))
-    (apply #'nconc 
+    (apply #'nconc
 	   (mapcar (lambda (dir)
 		     (let ((dirs (cdr (member dir path))))
-		       (delete-if 
-			 (lambda (file) 
+		       (delete-if
+			 (lambda (file)
 			   (prompt-mismatch-application str dir file dirs))
 			 (directory-files dir))))
 		   path))))
@@ -275,7 +275,7 @@
 
 (define (run-application)
   "Prompt for an application and run it"
-  (setq prompt-window-position 
+  (setq prompt-window-position
 	(cons (case run-application:x-position
 		('left run-application:x-offset)
 		('right (- -1 run-application:x-offset))
@@ -363,7 +363,7 @@
        (not (window-get w `ignored)) ) )
 
 (defun abs (x) (if (> x 0) x (- x)))
-  
+
 (defun window-center (w)
   "Compute the center of a window."
   (let ((x (car (window-position w)))
@@ -479,13 +479,13 @@
         (newloc (window-position w)))
     (if oldloc (unless (equal oldloc newloc) (undo-record (list 'move-window-to w (car oldloc) (cdr oldloc)))))
     (window-put w 'undo-loc newloc)))
-    
+
 (defun undo-record-resize (w)
   (let ((oldsize (window-get w 'undo-size))
         (newsize (window-dimensions w)))
     (if oldsize (unless (equal oldsize newsize) (undo-record (list 'resize-window-to w (car oldsize) (cdr oldsize)))))
     (window-put w 'undo-size newsize)))
-  
+
 (defun undo-record-stacking-for-real ()
   (setq l (concat l "s"))
   (let ((newstack (stacking-order)))
@@ -578,7 +578,7 @@
 ;; Author: Terry Weissman <terry@weissman.org> www.weissman.org/sawfish
 
 (defvar repel-timer nil)
- 
+
 (defun repel-log (str)
   (let* ((fid (open-file "/tmp/repellog" 'append))) (write fid (prin1-to-string str)) (write fid "\n") (close-file fid)))
 
@@ -935,7 +935,7 @@ already displayed."
 ;; backspace      delete previous character
 ;; C-s            iconify window
 ;; RET            select window
-;; 
+;;
 ;; Other keys insert themselves. A-s (or H-s, depending on your
 ;; modifiers) would be a good key to bind iswitch-window to; for example,
 ;;

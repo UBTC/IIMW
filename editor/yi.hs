@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
 -- https://github.com/yi-editor/yi/blob/master/yi-contrib/src/Yi/Config/Users/
 --                                             Jeff & Michal's configurations
--- edited by MogeiWang
+-- edited by M.W.
 --
 
 import Yi
