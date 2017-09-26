@@ -16,6 +16,11 @@ set -x SPARK_HOME /opt/spark
 set -x SPARK_BIN $SPARK_HOME/bin
 set -x GOPATH $HOME/golang
 set -x GOBIN $GOPATH/bin
+### please be very careful which go you are using!!!
+### curl -O https://storage.googleapis.com/golang/go-.-.linux-amd64.tar.gz
+### tar -xvf go-.-.linux-amd64.tar.gz ; sudo mv go /usr/local
+#set -x PATH /usr/local/go/bin $PATH
+### sudo apt install golang-1.8
 set -x PATH /usr/lib/go-1.8/bin $PATH
 set -x PATH /usr/local/sbin $PATH
 set -x PATH $PATH $GOBIN
