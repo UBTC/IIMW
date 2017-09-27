@@ -30,6 +30,10 @@ set -U fish_user_paths $fish_user_paths $GOBIN
 #set -gx PATH $HOME/tensorflow/bin $PATH
 set -gx PATH /opt/android-studio/bin $PATH
 set -x NVIM_LISTEN_ADDRESS /tmp/neovim/neovim
+# use 256 color term
+if begin; status --is-interactive; end
+    set -gx TERM xterm-256color
+end
 
 # Aliases
 alias ,='cd ..'
