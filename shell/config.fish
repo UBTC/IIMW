@@ -10,26 +10,32 @@ set -x LANGUAGE $LANG
 set -x LC_ALL $LANG
 set -x LC_CTYPE $LANG
 set -x LC_MESSAGES $LANG
-# ---
-set -x FISH_PATH $HOME/.config/fish
-set -x SPARK_HOME /opt/spark
-set -x SPARK_BIN $SPARK_HOME/bin
-set -x GOPATH $HOME/golang
-set -x GOBIN $GOPATH/bin
+# for Go:
 ### please be very careful which go you are using!!!
 ### curl -O https://storage.googleapis.com/golang/go-.-.linux-amd64.tar.gz
 ### tar -xvf go-.-.linux-amd64.tar.gz ; sudo mv go /usr/local
 #set -x PATH /usr/local/go/bin $PATH
 ### sudo apt install golang-1.8
+set -x GOPATH $HOME/golang
+set -x GOBIN $GOPATH/bin
 set -x PATH /usr/lib/go-1.8/bin $PATH
-set -x PATH /usr/local/sbin $PATH
 set -x PATH $PATH $GOBIN
+# for Spark:
+set -x SPARK_HOME /opt/spark
+set -x SPARK_BIN $SPARK_HOME/bin
 set -x PATH $PATH $SPARK_BIN
-set -U fish_user_paths $fish_user_paths $GOBIN
+set -x PYSPARK_PYTHON python3
+set -x PYSPARK_DRIVER_PYTHON ipython
+#set -x PYSPARK_DRIVER_PYTHON_OPTS "notebook"
+# Misc.
 #set -gx PATH $HOME/anaconda/bin $PATH
 #set -gx PATH $HOME/tensorflow/bin $PATH
-set -gx PATH /opt/android-studio/bin $PATH
-set -x NVIM_LISTEN_ADDRESS /tmp/neovim/neovim
+#set -gx PATH /opt/android-studio/bin $PATH
+#set -gx NVIM_LISTEN_ADDRESS /tmp/neovim/neovim
+# ---
+set -x FISH_PATH $HOME/.config/fish
+set -x PATH /usr/local/sbin $PATH
+set -U fish_user_paths $fish_user_paths $GOBIN
 # use 256 color term
 if begin; status --is-interactive; end
     set -gx TERM xterm-256color
