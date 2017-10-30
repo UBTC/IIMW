@@ -27,7 +27,8 @@ sudo apt-get --allow-unauthenticated -y install \
   libav-tools default-jre default-jdk kismet geany xmodmap libpam-mount sl \
   fortune-mod meld hdf5-tools libav-tools at axel gnupg octave unrar aria2 \
   gddrescue unzip skype python3-pip fcitx fcitx-config-gtk fcitx-sunpinyin \
-  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank
+  fcitx-googlepinyin mupdf emacs-snapshot-el google-chrome-stable homebank \
+  mysql-server mysql-client
   # chrome-gnome-shell gnome-tweak-tool
 sudo apt-get upgrade -y
 
@@ -68,6 +69,7 @@ sudo pip3 install tensorflow
 #fish -c "~/tensorflow/bin/pip3 install --upgrade tensorflow"
 sudo pip3 install findspark
 # findspark with lib., instead of add spark_home/python to pythonpath
+sudo pip3 install pymysql
 
 sudo apt-get autoremove --purge -y
 
