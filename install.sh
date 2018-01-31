@@ -70,6 +70,9 @@ sudo pip3 install tensorflow
 sudo pip3 install findspark
 # findspark with lib., instead of add spark_home/python to pythonpath
 sudo pip3 install pymysql
+# The sklearn.hmm module has now been deprecated.
+# e.g., from hmmlearn.hmm import GaussianHMM
+sudo pip3 install hmmlearn
 
 sudo apt-get autoremove --purge -y
 
